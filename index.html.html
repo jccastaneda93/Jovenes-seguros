@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Virtual - Seguridad Digital para Jóvenes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            max-width: calc(100% - 350px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 20px;
+            color: white;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .module-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .module-section h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .module-section > p {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .module-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .module-icon {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .module-card h3 {
+            color: #333;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .module-card p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        /* Menú lateral derecho */
+        .sidebar {
+            width: 350px;
+            background: white;
+            border-left: 3px solid #667eea;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.05);
+        }
+
+        .sidebar h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .menu-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1em;
+        }
+
+        .menu-item:hover {
+            transform: translateX(-10px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            border-left: 4px solid #ffd700;
+        }
+
+        .menu-icon {
+            font-size: 1.5em;
+        }
+
+        .info-panel {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .info-panel h4 {
+            color: #d35400;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .info-panel p {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .progress-section {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .progress-title {
+            color: #333;
+            font-size: 1em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            color: #666;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .module-card {
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .module-card:nth-child(1) { animation-delay: 0.1s; }
+        .module-card:nth-child(2) { animation-delay: 0.2s; }
+        .module-card:nth-child(3) { animation-delay: 0.3s; }
+        .module-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .content-area {
+                max-width: 100%;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-left: none;
+                border-top: 3px solid #667eea;
+            }
+
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-item:hover {
+                transform: translateY(-5px);
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .module-section {
+                padding: 25px;
+            }
+
+            .sidebar {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Área de contenido principal -->
+        <div class="content-area">
+            <div class="header">
+                <h1>🎓 Aula Virtual</h1>
+                <p>Seguridad digital para Jóvenes</p>
+            </div>
+
+            <div class="module-section">
+                <h2>Módulo 1: Ciudadanía digital crítica y responsable</h2>
+                <p>Aprende a navegar de forma segura y responsable en el mundo digital</p>
+
+                <div class="module-grid">
+                    <div class="module-card" onclick="goToModule('retos-virales')">
+                        <div class="module-icon">🔥</div>
+                        <h3>Retos Virales</h3>
+                        <p>Identifica y evita retos peligrosos en redes sociales</p>
+                    </div>
+
+                    <div class="module-card" onclick="goToModule('mensajes-ofensivos')">
+                        <div class="module-icon">💬</div>
+                        <h3>Mensajes Ofensivos</h3>
+                        <p>Aprende a detectar y prevenir el cyberbullying</p>
+                    </div>
+
+                    <div class="module-card" onclick="goToModule('geolocalizacion')">
+                        <div class="module-icon">📍</div>
+                        <h3>Mensajes e Imágenes Geolocalizadas</h3>
+                        <p>Protege tu ubicación y privacidad online</p>
+                    </div>
+
+                    <div class="module-card" onclick="goToModule('sextorsion')">
+                        <div class="module-icon">⚠️</div>
+                        <h3>Riesgos de Sextorsión</h3>
+                        <p>Conoce los peligros y cómo protegerte</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú lateral derecho -->
+        <aside class="sidebar">
+            <h3>📚 Menú</h3>
+            
+            <div class="menu-item active">
+                <span class="menu-icon">🏠</span>
+                <span>Inicio</span>
+            </div>
+
+            <div class="menu-item" onclick="alert('Módulo 1 en curso')">
+                <span class="menu-icon">📖</span>
+                <span>Módulo 1</span>
+            </div>
+
+            <div class="menu-item" onclick="alert('Próximamente disponible')">
+                <span class="menu-icon">📕</span>
+                <span>Módulo 2</span>
+            </div>
+
+            <div class="menu-item" onclick="alert('Próximamente disponible')">
+                <span class="menu-icon">📗</span>
+                <span>Módulo 3</span>
+            </div>
+
+            <div class="info-panel">
+                <h4>💡 Consejo del día</h4>
+                <p>Piensa antes de compartir. Tu información personal es valiosa, protégela siempre.</p>
+            </div>
+
+            <div class="progress-section">
+                <p class="progress-title">Tu Progreso General</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%"></div>
+                </div>
+                <p class="progress-text">25% Completado</p>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        function goToModule(moduleName) {
+            alert(`🚀 Navegando a: ${moduleName}\n\nEsta sección estará disponible próximamente con contenido interactivo.`);
+        }
+
+        // Efecto hover mejorado para las tarjetas
+        const cards = document.querySelectorAll('.module-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                this.querySelectorAll('h3, p').forEach(el => el.style.color = 'white');
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+                this.querySelector('h3').style.color = '#333';
+                this.querySelector('p').style.color = '#666';
+            });
+        });
+
+        // Animar progreso al cargar
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.progress-fill').style.width = '25%';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
