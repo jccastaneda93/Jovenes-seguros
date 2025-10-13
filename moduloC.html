@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comentarios Discriminatorios - Aula Virtual</title>
-  <meta name="description" content="Aprende a identificar y responder de manera positiva a comentarios discriminatorios">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -16,15 +14,9 @@
       --darker: #090915;
       --light: #f0f4ff;
       --card-bg: rgba(255, 255, 255, 0.05);
-      --success: #10b981;
-      --danger: #ef4444;
     }
 
-    * { 
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box; 
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -68,11 +60,9 @@
       transition: 0.3s;
     }
 
-    .nav-btn:hover,
-    .nav-btn:focus {
+    .nav-btn:hover {
       background-color: #6d28d9;
       transform: translateY(-2px);
-      outline: none;
     }
 
     .nav-btn.active {
@@ -135,30 +125,6 @@
       margin-right: 8px;
     }
 
-    /* Tipos de comentarios */
-    .comment-types {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 20px;
-      justify-content: center;
-    }
-
-    .comment-type {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 10px;
-      padding: 15px;
-      text-align: center;
-      flex: 1;
-      min-width: 150px;
-      transition: transform 0.3s;
-    }
-
-    .comment-type:hover {
-      transform: translateY(-5px);
-    }
-
     /* Juego */
     .game-container {
       margin-top: 40px;
@@ -204,21 +170,19 @@
       color: #fff;
     }
 
-    .game-option:hover,
-    .game-option:focus {
+    .game-option:hover {
       background: rgba(139,92,246,0.3);
       border-color: var(--primary);
-      outline: none;
     }
 
     .game-option.correct {
       background: rgba(16,185,129,0.3);
-      border-color: var(--success);
+      border-color: #10b981;
     }
 
     .game-option.incorrect {
       background: rgba(239,68,68,0.3);
-      border-color: var(--danger);
+      border-color: #ef4444;
     }
 
     .game-feedback {
@@ -233,13 +197,13 @@
     .game-feedback.correct {
       display: block;
       background: rgba(16,185,129,0.2);
-      color: var(--success);
+      color: #10b981;
     }
 
     .game-feedback.incorrect {
       display: block;
       background: rgba(239,68,68,0.2);
-      color: var(--danger);
+      color: #ef4444;
     }
 
     .next-btn {
@@ -255,11 +219,9 @@
       transition: 0.3s;
     }
 
-    .next-btn:hover,
-    .next-btn:focus {
+    .next-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(139,92,246,0.4);
-      outline: none;
     }
 
     .game-stats {
@@ -280,43 +242,19 @@
       font-weight: 700;
     }
 
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
     @media (max-width: 768px) {
-      body { 
-        flex-direction: column; 
-      }
-      .sidebar { 
-        flex-direction: row; 
-        justify-content: space-around; 
-        width: 100%; 
-        border: none; 
-      }
-      main { 
-        padding: 20px; 
-      }
-      .comment-types {
-        flex-direction: column;
-      }
+      body { flex-direction: column; }
+      .sidebar { flex-direction: row; justify-content: space-around; width: 100%; border: none; }
+      main { padding: 20px; }
     }
   </style>
 </head>
 
 <body>
   <!-- Panel lateral -->
-  <aside class="sidebar" aria-label="Navegación principal">
+  <aside class="sidebar">
     <h2>Aula Virtual</h2>
-    <button class="nav-btn active" aria-current="page">Inicio</button>
+    <button class="nav-btn active">Inicio</button>
     <button class="nav-btn">Módulo 1</button>
     <button class="nav-btn">Módulo 2</button>
     <button class="nav-btn">Módulo 3</button>
@@ -329,61 +267,28 @@
       <p>Aprende a identificar y responder de manera positiva 🌈</p>
     </header>
 
-    <section class="section" aria-labelledby="tipos-titulo">
-      <h2 id="tipos-titulo">Tipos de comentarios</h2>
-      <div class="comment-types">
-        <div class="comment-type">
-          <i class="fa-solid fa-venus-mars" aria-hidden="true"></i>
-          <p>Basados en género</p>
-        </div>
-        <div class="comment-type">
-          <i class="fa-solid fa-globe" aria-hidden="true"></i>
-          <p>Basados en origen</p>
-        </div>
-        <div class="comment-type">
-          <i class="fa-solid fa-user-group" aria-hidden="true"></i>
-          <p>Basados en apariencia</p>
-        </div>
-        <div class="comment-type">
-          <i class="fa-solid fa-heart" aria-hidden="true"></i>
-          <p>Basados en orientación</p>
-        </div>
-      </div>
+    <section class="section">
+      <h2>Tipos de comentarios</h2>
+      <div class="info-box"><i class="fa-solid fa-venus-mars"></i> Comentarios</div>
+      <div class="info-box"><i class="fa-solid fa-circle-info"></i> Información</div>
     </section>
 
-    <section class="section" aria-labelledby="respuestas-titulo">
-      <h2 id="respuestas-titulo">Cómo responder a comentarios discriminatorios</h2>
-      <div class="info-box">
-        <i class="fa-solid fa-comment-dots" aria-hidden="true"></i> 
-        <p>Mantén la calma y responde con respeto</p>
-      </div>
-      <div class="info-box">
-        <i class="fa-solid fa-handshake" aria-hidden="true"></i> 
-        <p>Expresa cómo te hace sentir el comentario</p>
-      </div>
-      <div class="info-box">
-        <i class="fa-solid fa-flag" aria-hidden="true"></i> 
-        <p>Reporta comentarios ofensivos en plataformas digitales</p>
-      </div>
+    <section class="section">
+      <h2>Cómo responder a comentarios discriminatorios</h2>
+      <div class="info-box"><i class="fa-solid fa-comment-dots"></i> Información</div>
     </section>
 
-    <section class="game-container" aria-labelledby="juego-titulo">
-      <h2 id="juego-titulo" class="game-title">🎮 Practica tus respuestas</h2>
-      <div class="game-scenario" id="scenario" role="status">
+    <section class="game-container">
+      <h2 class="game-title">🎮 Practica tus respuestas</h2>
+      <div class="game-scenario" id="scenario">
         🎭 Un compañero hace un chiste sobre el acento de un estudiante nuevo. ¿Cómo respondes?
       </div>
-      <div class="game-options" role="group" aria-labelledby="scenario">
-        <button class="game-option" onclick="checkAnswer(0)" aria-describedby="feedback">
-          😅 Me río para no parecer antisocial
-        </button>
-        <button class="game-option" onclick="checkAnswer(1)" aria-describedby="feedback">
-          💬 Le digo: "Ese comentario puede herir sentimientos"
-        </button>
-        <button class="game-option" onclick="checkAnswer(2)" aria-describedby="feedback">
-          🙈 Ignoro la situación
-        </button>
+      <div class="game-options">
+        <div class="game-option" onclick="checkAnswer(0)">😅 Me río para no parecer antisocial</div>
+        <div class="game-option" onclick="checkAnswer(1)">💬 Le digo: "Ese comentario puede herir sentimientos"</div>
+        <div class="game-option" onclick="checkAnswer(2)">🙈 Ignoro la situación</div>
       </div>
-      <div class="game-feedback" id="feedback" role="alert" aria-live="polite"></div>
+      <div class="game-feedback" id="feedback"></div>
       <button class="next-btn" onclick="nextScenario()">⏭️ Siguiente Situación</button>
       <div class="game-stats">
         <div class="stat">
@@ -444,7 +349,6 @@
       opts.forEach((opt, i) => {
         opt.textContent = s.options[i];
         opt.className = 'game-option';
-        opt.disabled = false;
       });
       document.getElementById('feedback').style.display = 'none';
       answered = false;
@@ -452,19 +356,11 @@
 
     function checkAnswer(selected) {
       if (answered) return;
-      
       const correct = scenarios[currentScenario].correct;
       const opts = document.querySelectorAll('.game-option');
       const feedback = document.getElementById('feedback');
 
-      // Marcar la respuesta correcta
       opts[correct].classList.add('correct');
-      
-      // Deshabilitar todas las opciones
-      opts.forEach(opt => {
-        opt.disabled = true;
-      });
-      
       if (selected === correct) {
         score += 10;
         correctAnswers++;
@@ -475,7 +371,6 @@
         feedback.textContent = scenarios[currentScenario].explanation;
         feedback.className = 'game-feedback incorrect';
       }
-      
       feedback.style.display = 'block';
       document.getElementById('score').textContent = score;
       document.getElementById('correct').textContent = correctAnswers;
@@ -487,18 +382,6 @@
       displayScenario();
     }
 
-    // Mejora de accesibilidad para navegación por teclado
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Tab') {
-        document.body.classList.add('keyboard-navigation');
-      }
-    });
-
-    document.addEventListener('mousedown', function() {
-      document.body.classList.remove('keyboard-navigation');
-    });
-
-    // Inicializar el juego
     window.onload = displayScenario;
   </script>
 </body>
