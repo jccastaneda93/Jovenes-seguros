@@ -5,46 +5,620 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comentarios Discriminatorios - CyberZone</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/estilo1.css">
-  <link rel="stylesheet" href="css/estilo2.css">
+    <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #283593;
+            --accent: #5c6bc0;
+            --light: #e8eaf6;
+            --dark: #0d1440;
+            --danger: #e53935;
+            --warning: #ff9800;
+            --success: #43a047;
+            --text-dark: #333;
+            --text-light: #fff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a237e 100%);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+        
+        /* Efecto de partículas */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* BARRA LATERAL */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(to bottom, var(--primary), var(--dark));
+            color: white;
+            padding: 20px 0;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            box-shadow: 3px 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        
+        .logo {
+            text-align: center;
+            padding: 20px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-button {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 15px 20px;
+            background: transparent;
+            border: none;
+            color: white;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-button.active {
+            background: var(--accent);
+        }
+        
+        .nav-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .user-info h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .user-info p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        /* CONTENIDO PRINCIPAL */
+        .container {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+            background-color: var(--light);
+            min-height: 100vh;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+        
+        .header-emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-emoji {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: rgba(92, 107, 192, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-item:hover {
+            background: rgba(92, 107, 192, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .checkbox-item input {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        
+        .checkbox-emoji {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .info-section {
+            margin-bottom: 20px;
+        }
+        
+        .info-section h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-emoji {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .info-section p {
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+        
+        /* SECCIÓN DE TIPOS */
+        .types-section {
+            margin-bottom: 40px;
+        }
+        
+        .types-title {
+            color: var(--primary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+        }
+        
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .type-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .type-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .type-card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .type-emoji {
+            margin-right: 8px;
+        }
+        
+        .type-description {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .type-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .bad-example {
+            background: rgba(229, 57, 53, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            color: #d32f2f;
+            display: flex;
+            align-items: center;
+        }
+        
+        .example-emoji {
+            margin-right: 8px;
+        }
+        
+        /* SECCIÓN DE EJEMPLOS */
+        .examples-section {
+            margin-bottom: 40px;
+        }
+        
+        .examples-title {
+            color: var(--primary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+        }
+        
+        .example-category {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .example-item {
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .bad-example-item {
+            background: rgba(229, 57, 53, 0.1);
+            color: #d32f2f;
+        }
+        
+        .good-example {
+            background: rgba(67, 160, 71, 0.1);
+            color: #388e3c;
+        }
+        
+        /* JUEGO INTERACTIVO */
+        .game-container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .game-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+        }
+        
+        .game-scenario {
+            background: rgba(92, 107, 192, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        
+        .game-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .game-option {
+            background: rgba(92, 107, 192, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .game-option:hover {
+            background: rgba(92, 107, 192, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .option-emoji {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .game-feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .correct {
+            background: rgba(67, 160, 71, 0.2);
+            color: #388e3c;
+        }
+        
+        .incorrect {
+            background: rgba(229, 57, 53, 0.2);
+            color: #d32f2f;
+        }
+        
+        .animated-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .animated-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .btn-emoji {
+            margin-right: 10px;
+        }
+        
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .stat-emoji {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .footer-emoji {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        footer p {
+            margin-bottom: 10px;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .types-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .container {
+                margin-left: 0;
+                padding: 20px;
+            }
+            
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                z-index: 1100;
+                background: var(--primary);
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 15px;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        .menu-toggle {
+            display: none;
+        }
+    </style>
 </head>
 <body>
+    <!-- Efecto de partículas -->
+    <div class="particles" id="particles"></div>
+    
     <!-- Botón de menú para móviles -->
     <button class="menu-toggle" id="menuToggle">
         <i class="fas fa-bars"></i>
     </button>
     
-     <div class="sidebar">
-            <div class="logo">
-                <div class="logo-icon">🛡️</div>
-                <div class="logo-text">CyberZone</div>
-            </div>
-            
-            <button class="nav-button active" onclick="showPage('inicio', this)">
-                <span class="nav-icon">🏠</span> Inicio
-            </button>
-            <button class="nav-button" onclick="showPage('modulo1', this)">
-                <span class="nav-icon">👤</span> Ciudadanía Digital
-            </button>
-            <button class="nav-button" onclick="showPage('modulo2', this)">
-                <span class="nav-icon">🔒</span> Privacidad & Datos
-            </button>
-            <button class="nav-button" onclick="showPage('modulo3', this)">
-                <span class="nav-icon">💻</span> Ciberseguridad
-            </button>
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">🛡️</div>
+            <div class="logo-text">CyberZone</div>
+        </div>
+        
+        <button class="nav-button active" onclick="showPage('inicio', this)">
+            <span class="nav-icon">🏠</span> Inicio
+        </button>
+        <button class="nav-button" onclick="showPage('modulo1', this)">
+            <span class="nav-icon">👤</span> Ciudadanía Digital
+        </button>
+        <button class="nav-button" onclick="showPage('modulo2', this)">
+            <span class="nav-icon">🔒</span> Privacidad & Datos
+        </button>
+        <button class="nav-button" onclick="showPage('modulo3', this)">
+            <span class="nav-icon">💻</span> Ciberseguridad
+        </button>
 
-            <div class="user-profile">
-                <div class="avatar">
-                    👤
-                </div>
-                <div class="user-info">
-                    <h3>CyberExplorador</h3>
-                    <p>Nivel 3 | 240 XP</p>
-                </div>
+        <div class="user-profile">
+            <div class="avatar">
+                👤
+            </div>
+            <div class="user-info">
+                <h3>CyberExplorador</h3>
+                <p>Nivel 3 | 240 XP</p>
             </div>
         </div>
-    
-<main class="main-content">
+    </div>
+
     <div class="container">
         <header>
             <span class="header-emoji">🚫💬✨</span>
@@ -54,7 +628,7 @@
         
         <div class="content">
             <div class="card">
-                <h2><span class="section-emoji">💭</span><i class="fas fa-comments"></i> Tipo de comentarios</h2>
+                <h2><span class="section-emoji">💭</span> Tipo de comentarios</h2>
                 <div class="checkbox-group">
                     <div class="checkbox-item">
                         <input type="checkbox" id="comment1" checked>
@@ -71,7 +645,7 @@
             
             <div class="card">
                 <div class="info-section">
-                    <h3><span class="info-emoji">💡</span><i class="fas fa-exclamation-circle"></i> Cómo responder a comentarios discriminatorios</h3>
+                    <h3><span class="info-emoji">💡</span> Cómo responder a comentarios discriminatorios</h3>
                     <p>🧘‍♀️ • Mantén la calma y respira profundamente</p>
                     <p>💖 • Expresa tus sentimientos con respeto</p>
                     <p>📢 • Educa sobre por qué el comentario es inapropiado</p>
@@ -91,7 +665,7 @@
         <!-- Sección de Tipos de Comentarios -->
         <div class="types-section">
             <h2 class="types-title">
-                <span class="section-emoji">📋</span><i class="fas fa-list-alt"></i> Tipos de Comentarios Discriminatorios
+                <span class="section-emoji">📋</span> Tipos de Comentarios Discriminatorios
             </h2>
             
             <div class="types-grid">
@@ -184,12 +758,12 @@
         <!-- Sección de Ejemplos -->
         <div class="examples-section">
             <h2 class="examples-title">
-                <span class="section-emoji">💬</span><i class="fas fa-comment-dots"></i> Ejemplos de Comentarios
+                <span class="section-emoji">💬</span> Ejemplos de Comentarios
             </h2>
             
             <div class="example-category">
                 <h3 class="category-title">
-                    <span class="type-emoji">🚻</span><i class="fas fa-venus-mars"></i> Sobre Género
+                    <span class="type-emoji">🚻</span> Sobre Género
                 </h3>
                 <div class="example-item bad-example-item">
                     <span class="example-emoji">👨</span>"Los hombres no deberían llorar, es de débiles"
@@ -204,7 +778,7 @@
             
             <div class="example-category">
                 <h3 class="category-title">
-                    <span class="type-emoji">🌍</span><i class="fas fa-globe-americas"></i> Sobre Origen o Cultura
+                    <span class="type-emoji">🌍</span> Sobre Origen o Cultura
                 </h3>
                 <div class="example-item bad-example-item">
                     <span class="example-emoji">🗣️</span>"Tu acento suena raro, ¿de dónde eres?"
@@ -213,13 +787,13 @@
                     <span class="example-emoji">🍛</span>"Tu comida huele raro, deberías comer comida normal"
                 </div>
                 <div class="example-item good-example">
-                    <span class="example-emooji">🌎</span>"Me encanta conocer diferentes culturas y tradiciones"
+                    <span class="example-emoji">🌎</span>"Me encanta conocer diferentes culturas y tradiciones"
                 </div>
             </div>
             
             <div class="example-category">
                 <h3 class="category-title">
-                    <span class="type-emoji">👤</span><i class="fas fa-user-friends"></i> Sobre Apariencia Física
+                    <span class="type-emoji">👤</span> Sobre Apariencia Física
                 </h3>
                 <div class="example-item bad-example-item">
                     <span class="example-emoji">⚖️</span>"Estás muy gordo/a, deberías hacer dieta"
@@ -232,11 +806,11 @@
                 </div>
             </div>
         </div>
-</main>       
+        
         <!-- Juego Interactivo -->
         <div class="game-container">
             <h2 class="game-title">
-                <span class="section-emoji">🎮</span><i class="fas fa-gamepad"></i> Practica tus respuestas
+                <span class="section-emoji">🎮</span> Practica tus respuestas
             </h2>
             
             <div class="game-scenario" id="scenario">
@@ -260,7 +834,7 @@
             </div>
             
             <button class="animated-btn" onclick="nextScenario()">
-                <span class="btn-emoji">⏭️</span><i class="fas fa-forward"></i> Siguiente Situación
+                <span class="btn-emoji">⏭️</span> Siguiente Situación
             </button>
             
             <div class="game-stats">
@@ -387,14 +961,56 @@
                 checkbox.checked = !checkbox.checked;
                 
                 if(checkbox.checked) {
-                    this.style.background = 'rgba(255, 158, 0, 0.2)';
-                    this.style.transform = 'translateX(10px)';
+                    this.style.background = 'rgba(92, 107, 192, 0.3)';
+                    this.style.transform = 'translateX(5px)';
                 } else {
-                    this.style.background = 'rgba(65, 90, 119, 0.3)';
+                    this.style.background = 'rgba(92, 107, 192, 0.1)';
                     this.style.transform = 'translateX(0)';
                 }
             });
         });
+
+        // Toggle del menú en dispositivos móviles
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Función para cambiar de página (placeholder)
+        function showPage(page, button) {
+            // Remover clase active de todos los botones
+            document.querySelectorAll('.nav-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Agregar clase active al botón clickeado
+            button.classList.add('active');
+            
+            // Aquí iría la lógica para cambiar el contenido de la página
+            console.log("Cambiando a página:", page);
+        }
+
+        // Crear efecto de partículas
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 15;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Tamaño y posición aleatoria
+            const size = Math.random() * 10 + 5;
+            const left = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = Math.random() * 10 + 10;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${left}%`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
 
         // Inicializar el juego cuando cargue la página
         window.addEventListener('load', initializeGame);
