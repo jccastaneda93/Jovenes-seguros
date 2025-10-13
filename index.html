@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula Virtual - Seguridad Digital para Jóvenes</title>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        display: flex;
+        background-color: #f9f9f9;
+    }
+    nav {
+        width: 200px;
+        background-color: #4b0082;
+        color: white;
+        padding: 20px;
+        height: 100vh;
+        box-sizing: border-box;
+    }
+    nav h2 {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    nav button {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: none;
+        color: white;
+        background-color: #6a0dad;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    nav button:hover {
+        background-color: #7b1fa2;
+    }
+    main {
+        flex: 1;
+        padding: 20px;
+    }
+    .module-card {
+        border: 2px solid #ddd;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 10px;
+        transition: transform 0.2s;
+    }
+    .module-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    }
+    .module-card h3 {
+        margin: 0 0 10px 0;
+    }
+    .info-btn {
+        padding: 8px 12px;
+        border: none;
+        background-color: #ff9800;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 5px;
+    }
+    .info-btn:hover {
+        background-color: #fb8c00;
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <h2>Aula Virtual</h2>
+    <button onclick="showModule('inicio')">Inicio</button>
+    <button onclick="showModule('mod1')">Módulo 1</button>
+    <button onclick="showModule('mod2')">Módulo 2</button>
+    <button onclick="showModule('mod3')">Módulo 3</button>
+</nav>
+
+<main id="content">
+    <h1>Bienvenido al Aula Virtual</h1>
+    <p>Explora los módulos y aprende sobre seguridad digital de forma interactiva.</p>
+    <div class="module-card">
+        <h3>Módulo 1: Ciudadanía digital crítica y responsable</h3>
+        <button class="info-btn">Ver temas</button>
+    </div>
+    <div class="module-card">
+        <h3>Módulo 2: Prevención de delitos digitales</h3>
+        <button class="info-btn">Ver temas</button>
+    </div>
+    <div class="module-card">
+        <h3>Módulo 3: Contenido problemático y riesgos en línea</h3>
+        <button class="info-btn">Ver temas</button>
+    </div>
+</main>
+
+<script>
+function showModule(mod) {
+    const content = document.getElementById('content');
+    if(mod === 'inicio') {
+        content.innerHTML = `
+        <h1>Bienvenido al Aula Virtual</h1>
+        <p>Explora los módulos y aprende sobre seguridad digital de forma interactiva.</p>
+        `;
+    } else {
+        content.innerHTML = `
+        <h2>${mod.toUpperCase()}</h2>
+        <div class="module-card">
+            <h3>Tema 1</h3>
+            <button class="info-btn">Información</button>
+        </div>
+        <div class="module-card">
+            <h3>Tema 2</h3>
+            <button class="info-btn">Información</button>
+        </div>
+        <div class="module-card">
+            <h3>Tema 3</h3>
+            <button class="info-btn">Información</button>
+        </div>
+        `;
+    }
+}
+</script>
+
+</body>
+</html>
