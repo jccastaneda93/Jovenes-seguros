@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aula Virtual - Seguridad Digital para Jóvenes</title>
+    <title>Aula virtual: Seguridad digital para Jóvenes</title>
     <style>
         * {
             margin: 0;
@@ -13,384 +13,547 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f2f5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             min-height: 100vh;
+            padding: 20px;
         }
 
-        .main-container {
-            display: flex;
-            min-height: 100vh;
+        .window-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
-        .content-area {
-            flex: 1;
-            padding: 30px;
-            max-width: calc(100% - 350px);
-        }
-
-        .header {
+        .window-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 40px;
-            border-radius: 20px;
-            color: white;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.95;
-        }
-
-        .module-section {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
-
-        .module-section h2 {
-            color: #667eea;
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .module-section > p {
-            color: #666;
-            font-size: 1.1em;
-            margin-bottom: 30px;
-        }
-
-        .module-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
-
-        .module-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 15px;
-            padding: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            padding: 15px 25px;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            text-align: center;
+            border-bottom: 4px solid #5a1f9a;
         }
 
-        .module-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            border-color: #667eea;
+        .window-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
-        .module-icon {
-            width: 80px;
-            height: 80px;
-            background: white;
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-btn {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            border: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .module-card h3 {
+        .control-btn:nth-child(1) {
+            background: #ffd700;
             color: #333;
-            font-size: 1.3em;
-            margin-bottom: 10px;
         }
 
-        .module-card p {
-            color: #666;
-            font-size: 0.95em;
-        }
-
-        /* Menú lateral derecho */
-        .sidebar {
-            width: 350px;
-            background: white;
-            border-left: 3px solid #667eea;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            box-shadow: -5px 0 20px rgba(0,0,0,0.05);
-        }
-
-        .sidebar h3 {
-            color: #667eea;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-
-        .menu-item {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .control-btn:nth-child(2) {
+            background: #00d4ff;
             color: white;
-            padding: 18px 20px;
-            border-radius: 12px;
+        }
+
+        .control-btn:nth-child(3) {
+            background: #ff4757;
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-bar {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn {
+            background: white;
+            color: #764ba2;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1em;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1em;
-        }
-
-        .menu-item:hover {
-            transform: translateX(-10px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .menu-item.active {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            border-left: 4px solid #ffd700;
-        }
-
-        .menu-icon {
-            font-size: 1.5em;
-        }
-
-        .info-panel {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
-        }
-
-        .info-panel h4 {
-            color: #d35400;
-            font-size: 1.1em;
-            margin-bottom: 10px;
-        }
-
-        .info-panel p {
-            color: #555;
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-
-        .progress-section {
-            margin-top: auto;
-            padding-top: 20px;
-            border-top: 2px solid #e0e0e0;
-        }
-
-        .progress-title {
-            color: #333;
-            font-size: 1em;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: #e0e0e0;
-            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
             overflow: hidden;
-            margin-bottom: 8px;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            border-radius: 10px;
-            transition: width 0.5s ease;
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(118, 75, 162, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
         }
 
-        .progress-text {
-            color: #666;
-            font-size: 0.9em;
+        .nav-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '🛡️';
+            position: absolute;
+            font-size: 15em;
+            opacity: 0.1;
+            top: -50px;
+            right: -50px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-section::after {
+            content: '🔒';
+            position: absolute;
+            font-size: 12em;
+            opacity: 0.1;
+            bottom: -50px;
+            left: -50px;
+            animation: float 6s ease-in-out infinite 3s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .hero-section h1 {
+            font-size: 5em;
+            background: linear-gradient(45deg, #fff, #ffd700, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: shine 3s infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes shine {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .text-section {
+            padding: 50px 40px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            position: relative;
+        }
+
+        .text-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff);
+        }
+
+        .text-section p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
             text-align: center;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .modules-container {
+            padding: 60px 40px;
+            background: #f8f9ff;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
         }
 
-        .module-card {
-            animation: fadeInUp 0.6s ease backwards;
+        .module-box {
+            border-radius: 20px;
+            background: white;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
         }
 
-        .module-card:nth-child(1) { animation-delay: 0.1s; }
-        .module-card:nth-child(2) { animation-delay: 0.2s; }
-        .module-card:nth-child(3) { animation-delay: 0.3s; }
-        .module-card:nth-child(4) { animation-delay: 0.4s; }
+        .module-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .module-box:hover::before {
+            opacity: 1;
+        }
+
+        .module-box:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        }
+
+        .module-header {
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .module-1 .module-header {
+            background: linear-gradient(135deg, #a855f7 0%, #6b21a8 100%);
+        }
+
+        .module-2 .module-header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .module-3 .module-header {
+            background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%);
+        }
+
+        .module-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .module-content {
+            padding: 30px 25px;
+            background: white;
+        }
+
+        .theme-item {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            padding: 15px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-item:hover {
+            background: #f0f9ff;
+            transform: translateX(5px);
+        }
+
+        .checkbox {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+        }
+
+        .theme-info h3 {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .theme-info p {
+            font-size: 0.95em;
+            color: #666;
+            margin: 3px 0;
+            padding-left: 10px;
+            position: relative;
+        }
+
+        .theme-info p::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #764ba2;
+        }
 
         @media (max-width: 1024px) {
-            .main-container {
-                flex-direction: column;
-            }
-
-            .content-area {
-                max-width: 100%;
-            }
-
-            .sidebar {
-                width: 100%;
-                border-left: none;
-                border-top: 3px solid #667eea;
-            }
-
-            .module-grid {
+            .modules-container {
                 grid-template-columns: 1fr;
-            }
-
-            .menu-item:hover {
-                transform: translateY(-5px);
-                transform: translateX(0);
             }
         }
 
         @media (max-width: 768px) {
-            .content-area {
-                padding: 20px;
+            .hero-section h1 {
+                font-size: 3em;
             }
 
-            .header {
+            .nav-bar {
+                flex-direction: column;
+            }
+
+            .modules-container {
                 padding: 30px 20px;
             }
 
-            .header h1 {
-                font-size: 1.8em;
+            .window-title {
+                font-size: 1em;
             }
+        }
 
-            .module-section {
-                padding: 25px;
-            }
+        .emoji-float {
+            position: fixed;
+            font-size: 2em;
+            animation: floatAround 10s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1000;
+        }
 
-            .sidebar {
-                padding: 20px;
-            }
+        @keyframes floatAround {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -20px) rotate(10deg); }
+            50% { transform: translate(0, -40px) rotate(-10deg); }
+            75% { transform: translate(-20px, -20px) rotate(5deg); }
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <!-- Área de contenido principal -->
-        <div class="content-area">
-            <div class="header">
-                <h1>🎓 Aula Virtual</h1>
-                <p>Seguridad digital para Jóvenes</p>
+    <!-- Emojis flotantes decorativos -->
+    <div class="emoji-float" style="top: 10%; left: 5%;">🎮</div>
+    <div class="emoji-float" style="top: 20%; right: 8%; animation-delay: 2s;">🚀</div>
+    <div class="emoji-float" style="bottom: 15%; left: 10%; animation-delay: 4s;">💡</div>
+    <div class="emoji-float" style="bottom: 25%; right: 12%; animation-delay: 6s;">⚡</div>
+
+    <div class="window-container">
+        <!-- Barra de ventana -->
+        <div class="window-header">
+            <div class="window-title">🎓 Aula virtual: Seguridad digital para Jóvenes</div>
+            <div class="window-controls">
+                <button class="control-btn">−</button>
+                <button class="control-btn">□</button>
+                <button class="control-btn">✕</button>
+            </div>
+        </div>
+
+        <!-- Barra de navegación -->
+        <div class="nav-bar">
+            <button class="nav-btn">📚 Módulo 1</button>
+            <button class="nav-btn">📖 Módulo 2</button>
+            <button class="nav-btn">📗 Módulo 3</button>
+        </div>
+
+        <!-- Sección héroe -->
+        <div class="hero-section">
+            <h1>Aula Virtual</h1>
+        </div>
+
+        <!-- Sección de texto -->
+        <div class="text-section">
+            <p>
+                🌟 <strong>¡Bienvenido a tu espacio seguro online!</strong> 🌟<br><br>
+                Aquí aprenderás a ser un <em>pro</em> de la seguridad digital. Descubre cómo protegerte de retos peligrosos, 
+                identificar mensajes sospechosos, y convertirte en un ciudadano digital responsable. 
+                ¡Completa cada módulo y desbloquea nuevos niveles de conocimiento! 🚀✨
+            </p>
+        </div>
+
+        <!-- Módulos -->
+        <div class="modules-container">
+            <!-- Módulo 1 -->
+            <div class="module-box module-1">
+                <div class="module-header">
+                    <span class="module-icon">🎮</span>
+                    Módulo 1
+                </div>
+                <div class="module-content">
+                    <div class="theme-item">
+                        <div class="checkbox">✓</div>
+                        <div class="theme-info">
+                            <h3>🔥 Retos Virales</h3>
+                            <p>Identifica los peligros</p>
+                            <p>Aprende a protegerte</p>
+                        </div>
+                    </div>
+                    <div class="theme-item">
+                        <div class="checkbox">✓</div>
+                        <div class="theme-info">
+                            <h3>💬 Cyberbullying</h3>
+                            <p>Detecta el acoso online</p>
+                            <p>Cómo reportarlo</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="module-section">
-                <h2>Módulo 1: Ciudadanía digital crítica y responsable</h2>
-                <p>Aprende a navegar de forma segura y responsable en el mundo digital</p>
-
-                <div class="module-grid">
-                    <div class="module-card" onclick="goToModule('retos-virales')">
-                        <div class="module-icon">🔥</div>
-                        <h3>Retos Virales</h3>
-                        <p>Identifica y evita retos peligrosos en redes sociales</p>
+            <!-- Módulo 2 -->
+            <div class="module-box module-2">
+                <div class="module-header">
+                    <span class="module-icon">🌐</span>
+                    Módulo 2
+                </div>
+                <div class="module-content">
+                    <div class="theme-item">
+                        <div class="checkbox">✓</div>
+                        <div class="theme-info">
+                            <h3>📍 Privacidad Digital</h3>
+                            <p>Protege tu ubicación</p>
+                            <p>Configura tu privacidad</p>
+                        </div>
                     </div>
-
-                    <div class="module-card" onclick="goToModule('mensajes-ofensivos')">
-                        <div class="module-icon">💬</div>
-                        <h3>Mensajes Ofensivos</h3>
-                        <p>Aprende a detectar y prevenir el cyberbullying</p>
+                    <div class="theme-item">
+                        <div class="checkbox">✓</div>
+                        <div class="theme-info">
+                            <h3>🔐 Contraseñas Seguras</h3>
+                        </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="module-card" onclick="goToModule('geolocalizacion')">
-                        <div class="module-icon">📍</div>
-                        <h3>Mensajes e Imágenes Geolocalizadas</h3>
-                        <p>Protege tu ubicación y privacidad online</p>
+            <!-- Módulo 3 -->
+            <div class="module-box module-3">
+                <div class="module-header">
+                    <span class="module-icon">🛡️</span>
+                    Módulo 3
+                </div>
+                <div class="module-content">
+                    <div class="theme-item">
+                        <div class="checkbox">✓</div>
+                        <div class="theme-info">
+                            <h3>⚠️ Sextorsión</h3>
+                            <p>Conoce los riesgos</p>
+                            <p>Cómo actuar</p>
+                        </div>
                     </div>
-
-                    <div class="module-card" onclick="goToModule('sextorsion')">
-                        <div class="module-icon">⚠️</div>
-                        <h3>Riesgos de Sextorsión</h3>
-                        <p>Conoce los peligros y cómo protegerte</p>
+                    <div class="theme-item">
+                        <div class="checkbox">✓</div>
+                        <div class="theme-info">
+                            <h3>🤝 Ciudadanía Digital</h3>
+                            <p>Comportamiento online</p>
+                            <p>Respeto en redes</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Menú lateral derecho -->
-        <aside class="sidebar">
-            <h3>📚 Menú</h3>
-            
-            <div class="menu-item active">
-                <span class="menu-icon">🏠</span>
-                <span>Inicio</span>
-            </div>
-
-            <div class="menu-item" onclick="alert('Módulo 1 en curso')">
-                <span class="menu-icon">📖</span>
-                <span>Módulo 1</span>
-            </div>
-
-            <div class="menu-item" onclick="alert('Próximamente disponible')">
-                <span class="menu-icon">📕</span>
-                <span>Módulo 2</span>
-            </div>
-
-            <div class="menu-item" onclick="alert('Próximamente disponible')">
-                <span class="menu-icon">📗</span>
-                <span>Módulo 3</span>
-            </div>
-
-            <div class="info-panel">
-                <h4>💡 Consejo del día</h4>
-                <p>Piensa antes de compartir. Tu información personal es valiosa, protégela siempre.</p>
-            </div>
-
-            <div class="progress-section">
-                <p class="progress-title">Tu Progreso General</p>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 25%"></div>
-                </div>
-                <p class="progress-text">25% Completado</p>
-            </div>
-        </aside>
     </div>
 
     <script>
-        function goToModule(moduleName) {
-            alert(`🚀 Navegando a: ${moduleName}\n\nEsta sección estará disponible próximamente con contenido interactivo.`);
-        }
-
-        // Efecto hover mejorado para las tarjetas
-        const cards = document.querySelectorAll('.module-card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                this.querySelectorAll('h3, p').forEach(el => el.style.color = 'white');
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
-                this.querySelector('h3').style.color = '#333';
-                this.querySelector('p').style.color = '#666';
+        // Funcionalidad para los botones de control de ventana
+        document.querySelectorAll('.control-btn').forEach((btn, index) => {
+            btn.addEventListener('click', function() {
+                if (index === 0) {
+                    alert('⬇️ Minimizar ventana');
+                } else if (index === 1) {
+                    alert('⬜ Maximizar ventana');
+                } else if (index === 2) {
+                    if (confirm('❌ ¿Cerrar ventana?')) {
+                        window.close();
+                    }
+                }
             });
         });
 
-        // Animar progreso al cargar
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.querySelector('.progress-fill').style.width = '25%';
-            }, 500);
+        // Funcionalidad para los botones de navegación
+        document.querySelectorAll('.nav-btn').forEach((btn) => {
+            btn.addEventListener('click', function() {
+                alert('🚀 Navegando a: ' + this.textContent);
+            });
         });
+
+        // Funcionalidad para los módulos
+        document.querySelectorAll('.module-box').forEach((module) => {
+            module.addEventListener('click', function() {
+                const moduleName = this.querySelector('.module-header').textContent.trim();
+                alert('🎯 Accediendo a: ' + moduleName);
+            });
+        });
+
+        // Crear más emojis flotantes dinámicamente
+        const emojis = ['🎯', '💻', '🎨', '🌟', '✨', '🚀'];
+        setInterval(() => {
+            if (document.querySelectorAll('.emoji-float').length < 10) {
+                const emoji = document.createElement('div');
+                emoji.className = 'emoji-float';
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.top = Math.random() * 80 + '%';
+                emoji.style.left = Math.random() * 90 + '%';
+                emoji.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(emoji);
+                
+                setTimeout(() => emoji.remove(), 10000);
+            }
+        }, 5000);
     </script>
 </body>
 </html>
