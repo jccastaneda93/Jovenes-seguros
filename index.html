@@ -3,176 +3,848 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aula virtual: Seguridad digital para Jóvenes</title>
-    <link rel="stylesheet" href="css/estilo1.css"> <!--Llamar estilo-->
+    <title>CyberZone - Seguridad Digital para Jóvenes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #00d4ff;
+            --accent: #ff3e80;
+            --dark: #0f0f23;
+            --darker: #090915;
+            --light: #f0f4ff;
+            --card-bg: rgba(30, 30, 60, 0.7);
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1a1a3e 100%);
+            min-height: 100vh;
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Partículas de fondo mejoradas */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: float-particle 15s infinite ease-in-out;
+            box-shadow: 0 0 10px var(--secondary);
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 1s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 3s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 4.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 1.5s; }
+
+        @keyframes float-particle {
+            0%, 100% {
+                transform: translateY(100vh) translateX(0) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-10vh) translateX(50px) scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(139, 92, 246, 0.8), 0 0 60px rgba(139, 92, 246, 0.4);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar mejorada */
+        .sidebar {
+            width: 300px;
+            padding: 30px 20px;
+            background: rgba(15, 15, 35, 0.85);
+            backdrop-filter: blur(15px);
+            border-right: 2px solid rgba(139, 92, 246, 0.3);
+            animation: slideIn 0.6s ease-out;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 0 15px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            margin-right: 15px;
+            color: var(--secondary);
+            text-shadow: 0 0 10px var(--secondary);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-button {
+            width: 100%;
+            padding: 18px 24px;
+            margin-bottom: 15px;
+            background: rgba(40, 40, 80, 0.6);
+            color: white;
+            border: 2px solid transparent;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-button i {
+            margin-right: 12px;
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-button:hover::before {
+            left: 100%;
+        }
+
+        .nav-button:hover {
+            background: rgba(139, 92, 246, 0.2);
+            transform: translateX(10px) scale(1.03);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .nav-button.active {
+            background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .user-profile {
+            margin-top: auto;
+            padding: 20px;
+            background: rgba(30, 30, 60, 0.6);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .user-info h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .user-info p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px 60px;
+            overflow-y: auto;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeIn 0.8s ease-out;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        /* Estilos para módulos y temas */
+        .modules-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .module {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .module:hover {
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .module-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .module-title i {
+            margin-right: 15px;
+            font-size: 24px;
+            color: var(--secondary);
+        }
+
+        .module-progress {
+            display: flex;
+            align-items: center;
+            background: rgba(30, 30, 60, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .progress-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 0%, rgba(255,255,255,0.1) 0%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .progress-circle::before {
+            content: '';
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--dark);
+        }
+
+        .progress-text {
+            position: relative;
+            z-index: 1;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .topics-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .topic {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(40, 40, 80, 0.5);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .topic:hover {
+            background: rgba(139, 92, 246, 0.2);
+            transform: translateX(10px);
+        }
+
+        .topic.completed {
+            background: rgba(16, 185, 129, 0.2);
+            border-left: 4px solid #10b981;
+        }
+
+        .topic.in-progress {
+            background: rgba(245, 158, 11, 0.2);
+            border-left: 4px solid #f59e0b;
+        }
+
+        .topic.not-started {
+            background: rgba(100, 100, 100, 0.2);
+            border-left: 4px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .topic-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .topic.completed .topic-checkbox {
+            background: #10b981;
+            border-color: #10b981;
+        }
+
+        .topic.completed .topic-checkbox::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+        }
+
+        .topic.in-progress .topic-checkbox {
+            background: #f59e0b;
+            border-color: #f59e0b;
+            animation: pulse 2s infinite;
+        }
+
+        .topic.in-progress .topic-checkbox::after {
+            content: '...';
+            color: white;
+            font-weight: bold;
+        }
+
+        .topic-content {
+            flex: 1;
+        }
+
+        .topic-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .topic-subtopics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .subtopic {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 5px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+
+        .intro-section {
+            max-width: 900px;
+            margin: 0 auto 50px;
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(30, 30, 60, 0.5);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 25px;
+            animation: fadeIn 0.8s ease-out;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .intro-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+            text-shadow: 0 0 20px var(--secondary);
+        }
+
+        .intro-section h2 {
+            font-size: 36px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .intro-section p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.6);
+        }
+
+        .gamification {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            gap: 20px;
+        }
+
+        .stats-card {
+            flex: 1;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .stats-number {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stats-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 1024px) {
+            .gamification {
+                flex-direction: column;
+            }
+            
+            .module-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 2px solid rgba(139, 92, 246, 0.2);
+            }
+
+            .main-content {
+                padding: 30px 20px;
+            }
+
+            .page-title {
+                font-size: 32px;
+            }
+            
+            .intro-section {
+                padding: 40px 20px;
+            }
+            
+            .module-title {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Emojis flotantes decorativos -->
-    <div class="emoji-float" style="top: 10%; left: 5%;">🎮</div>
-    <div class="emoji-float" style="top: 20%; right: 8%; animation-delay: 2s;">🚀</div>
-    <div class="emoji-float" style="bottom: 15%; left: 10%; animation-delay: 4s;">💡</div>
-    <div class="emoji-float" style="bottom: 25%; right: 12%; animation-delay: 6s;">⚡</div>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
 
-    <div class="window-container">
-        <!-- Barra de ventana -->
-        <div class="window-header">
-            <div class="window-title">🎓 Aula virtual: Seguridad digital para Jóvenes</div>
-            <div class="window-controls">
-                <button class="control-btn">−</button>
-                <button class="control-btn">□</button>
-                <button class="control-btn">✕</button>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="logo-text">CyberZone</div>
+            </div>
+            
+            <button class="nav-button active" onclick="showPage('inicio', this)">
+                <i class="fas fa-home"></i> Inicio
+            </button>
+            <button class="nav-button" onclick="showPage('modulo1', this)">
+                <i class="fas fa-user-shield"></i> Ciudadanía Digital
+            </button>
+            <button class="nav-button" onclick="showPage('modulo2', this)">
+                <i class="fas fa-lock"></i> Privacidad & Datos
+            </button>
+            <button class="nav-button" onclick="showPage('modulo3', this)">
+                <i class="fas fa-code"></i> Ciberseguridad
+            </button>
+
+            <div class="user-profile">
+                <div class="avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-info">
+                    <h3>CyberExplorador</h3>
+                    <p>Nivel 3 | 240 XP</p>
+                </div>
             </div>
         </div>
 
-        <!-- Barra de navegación -->
-        <div class="nav-bar">
-            <button class="nav-btn">📚 Módulo 1</button>
-            <button class="nav-btn">📖 Módulo 2</button>
-            <button class="nav-btn">📗 Módulo 3</button>
-        </div>
-
-        <!-- Sección héroe -->
-        <div class="hero-section">
-            <h1>Aula Virtual</h1>
-        </div>
-
-        <!-- Sección de texto -->
-        <div class="text-section">
-            <p>
-                🌟 <strong>¡Bienvenido a tu espacio seguro online!</strong> 🌟<br><br>
-                Aquí aprenderás a ser un <em>pro</em> de la seguridad digital. Descubre cómo protegerte de retos peligrosos, 
-                identificar mensajes sospechosos, y convertirte en un ciudadano digital responsable. 
-                ¡Completa cada módulo y desbloquea nuevos niveles de conocimiento! 🚀✨
-            </p>
-        </div>
-
-        <!-- Módulos -->
-        <div class="modules-container">
-            <!-- Módulo 1 -->
-            <div class="module-box module-1" onclick="location.href='moduloUno.html'">
-                <div class="module-header">
-                    <span class="module-icon">🎮</span>
-                    Módulo 1
+        <div class="main-content">
+            <!-- Página Inicio -->
+            <div id="inicio" class="page active">
+                <h1 class="page-title">¡Bienvenido a CyberZone!</h1>
+                <p class="page-subtitle">Domina el mundo digital con confianza. Aprende a proteger tu información, identificar riesgos y convertirte en un ciudadano digital responsable.</p>
+                
+                <div class="intro-section">
+                    <div class="intro-icon">🚀</div>
+                    <h2>Tu Aventura Digital Comienza Aquí</h2>
+                    <p>Explora nuestros módulos interactivos diseñados específicamente para jóvenes como tú. Aprende sobre seguridad en redes sociales, protección contra estafas y cómo mantener tu identidad digital segura.</p>
+                    <p>Completa actividades, gana insignias y conviértete en un experto en ciberseguridad.</p>
+                    <button class="cta-button" onclick="showPage('modulo1', document.querySelector('.nav-button:nth-child(2)'))">Comenzar Aventura</button>
                 </div>
-                <div class="module-content">
-                    <div class="theme-item">
-                        <div class="checkbox">✓</div>
-                        <div class="theme-info">
-                            <h3>🔥 Retos Virales</h3>
-                            <p>Identifica los peligros</p>
-                            <p>Aprende a protegerte</p>
+
+                <h2 style="font-size: 32px; margin: 40px 0 20px; color: white; text-align: center;">Tu Progreso</h2>
+                
+                <div class="modules-container">
+                    <!-- Módulo 1 -->
+                    <div class="module">
+                        <div class="module-header">
+                            <h3 class="module-title"><i class="fas fa-user-shield"></i> Módulo 1: Ciudadanía Digital</h3>
+                            <div class="module-progress">
+                                <div class="progress-circle" id="progress-module1">
+                                    <span class="progress-text">25%</span>
+                                </div>
+                                <span>Progreso</span>
+                            </div>
+                        </div>
+                        <div class="topics-list">
+                            <div class="topic not-started">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 1: Identificación de Riesgos</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Tema 1.1: Retos virales peligrosos</span>
+                                        <span class="subtopic">Tema 1.2: Contenido inapropiado</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 2: Comunicación Segura</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Tema 2.1: Cyberbullying</span>
+                                        <span class="subtopic">Tema 2.2: Mensajes ofensivos</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="theme-item">
-                        <div class="checkbox">✓</div>
-                        <div class="theme-info">
-                            <h3>💬 Cyberbullying</h3>
-                            <p>Detecta el acoso online</p>
-                            <p>Cómo reportarlo</p>
+
+                    <!-- Módulo 2 -->
+                    <div class="module">
+                        <div class="module-header">
+                            <h3 class="module-title"><i class="fas fa-lock"></i> Módulo 2: Privacidad y Datos</h3>
+                            <div class="module-progress">
+                                <div class="progress-circle" id="progress-module2">
+                                    <span class="progress-text">50%</span>
+                                </div>
+                                <span>Progreso</span>
+                            </div>
                         </div>
+                        <div class="topics-list">
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 1: Protección de Información</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Tema 1.1: Datos personales</span>
+                                        <span class="subtopic">Tema 1.2: Configuración de privacidad</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 2: Huella Digital</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Tema 2.1: Rastro en internet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Módulo 3 -->
+                    <div class="module">
+                        <div class="module-header">
+                            <h3 class="module-title"><i class="fas fa-code"></i> Módulo 3: Ciberseguridad Práctica</h3>
+                            <div class="module-progress">
+                                <div class="progress-circle" id="progress-module3">
+                                    <span class="progress-text">67%</span>
+                                </div>
+                                <span>Progreso</span>
+                            </div>
+                        </div>
+                        <div class="topics-list">
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 1: Contraseñas Seguras</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Tema 1.1: Creación de contraseñas</span>
+                                        <span class="subtopic">Tema 1.2: Gestores de contraseñas</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 2: Autenticación</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Tema 2.1: Verificación en dos pasos</span>
+                                        <span class="subtopic">Tema 2.2: Biometría</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gamification">
+                    <div class="stats-card">
+                        <div class="stats-number" id="modules-completed">2/3</div>
+                        <div class="stats-label">Módulos Completados</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-number" id="topics-completed">5/7</div>
+                        <div class="stats-label">Temas Completados</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-number" id="xp-points">240</div>
+                        <div class="stats-label">Puntos de Experiencia</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Módulo 2 -->
-            <div class="module-box module-2">
-                <div class="module-header">
-                    <span class="module-icon">🌐</span>
-                    Módulo 2
-                </div>
-                <div class="module-content">
-                    <div class="theme-item">
-                        <div class="checkbox">✓</div>
-                        <div class="theme-info">
-                            <h3>📍 Privacidad Digital</h3>
-                            <p>Protege tu ubicación</p>
-                            <p>Configura tu privacidad</p>
-                        </div>
-                    </div>
-                    <div class="theme-item">
-                        <div class="checkbox">✓</div>
-                        <div class="theme-info">
-                            <h3>🔐 Contraseñas Seguras</h3>
-                        </div>
-                    </div>
+            <!-- Otras páginas (simplificadas para este ejemplo) -->
+            <div id="modulo1" class="page">
+                <div class="intro-section">
+                    <div class="intro-icon"><i class="fas fa-user-shield"></i></div>
+                    <h2>Módulo 1: Ciudadanía Digital</h2>
+                    <p>Contenido detallado del módulo 1...</p>
                 </div>
             </div>
 
-            <!-- Módulo 3 -->
-            <div class="module-box module-3">
-                <div class="module-header">
-                    <span class="module-icon">🛡️</span>
-                    Módulo 3
+            <div id="modulo2" class="page">
+                <div class="intro-section">
+                    <div class="intro-icon"><i class="fas fa-lock"></i></div>
+                    <h2>Módulo 2: Privacidad y Datos</h2>
+                    <p>Contenido detallado del módulo 2...</p>
                 </div>
-                <div class="module-content">
-                    <div class="theme-item">
-                        <div class="checkbox">✓</div>
-                        <div class="theme-info">
-                            <h3>⚠️ Sextorsión</h3>
-                            <p>Conoce los riesgos</p>
-                            <p>Cómo actuar</p>
-                        </div>
-                    </div>
-                    <div class="theme-item">
-                        <div class="checkbox">✓</div>
-                        <div class="theme-info">
-                            <h3>🤝 Ciudadanía Digital</h3>
-                            <p>Comportamiento online</p>
-                            <p>Respeto en redes</p>
-                        </div>
-                    </div>
+            </div>
+
+            <div id="modulo3" class="page">
+                <div class="intro-section">
+                    <div class="intro-icon"><i class="fas fa-code"></i></div>
+                    <h2>Módulo 3: Ciberseguridad Práctica</h2>
+                    <p>Contenido detallado del módulo 3...</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Funcionalidad para los botones de control de ventana
-        document.querySelectorAll('.control-btn').forEach((btn, index) => {
-            btn.addEventListener('click', function() {
-                if (index === 0) {
-                    alert('⬇️ Minimizar ventana');
-                } else if (index === 1) {
-                    alert('⬜ Maximizar ventana');
-                } else if (index === 2) {
-                    if (confirm('❌ ¿Cerrar ventana?')) {
-                        window.close();
-                    }
-                }
-            });
-        });
-
-        // Funcionalidad para los botones de navegación
-        document.querySelectorAll('.nav-btn').forEach((btn) => {
-            btn.addEventListener('click', function() {
-                alert('🚀 Navegando a: ' + this.textContent);
-            });
-        });
-
-        // Funcionalidad para los módulos
-        document.querySelectorAll('.module-box').forEach((module) => {
-            module.addEventListener('click', function() {
-                const moduleName = this.querySelector('.module-header').textContent.trim();
-                alert('🎯 Accediendo a: ' + moduleName);
-            });
-        });
-
-        // Crear más emojis flotantes dinámicamente
-        const emojis = ['🎯', '💻', '🎨', '🌟', '✨', '🚀'];
-        setInterval(() => {
-            if (document.querySelectorAll('.emoji-float').length < 10) {
-                const emoji = document.createElement('div');
-                emoji.className = 'emoji-float';
-                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                emoji.style.top = Math.random() * 80 + '%';
-                emoji.style.left = Math.random() * 90 + '%';
-                emoji.style.animationDelay = Math.random() * 5 + 's';
-                document.body.appendChild(emoji);
-                
-                setTimeout(() => emoji.remove(), 10000);
+        function showPage(pageId, buttonElement) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+            
+            // Actualizar progreso visual
+            if(pageId === 'inicio') {
+                updateProgressBars();
             }
-        }, 5000);
+        }
+
+        function updateProgressBars() {
+            // Actualizar círculos de progreso
+            const progressModule1 = document.getElementById('progress-module1');
+            const progressModule2 = document.getElementById('progress-module2');
+            const progressModule3 = document.getElementById('progress-module3');
+            
+            // Simular progreso (en una aplicación real, estos valores vendrían de una base de datos)
+            progressModule1.style.background = 'conic-gradient(var(--primary) 25%, rgba(255,255,255,0.1) 0%)';
+            progressModule2.style.background = 'conic-gradient(var(--primary) 50%, rgba(255,255,255,0.1) 0%)';
+            progressModule3.style.background = 'conic-gradient(var(--primary) 67%, rgba(255,255,255,0.1) 0%)';
+        }
+
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgressBars();
+        });
     </script>
 </body>
 </html>
