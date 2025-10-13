@@ -108,82 +108,50 @@
 <body>
     <!-- Efecto de partículas -->
     <div class="particles" id="particles"></div>
-    
-    <!-- Botón de menú para móviles -->
-    <button class="menu-toggle" id="menuToggle">
-        <i class="fas fa-bars"></i>
-    </button>
-    
-    <!-- Barra lateral -->
-    <div class="sidebar">
-        <div class="logo">
-            <div class="logo-icon">🛡️</div>
-            <div class="logo-text">CyberZone</div>
-        </div>
-        
-        <button class="nav-button active" onclick="showPage('inicio', this)">
-            <span class="nav-icon">🏠</span> Inicio
-        </button>
-        <button class="nav-button" onclick="showPage('modulo1', this)">
-            <span class="nav-icon">👤</span> Ciudadanía Digital
-        </button>
-        <button class="nav-button" onclick="showPage('modulo2', this)">
-            <span class="nav-icon">🔒</span> Privacidad & Datos
-        </button>
-        <button class="nav-button" onclick="showPage('modulo3', this)">
-            <span class="nav-icon">💻</span> Ciberseguridad
-        </button>
 
-        <div class="user-profile">
-            <div class="avatar">
-                👤
+    <div class="window-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">CyberZone</div>
             </div>
-            <div class="user-info">
-                <h3>CyberExplorador</h3>
-                <p>Nivel 3 | 240 XP</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <header>
-            <span class="header-emoji">🚫💬✨</span>
-            <h1>Comentarios Discriminatorios</h1>
-            <p class="subtitle">Aprende a identificar y responder a comentarios ofensivos de manera positiva 🌈</p>
-        </header>
-        
-        <div class="content">
-            <div class="card">
-                <h2><span class="section-emoji">💭</span> Tipo de comentarios</h2>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="comment1" checked>
-                        <span class="checkbox-emoji">💬</span>
-                        <label for="comment1">Comentarios ofensivos directos 😠</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="comment2">
-                        <span class="checkbox-emoji">ℹ️</span>
-                        <label for="comment2">Información educativa 📚</label>
-                    </div>
+            <button class="nav-button active" onclick="showPage('inicio', this)"><span class="nav-icon">🏠</span> Inicio</button>
+            <button class="nav-button" onclick="showPage('modulo1', this)"><span class="nav-icon">👤</span> Ciudadanía Digital</button>
+            <button class="nav-button" onclick="showPage('modulo2', this)"><span class="nav-icon">🔒</span> Privacidad & Datos</button>
+            <button class="nav-button" onclick="showPage('modulo3', this)"><span class="nav-icon">💻</span> Ciberseguridad</button>
+            <div class="user-profile">
+                <div class="avatar">👤</div>
+                <div class="user-info">
+                    <h3>CyberExplorador</h3>
+                    <p>Nivel 3 | 240 XP</p>
                 </div>
             </div>
-            
-            <div class="card">
-                <div class="info-section">
-                    <h3><span class="info-emoji">💡</span> Cómo responder a comentarios discriminatorios</h3>
-                    <p>🧘‍♀️ • Mantén la calma y respira profundamente</p>
-                    <p>💖 • Expresa tus sentimientos con respeto</p>
-                    <p>📢 • Educa sobre por qué el comentario es inapropiado</p>
-                    <p>🤝 • Busca apoyo si es necesario</p>
+        </aside>
+
+        <!-- Main content container -->
+        <main class="main-content" style="padding:60px; background:#1a1a2e; min-height:100vh;">
+            <div class="module-title" style="padding-bottom:30px;">
+                <h1 style="font-size:2.2em; font-weight:700; background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.5px;">Comentarios Discriminatorios</h1>
+                <p style="color:rgba(255,255,255,0.7);font-size:1.1em;margin-top:10px;">Aprende a identificar y responder a comentarios ofensivos de manera positiva 🌈</p>
+            </div>
+            <div class="cards-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:30px;max-width:1100px;margin:0 auto;">
+                <div class="topic-card" style="background:linear-gradient(135deg,#16213e 0%,#1a1a2e 100%);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:40px 30px;">
+                    <h2 style="font-size:1.3em;color:#fff;margin-bottom:12px;font-weight:700;letter-spacing:-0.3px;">💭 Tipo de comentarios</h2>
+                    <ul style="color:rgba(255,255,255,0.85);font-size:1em;list-style:none;padding-left:0;">
+                        <li>☑️ Comentarios ofensivos directos 😠</li>
+                        <li>ℹ️ Información educativa 📚</li>
+                    </ul>
                 </div>
-                
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="response1" checked>
-                        <span class="checkbox-emoji">🔍</span>
-                        <label for="response1">Información sobre recursos de ayuda 🆘</label>
-                    </div>
+                <div class="topic-card" style="background:linear-gradient(135deg,#16213e 0%,#1a1a2e 100%);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:40px 30px;">
+                    <h2 style="font-size:1.3em;color:#fff;margin-bottom:12px;font-weight:700;letter-spacing:-0.3px;">💡 Cómo responder a comentarios discriminatorios</h2>
+                    <ul style="color:rgba(255,255,255,0.85);font-size:1em;list-style:none;padding-left:0;">
+                        <li>🧘‍♀️ Mantén la calma y respira profundamente</li>
+                        <li>💖 Expresa tus sentimientos con respeto</li>
+                        <li>📢 Educa sobre por qué el comentario es inapropiado</li>
+                        <li>🤝 Busca apoyo si es necesario</li>
+                        <li>🔍 Información sobre recursos de ayuda 🆘</li>
+                    </ul>
                 </div>
             </div>
         </div>
