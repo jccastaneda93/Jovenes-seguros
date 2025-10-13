@@ -3,124 +3,431 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contenido Provocador - Guía Completa</title>
+    <title>Contenido Provocador - Seguridad Digital</title>
+    <meta name="description" content="Aprende a identificar, entender y protegerte de contenidos peligrosos en internet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #8b5cf6;
             --secondary: #00d4ff;
-            --danger: #ef4444;
-            --warning: #facc15;
-            --success: #10b981;
+            --accent: #ff3e80;
             --dark: #0f0f23;
             --darker: #090915;
             --light: #f0f4ff;
             --card-bg: rgba(30, 30, 60, 0.7);
+            --success: #10b981;
+            --danger: #ef4444;
         }
 
-        * { margin:0; padding:0; box-sizing:border-box; }
-
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1a1a3e 100%);
-            color: var(--light);
             min-height: 100vh;
+            color: var(--light);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
+        /* Partículas */
         .particles { 
-            position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            pointer-events: none; 
+            z-index: 1; 
         }
-
+        
         .particle { 
-            position:absolute; width:6px; height:6px; background: var(--secondary); border-radius:50%; 
-            animation: float-particle 15s infinite ease-in-out; box-shadow:0 0 10px var(--secondary);
+            position: absolute; 
+            width: 6px; 
+            height: 6px; 
+            background: var(--secondary); 
+            border-radius: 50%; 
+            animation: float-particle 15s infinite ease-in-out; 
+            box-shadow: 0 0 10px var(--secondary); 
+        }
+        
+        @keyframes float-particle { 
+            0%, 100% { 
+                transform: translateY(100vh) scale(0.5); 
+                opacity: 0; 
+            } 
+            10%, 90% { 
+                opacity: 1; 
+            } 
+            50% { 
+                transform: translateY(-10vh) scale(1); 
+            } 
         }
 
-        @keyframes float-particle {
-            0%,100%{transform:translateY(100vh) translateX(0) scale(0.5); opacity:0;}
-            10%,90%{opacity:1;}
-            50%{transform:translateY(-10vh) translateX(50px) scale(1);}
+        @keyframes fadeIn { 
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            } 
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            } 
         }
 
-        .window-layout { display:flex; min-height:100vh; }
-
+        .window-layout { 
+            display: flex; 
+            min-height: 100vh; 
+            background: var(--dark);
+        }
+        
         .sidebar {
-            width:280px; background:#16213e; padding:30px 20px; display:flex; flex-direction:column; gap:12px; border-right:1px solid rgba(255,255,255,0.05);
+            width: 280px; 
+            background: #16213e; 
+            padding: 30px 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
-
-        .logo { display:flex; align-items:center; margin-bottom:30px; }
-        .logo-icon { font-size:32px; margin-right:15px; color: var(--secondary); text-shadow:0 0 10px var(--secondary);}
-        .logo-text { font-size:24px; font-weight:800; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-
+        
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 30px; 
+        }
+        
+        .logo-icon { 
+            font-size: 32px; 
+            margin-right: 15px; 
+            color: var(--secondary); 
+            text-shadow: 0 0 10px var(--secondary);
+        }
+        
+        .logo-text { 
+            font-size: 24px; 
+            font-weight: 800; 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+        }
+        
         .nav-button {
-            background:transparent; color:rgba(255,255,255,0.7); padding:16px 20px; border:1px solid rgba(255,255,255,0.1);
-            border-radius:12px; font-weight:600; font-size:1em; cursor:pointer; margin-bottom:8px; text-align:left; transition:all 0.3s ease;
+            background: transparent; 
+            color: rgba(255, 255, 255, 0.7); 
+            padding: 16px 20px; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px; 
+            font-weight: 600; 
+            font-size: 1em; 
+            cursor: pointer; 
+            margin-bottom: 8px; 
+            text-align: left; 
+            transition: all 0.3s ease;
         }
-        .nav-button:hover { background: rgba(139,92,246,0.2); border-color: rgba(139,92,246,0.6); box-shadow:0 5px 15px rgba(139,92,246,0.4);}
-        .nav-button.active { background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%); border-color: var(--primary); color:white; box-shadow:0 0 20px rgba(139,92,246,0.5);}
-
-        .user-profile { margin-top:auto; display:flex; align-items:center; gap:12px; }
-        .avatar { font-size:2em; }
-        .user-info h3 { margin:0; font-size:1em; }
-        .user-info p { margin:0; font-size:0.9em; color: rgba(255,255,255,0.7); }
-
-        .main-content {
-            flex:1; padding:60px; background:#1a1a2e; min-height:100vh; position:relative; z-index:2;
+        
+        .nav-button:hover, 
+        .nav-button:focus {
+            background: rgba(139, 92, 246, 0.2); 
+            border-color: rgba(139, 92, 246, 0.6); 
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+            outline: none;
+        }
+        
+        .nav-button.active { 
+            background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%); 
+            border-color: var(--primary); 
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); 
+            color: white;
+        }
+        
+        .user-profile { 
+            margin-top: auto; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+        }
+        
+        .avatar { 
+            font-size: 2em; 
+        }
+        
+        .user-info h3 { 
+            margin: 0; 
+            font-size: 1em;
+        }
+        
+        .user-info p { 
+            margin: 0; 
+            font-size: 0.9em; 
+            color: rgba(255, 255, 255, 0.7); 
         }
 
-        .module-title h1 { font-size:2.2em; font-weight:700; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:-0.5px;}
-        .module-title p { color: rgba(255,255,255,0.7); font-size:1.1em; margin-top:10px;}
-
-        .cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:30px; max-width:1100px; margin:0 auto; }
-
-        .topic-card {
-            background: var(--card-bg); border-radius:16px; padding:30px 25px; animation:fadeIn 0.8s ease-out;
-            border:1px solid rgba(139,92,246,0.3);
+        .main-content { 
+            flex: 1; 
+            padding: 60px; 
+            background: #1a1a2e; 
+            min-height: 100vh; 
+        }
+        
+        .module-title h1 { 
+            font-size: 2.2em; 
+            font-weight: 700; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            margin-bottom: 10px;
+        }
+        
+        .module-title p { 
+            color: rgba(255, 255, 255, 0.7); 
+            font-size: 1.1em; 
+            margin-bottom: 30px;
         }
 
-        .topic-card h2 { font-size:1.3em; color:#fff; margin-bottom:12px; font-weight:700; }
-        .topic-card ul { list-style:none; padding-left:0; color:rgba(255,255,255,0.85);}
-        .topic-card li { margin-bottom:8px; display:flex; align-items:center; gap:8px; }
-
-        .types-section, .examples-section {
-            background: var(--card-bg); backdrop-filter: blur(10px); border:2px solid rgba(139,92,246,0.3); border-radius:20px; padding:30px; margin-top:40px;
+        .cards-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 30px; 
+            max-width: 1100px; 
+            margin: 0 auto; 
+        }
+        
+        .topic-card { 
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 16px; 
+            padding: 40px 30px; 
+            animation: fadeIn 0.8s ease-out; 
+        }
+        
+        .topic-card h2 { 
+            font-size: 1.3em; 
+            color: #fff; 
+            margin-bottom: 12px; 
+            font-weight: 700; 
+        }
+        
+        .topic-card ul { 
+            color: rgba(255, 255, 255, 0.85); 
+            font-size: 1em; 
+            list-style: none; 
+            padding-left: 0;
+        }
+        
+        .topic-card li { 
+            margin-bottom: 8px; 
+            display: flex; 
+            align-items: center; 
         }
 
-        .types-title, .examples-title {
-            font-size:32px; font-weight:700; margin-bottom:25px; color:white; text-align:center; display:flex; align-items:center; justify-content:center; gap:15px;
+        .types-section, 
+        .examples-section, 
+        .prevention-section { 
+            background: var(--card-bg); 
+            backdrop-filter: blur(10px); 
+            border: 2px solid rgba(139, 92, 246, 0.3); 
+            border-radius: 20px; 
+            padding: 40px; 
+            margin-top: 40px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+            animation: fadeIn 0.8s ease-out; 
+        }
+        
+        .types-title, 
+        .examples-title, 
+        .prevention-title { 
+            font-size: 32px; 
+            font-weight: 700; 
+            margin-bottom: 25px; 
+            color: white; 
+            text-align: center; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 15px;
+        }
+        
+        .type-examples, 
+        .game-options { 
+            display: flex; 
+            gap: 20px; 
+            margin-top: 20px; 
+            flex-wrap: wrap; 
+        }
+        
+        .bad-example { 
+            padding: 15px 20px; 
+            background: rgba(239, 68, 68, 0.2); 
+            border: 1px solid rgba(239, 68, 68, 0.5); 
+            border-radius: 10px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        
+        .example-item { 
+            padding: 12px 15px; 
+            margin-bottom: 10px; 
+            border-radius: 8px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
+        
+        .bad-example-item { 
+            background: rgba(239, 68, 68, 0.1); 
+            border-left: 4px solid var(--danger); 
+        }
+        
+        .good-example { 
+            background: rgba(16, 185, 129, 0.1); 
+            border-left: 4px solid var(--success); 
         }
 
-        .type-examples { display:flex; gap:20px; margin-top:20px; flex-wrap:wrap; }
-        .bad-example { padding:15px 20px; background: rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.5); border-radius:10px; display:flex; align-items:center; gap:10px; }
+        .game-container { 
+            margin-top: 50px; 
+        }
+        
+        .game-scenario { 
+            font-size: 22px; 
+            font-weight: 600; 
+            text-align: center; 
+            margin-bottom: 30px; 
+            color: white; 
+            padding: 20px; 
+            background: rgba(40, 40, 80, 0.5); 
+            border-radius: 15px;
+        }
+        
+        .game-option { 
+            padding: 20px; 
+            background: rgba(40, 40, 80, 0.5); 
+            border: 2px solid rgba(139, 92, 246, 0.3); 
+            border-radius: 15px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            text-align: center; 
+            font-size: 16px; 
+            font-weight: 500; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px; 
+            margin-bottom: 15px; 
+        }
+        
+        .game-option:hover, 
+        .game-option:focus { 
+            background: rgba(139, 92, 246, 0.2); 
+            transform: translateY(-5px); 
+            outline: none;
+        }
+        
+        .game-option.correct { 
+            background: rgba(16, 185, 129, 0.3); 
+            border-color: var(--success);
+        }
+        
+        .game-option.incorrect { 
+            background: rgba(239, 68, 68, 0.3); 
+            border-color: var(--danger);
+        }
+        
+        .game-feedback { 
+            margin-top: 20px; 
+            padding: 20px; 
+            border-radius: 15px; 
+            text-align: center; 
+            font-weight: 600; 
+            display: block; 
+        }
 
-        .prevention { margin-top:20px; }
-        .prevention h4 { font-size:20px; margin-bottom:12px; }
-        .prevention ul { list-style:none; padding-left:0; }
-        .prevention li { margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+        .animated-btn { 
+            display: block; 
+            margin: 30px auto 0; 
+            padding: 12px 30px; 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 16px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+        }
+        
+        .animated-btn:hover, 
+        .animated-btn:focus {
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+            outline: none;
+        }
 
-        @keyframes fadeIn { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
 
-        @media (max-width:1024px){ .cards-grid {grid-template-columns:1fr;} }
-        @media (max-width:768px){ .window-layout{flex-direction:column;} .sidebar{width:100%;} .main-content{padding:30px;} }
-
+        @media (max-width: 1024px) { 
+            .cards-grid {
+                grid-template-columns: 1fr; 
+            } 
+            .game-options {
+                flex-direction: column;
+            } 
+        }
+        
+        @media (max-width: 768px) { 
+            .window-layout {
+                flex-direction: column;
+            } 
+            .sidebar {
+                width: 100%; 
+                min-height: auto;
+            } 
+            .main-content {
+                padding: 30px;
+            } 
+            .types-title, 
+            .examples-title, 
+            .prevention-title {
+                font-size: 24px;
+            }
+            .game-scenario {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="particles" id="particles"></div>
+    <div class="particles" id="particles" aria-hidden="true"></div>
 
     <div class="window-layout">
         <aside class="sidebar">
             <div class="logo">
-                <div class="logo-icon">🛡️</div>
+                <div class="logo-icon" aria-hidden="true">🛡️</div>
                 <div class="logo-text">CyberZone</div>
             </div>
-            <button class="nav-button active">🏠 Inicio</button>
-            <button class="nav-button">👤 Ciudadanía Digital</button>
-            <button class="nav-button">🔒 Privacidad & Datos</button>
-            <button class="nav-button">💻 Ciberseguridad</button>
+            <nav aria-label="Navegación principal">
+                <button class="nav-button active" aria-current="page">🏠 Inicio</button>
+                <button class="nav-button">👤 Ciudadanía Digital</button>
+                <button class="nav-button">🔒 Privacidad & Datos</button>
+                <button class="nav-button">💻 Ciberseguridad</button>
+            </nav>
             <div class="user-profile">
-                <div class="avatar">👤</div>
+                <div class="avatar" aria-hidden="true">👤</div>
                 <div class="user-info">
                     <h3>CyberExplorador</h3>
                     <p>Nivel 3 | 240 XP</p>
@@ -129,74 +436,149 @@
         </aside>
 
         <main class="main-content">
-            <div class="module-title">
-                <h1>🚨 Tipos de Contenido Provocador</h1>
-                <p>Aprende a identificar, entender y protegerte de diferentes contenidos peligrosos en internet</p>
-            </div>
+            <header class="module-title">
+                <h1>Contenido Provocador</h1>
+                <p>Aprende a identificar, entender y protegerte de contenidos peligrosos en internet</p>
+            </header>
 
-            <div class="cards-grid">
-                <div class="topic-card">
-                    <h2>🔞 Contenido Sexual</h2>
-                    <p>Imágenes, videos o mensajes con insinuaciones sexuales o explícitas, que buscan atraer atención o causar excitación.</p>
-                    <div class="prevention">
-                        <h4><i class="fas fa-shield-alt"></i> Prevención:</h4>
-                        <ul>
-                            <li>🚫 No compartas fotos o videos íntimos por internet</li>
-                            <li>🔒 Configura la privacidad de tus redes sociales</li>
-                            <li>👨‍👩‍👧‍👦 Habla con tus padres si recibes contenido inapropiado</li>
-                            <li>📢 Reporta cuentas o mensajes sospechosos</li>
-                        </ul>
-                    </div>
+            <!-- Tipos de Contenido -->
+            <section class="types-section" aria-labelledby="tipos-titulo">
+                <h2 id="tipos-titulo" class="types-title">📋 Tipos de Contenido Provocador</h2>
+                <div class="type-examples">
+                    <div class="bad-example"><span aria-hidden="true">💬</span> Comentarios discriminatorios</div>
+                    <div class="bad-example"><span aria-hidden="true">🖼️</span> Memes ofensivos</div>
+                    <div class="bad-example"><span aria-hidden="true">⚠️</span> Rumores o bullying en redes</div>
+                    <div class="bad-example"><span aria-hidden="true">📢</span> Mensajes sexuales inapropiados</div>
                 </div>
+            </section>
 
-                <div class="topic-card">
-                    <h2>💀 Contenido Violento</h2>
-                    <p>Imágenes, videos o textos que muestran agresiones, peleas o escenas de violencia que pueden afectar emocionalmente.</p>
-                    <div class="prevention">
-                        <h4><i class="fas fa-shield-alt"></i> Prevención:</h4>
-                        <ul>
-                            <li>🚫 Evita compartir o reenviar contenido violento</li>
-                            <li>🧘‍♀️ Mantén calma y distancia emocional</li>
-                            <li>📚 Aprende a diferenciar la ficción de la realidad</li>
-                            <li>📢 Reporta publicaciones peligrosas</li>
-                        </ul>
-                    </div>
-                </div>
+            <!-- Ejemplos -->
+            <section class="examples-section" aria-labelledby="ejemplos-titulo">
+                <h2 id="ejemplos-titulo" class="examples-title">💡 Ejemplos de Contenido Provocador</h2>
+                <div class="example-item bad-example-item"><span aria-hidden="true">👨</span> "Los hombres no deberían llorar, eso es de débiles"</div>
+                <div class="example-item bad-example-item"><span aria-hidden="true">👩</span> "Eso es trabajo de mujeres, tú no podrías hacerlo"</div>
+                <div class="example-item bad-example-item"><span aria-hidden="true">🗣️</span> "Tu acento suena raro, ¿de dónde eres?"</div>
+                <div class="example-item bad-example-item"><span aria-hidden="true">🍛</span> "Tu comida huele raro, deberías comer comida normal"</div>
+                <div class="example-item good-example"><span aria-hidden="true">🌈</span> "Todos podemos expresarnos y respetar las diferencias"</div>
+            </section>
 
-                <div class="topic-card">
-                    <h2>🗯️ Contenido Ofensivo</h2>
-                    <p>Mensajes, memes o comentarios que discriminan, insultan o buscan humillar a alguien por su apariencia, género, cultura u origen.</p>
-                    <div class="prevention">
-                        <h4><i class="fas fa-shield-alt"></i> Prevención:</h4>
-                        <ul>
-                            <li>💬 Ignora comentarios ofensivos o responde con respeto</li>
-                            <li>🤝 Apoya a quien es víctima de bullying</li>
-                            <li>📢 Reporta mensajes ofensivos en redes sociales</li>
-                            <li>📚 Infórmate sobre ciudadanía digital y empatía online</li>
-                        </ul>
-                    </div>
+            <!-- Prevención -->
+            <section class="prevention-section" aria-labelledby="prevencion-titulo">
+                <h2 id="prevencion-titulo" class="prevention-title">🛡️ Cómo Prevenir y Responder</h2>
+                <ul>
+                    <li><span aria-hidden="true">🧘</span> Mantén la calma y no respondas impulsivamente</li>
+                    <li><span aria-hidden="true">💬</span> Comunica respetuosamente cómo te afecta el contenido</li>
+                    <li><span aria-hidden="true">🔍</span> Denuncia contenido inapropiado en redes sociales</li>
+                    <li><span aria-hidden="true">🤝</span> Busca apoyo de amigos, familia o docentes</li>
+                    <li><span aria-hidden="true">📚</span> Infórmate sobre ciberseguridad y privacidad en línea</li>
+                </ul>
+            </section>
+
+            <!-- Juego Interactivo -->
+            <section class="game-container" aria-labelledby="juego-titulo">
+                <h2 id="juego-titulo" class="game-title">🎮 Practica tus respuestas</h2>
+                <div class="game-scenario" id="scenario" role="status">🎭 Un compañero hace un chiste sobre el acento de un estudiante nuevo. ¿Cómo respondes?</div>
+                <div class="game-options" role="group" aria-labelledby="scenario">
+                    <button class="game-option" onclick="checkAnswer(0)" aria-describedby="feedback">😅 Me río para no parecer antisocial</button>
+                    <button class="game-option" onclick="checkAnswer(1)" aria-describedby="feedback">💬 Le digo: "Ese comentario puede herir sentimientos"</button>
+                    <button class="game-option" onclick="checkAnswer(2)" aria-describedby="feedback">🙈 Ignoro la situación</button>
                 </div>
-            </div>
+                <div class="game-feedback" id="feedback" role="alert" aria-live="polite">🎯 ¡Elige una opción para comenzar!</div>
+                <button class="animated-btn" onclick="nextScenario()">⏭️ Siguiente Situación</button>
+            </section>
         </main>
     </div>
 
     <script>
-        // Partículas
-        const particlesContainer = document.getElementById('particles');
-        for(let i=0;i<20;i++){
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            const size=Math.random()*10+5;
-            const left=Math.random()*100;
-            const delay=Math.random()*15;
-            const duration=Math.random()*10+10;
-            particle.style.width=`${size}px`;
-            particle.style.height=`${size}px`;
-            particle.style.left=`${left}%`;
-            particle.style.animationDelay=`${delay}s`;
-            particle.style.animationDuration=`${duration}s`;
-            particlesContainer.appendChild(particle);
+        const scenarios = [
+            {
+                scenario: "🎭 Un compañero hace un chiste sobre el acento de un estudiante nuevo. ¿Cómo respondes?",
+                options: ["😅 Me río", "💬 Le digo: 'Ese comentario puede herir sentimientos'", "🙈 Ignoro la situación"],
+                correct: 1,
+                explanation: "✅ Correcto. Expresar respetuosamente cómo los comentarios pueden afectar a otros es importante."
+            },
+            {
+                scenario: "👨 Alguien comenta que 'los hombres no deberían llorar'. ¿Cuál es tu respuesta?",
+                options: ["👍 'Tienes razón'", "💖 'Todos tenemos derecho a expresar emociones'", "🤐 No digo nada"],
+                correct: 1,
+                explanation: "🎉 ¡Bien hecho! Los estereotipos limitan la expresión emocional saludable."
+            },
+            {
+                scenario: "👥 Un amigo bromea sobre el peso de otra persona. ¿Qué haces?",
+                options: ["😂 Me uno a la broma", "🛡️ Le digo: 'Los comentarios sobre el cuerpo pueden ser hirientes'", "🔀 Cambio de tema"],
+                correct: 1,
+                explanation: "🌟 Correcto. Señalar comentarios dañinos ayuda a crear un ambiente seguro."
+            }
+        ];
+
+        let currentScenario = 0;
+
+        function checkAnswer(index) {
+            const feedback = document.getElementById("feedback");
+            const optionsDiv = document.querySelectorAll(".game-option");
+            
+            // Reset all options
+            optionsDiv.forEach(opt => {
+                opt.classList.remove("correct", "incorrect");
+            });
+            
+            // Apply appropriate class
+            if (index === scenarios[currentScenario].correct) {
+                optionsDiv[index].classList.add("correct");
+                feedback.textContent = scenarios[currentScenario].explanation;
+            } else {
+                optionsDiv[index].classList.add("incorrect");
+                feedback.textContent = "❌ Esa no es la mejor opción. " + scenarios[currentScenario].explanation;
+            }
+            
+            // Disable options after selection
+            optionsDiv.forEach(opt => {
+                opt.disabled = true;
+            });
         }
+
+        function nextScenario() {
+            currentScenario++;
+            if (currentScenario >= scenarios.length) currentScenario = 0;
+            
+            const scenarioDiv = document.getElementById("scenario");
+            const feedback = document.getElementById("feedback");
+            const optionsDiv = document.querySelectorAll(".game-option");
+            
+            // Update scenario
+            scenarioDiv.textContent = scenarios[currentScenario].scenario;
+            feedback.textContent = "🎯 ¡Elige una opción para comenzar!";
+            
+            // Update options and enable them
+            optionsDiv.forEach((opt, i) => {
+                opt.textContent = scenarios[currentScenario].options[i];
+                opt.classList.remove("correct", "incorrect");
+                opt.disabled = false;
+            });
+        }
+
+        // Partículas animadas
+        const particlesContainer = document.getElementById("particles");
+        for (let i = 0; i < 60; i++) {
+            const p = document.createElement("div");
+            p.className = "particle";
+            p.style.left = Math.random() * 100 + "%";
+            p.style.top = Math.random() * 100 + "%";
+            p.style.width = p.style.height = Math.random() * 6 + 4 + "px";
+            p.style.animationDuration = (10 + Math.random() * 10) + "s";
+            particlesContainer.appendChild(p);
+        }
+
+        // Mejora de accesibilidad para navegación por teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('keyboard-navigation');
+        });
     </script>
 </body>
 </html>
