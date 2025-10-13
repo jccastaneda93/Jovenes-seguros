@@ -5,227 +5,198 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contenido Provocador - Guía Completa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="css/estilo1.css">
-        <link rel="stylesheet" href="css/estilo3.css">
     <style>
-        
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #00d4ff;
+            --danger: #ef4444;
+            --warning: #facc15;
+            --success: #10b981;
+            --dark: #0f0f23;
+            --darker: #090915;
+            --light: #f0f4ff;
+            --card-bg: rgba(30, 30, 60, 0.7);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1a1a3e 100%);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .particles { 
+            position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1;
+        }
+
+        .particle { 
+            position:absolute; width:6px; height:6px; background: var(--secondary); border-radius:50%; 
+            animation: float-particle 15s infinite ease-in-out; box-shadow:0 0 10px var(--secondary);
+        }
+
+        @keyframes float-particle {
+            0%,100%{transform:translateY(100vh) translateX(0) scale(0.5); opacity:0;}
+            10%,90%{opacity:1;}
+            50%{transform:translateY(-10vh) translateX(50px) scale(1);}
+        }
+
+        .window-layout { display:flex; min-height:100vh; }
+
+        .sidebar {
+            width:280px; background:#16213e; padding:30px 20px; display:flex; flex-direction:column; gap:12px; border-right:1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo { display:flex; align-items:center; margin-bottom:30px; }
+        .logo-icon { font-size:32px; margin-right:15px; color: var(--secondary); text-shadow:0 0 10px var(--secondary);}
+        .logo-text { font-size:24px; font-weight:800; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+        .nav-button {
+            background:transparent; color:rgba(255,255,255,0.7); padding:16px 20px; border:1px solid rgba(255,255,255,0.1);
+            border-radius:12px; font-weight:600; font-size:1em; cursor:pointer; margin-bottom:8px; text-align:left; transition:all 0.3s ease;
+        }
+        .nav-button:hover { background: rgba(139,92,246,0.2); border-color: rgba(139,92,246,0.6); box-shadow:0 5px 15px rgba(139,92,246,0.4);}
+        .nav-button.active { background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%); border-color: var(--primary); color:white; box-shadow:0 0 20px rgba(139,92,246,0.5);}
+
+        .user-profile { margin-top:auto; display:flex; align-items:center; gap:12px; }
+        .avatar { font-size:2em; }
+        .user-info h3 { margin:0; font-size:1em; }
+        .user-info p { margin:0; font-size:0.9em; color: rgba(255,255,255,0.7); }
+
+        .main-content {
+            flex:1; padding:60px; background:#1a1a2e; min-height:100vh; position:relative; z-index:2;
+        }
+
+        .module-title h1 { font-size:2.2em; font-weight:700; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:-0.5px;}
+        .module-title p { color: rgba(255,255,255,0.7); font-size:1.1em; margin-top:10px;}
+
+        .cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:30px; max-width:1100px; margin:0 auto; }
+
+        .topic-card {
+            background: var(--card-bg); border-radius:16px; padding:30px 25px; animation:fadeIn 0.8s ease-out;
+            border:1px solid rgba(139,92,246,0.3);
+        }
+
+        .topic-card h2 { font-size:1.3em; color:#fff; margin-bottom:12px; font-weight:700; }
+        .topic-card ul { list-style:none; padding-left:0; color:rgba(255,255,255,0.85);}
+        .topic-card li { margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+
+        .types-section, .examples-section {
+            background: var(--card-bg); backdrop-filter: blur(10px); border:2px solid rgba(139,92,246,0.3); border-radius:20px; padding:30px; margin-top:40px;
+        }
+
+        .types-title, .examples-title {
+            font-size:32px; font-weight:700; margin-bottom:25px; color:white; text-align:center; display:flex; align-items:center; justify-content:center; gap:15px;
+        }
+
+        .type-examples { display:flex; gap:20px; margin-top:20px; flex-wrap:wrap; }
+        .bad-example { padding:15px 20px; background: rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.5); border-radius:10px; display:flex; align-items:center; gap:10px; }
+
+        .prevention { margin-top:20px; }
+        .prevention h4 { font-size:20px; margin-bottom:12px; }
+        .prevention ul { list-style:none; padding-left:0; }
+        .prevention li { margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+
+        @keyframes fadeIn { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
+
+        @media (max-width:1024px){ .cards-grid {grid-template-columns:1fr;} }
+        @media (max-width:768px){ .window-layout{flex-direction:column;} .sidebar{width:100%;} .main-content{padding:30px;} }
+
     </style>
 </head>
 <body>
-    <!-- Botón de menú para móviles -->
-    <button class="menu-toggle" id="menuToggle">
-        <i class="fas fa-bars"></i>
-    </button>
-    
-     <div class="sidebar">
+    <div class="particles" id="particles"></div>
+
+    <div class="window-layout">
+        <aside class="sidebar">
             <div class="logo">
                 <div class="logo-icon">🛡️</div>
                 <div class="logo-text">CyberZone</div>
             </div>
-            
-            <button class="nav-button active" onclick="showPage('inicio', this)">
-                <span class="nav-icon">🏠</span> Inicio
-            </button>
-            <button class="nav-button" onclick="showPage('modulo1', this)">
-                <span class="nav-icon">👤</span> Ciudadanía Digital
-            </button>
-            <button class="nav-button" onclick="showPage('modulo2', this)">
-                <span class="nav-icon">🔒</span> Privacidad & Datos
-            </button>
-            <button class="nav-button" onclick="showPage('modulo3', this)">
-                <span class="nav-icon">💻</span> Ciberseguridad
-            </button>
-
+            <button class="nav-button active">🏠 Inicio</button>
+            <button class="nav-button">👤 Ciudadanía Digital</button>
+            <button class="nav-button">🔒 Privacidad & Datos</button>
+            <button class="nav-button">💻 Ciberseguridad</button>
             <div class="user-profile">
-                <div class="avatar">
-                    👤
-                </div>
+                <div class="avatar">👤</div>
                 <div class="user-info">
                     <h3>CyberExplorador</h3>
                     <p>Nivel 3 | 240 XP</p>
                 </div>
             </div>
-        </div>
-    
-    <!-- Contenido principal -->
-    <main class="main-content">
-        <div class="container">
-            <header>
+        </aside>
+
+        <main class="main-content">
+            <div class="module-title">
                 <h1>🚨 Tipos de Contenido Provocador</h1>
-                <p class="subtitle">Aprende a identificar, entender y protegerte de diferentes contenidos peligrosos en internet</p>
-                
-                <div class="warning-banner">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <h3>¡Alto! Si encuentras contenido peligroso</h3>
-                    <p>No participes, no compartas, reporta inmediatamente y habla con un adulto de confianza</p>
-                </div>
-            </header>
-            
-            <section class="content-types">
-                <!-- Contenido Sexual -->
-                <div class="type-card">
-                    <div class="type-header" style="border-color: var(--danger);">
-                        <div class="type-icon">🔞</div>
-                        <h3 class="type-title">Contenido Sexual</h3>
-                        <span class="danger-level high">ALTO RIESGO</span>
-                    </div>
-                    <div class="type-content">
-                        <p>Imágenes, videos o mensajes con insinuaciones sexuales o explícitas, que buscan atraer atención o causar excitación.</p>
-                        
-                        <div class="examples">
-                            <h4><i class="fas fa-skull-crossbones"></i> Ejemplos:</h4>
-                            <ul>
-                                <li>📸 Fotos o videos con poca ropa o posiciones sugerentes</li>
-                                <li>💬 Mensajes con insinuaciones sexuales directas</li>
-                                <li>🎥 Videos sexualmente explícitos compartidos sin consentimiento</li>
-                                <li>👥 Presión para enviar contenido íntimo (sexting)</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="prevention">
-                            <h4><i class="fas fa-shield-alt"></i> Prevención:</h4>
-                            <ul>
-                                <li>🚫 No compartas fotos o videos íntimos por internet</li>
-                                <li>🔒 Configura la privacidad de tus redes sociales</li>
-                                <li>👨‍👩‍👧‍👦 Habla con tus padres si recibes contenido inapropiado</li>
-                                <li>📵 Bloquea y reporta a quienes envíen contenido sexual no solicitado</li>
-                            </ul>
-                        </div>
-                        
-                        <h4><i class="fas fa-globe"></i> Plataformas comunes:</h4>
-                        <div class="platforms">
-                            <span class="platform-tag">Instagram</span>
-                            <span class="platform-tag">TikTok</span>
-                            <span class="platform-tag">WhatsApp</span>
-                            <span class="platform-tag">Snapchat</span>
-                        </div>
+                <p>Aprende a identificar, entender y protegerte de diferentes contenidos peligrosos en internet</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="topic-card">
+                    <h2>🔞 Contenido Sexual</h2>
+                    <p>Imágenes, videos o mensajes con insinuaciones sexuales o explícitas, que buscan atraer atención o causar excitación.</p>
+                    <div class="prevention">
+                        <h4><i class="fas fa-shield-alt"></i> Prevención:</h4>
+                        <ul>
+                            <li>🚫 No compartas fotos o videos íntimos por internet</li>
+                            <li>🔒 Configura la privacidad de tus redes sociales</li>
+                            <li>👨‍👩‍👧‍👦 Habla con tus padres si recibes contenido inapropiado</li>
+                            <li>📢 Reporta cuentas o mensajes sospechosos</li>
+                        </ul>
                     </div>
                 </div>
-                
-                <!-- Contenido Violento -->
-                <div class="type-card">
-                    <div class="type-header" style="border-color: var(--danger);">
-                        <div class="type-icon">🔪</div>
-                        <h3 class="type-title">Contenido Violento</h3>
-                        <span class="danger-level high">ALTO RIESGO</span>
-                    </div>
-                    <div class="type-content">
-                        <p>Escenas de agresión, peleas o actos peligrosos que impactan emocionalmente y pueden normalizar la violencia.</p>
-                        
-                        <div class="examples">
-                            <h4><i class="fas fa-skull-crossbones"></i> Ejemplos:</h4>
-                            <ul>
-                                <li>🥊 Videos de peleas reales o grabadas</li>
-                                <li>🔫 Contenido que glorifica armas o actos violentos</li>
-                                <li>💀 Imágenes o videos gore o de accidentes</li>
-                                <li>👊 Retos que involucran agresión física</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="prevention">
-                            <h4><i class="fas fa-shield-alt"></i> Prevención:</h4>
-                            <ul>
-                                <li>👀 Evita ver y compartir contenido violento</li>
-                                <li>🧠 Recuerda que la violencia real no es entretenimiento</li>
-                                <li>📢 Reporta contenido violento en las plataformas</li>
-                                <li>💬 Habla sobre tus sentimientos si algo te impacta</li>
-                            </ul>
-                        </div>
-                        
-                        <h4><i class="fas fa-globe"></i> Plataformas comunes:</h4>
-                        <div class="platforms">
-                            <span class="platform-tag">YouTube</span>
-                            <span class="platform-tag">Telegram</span>
-                            <span class="platform-tag">Foros</span>
-                            <span class="platform-tag">Reddit</span>
-                        </div>
+
+                <div class="topic-card">
+                    <h2>💀 Contenido Violento</h2>
+                    <p>Imágenes, videos o textos que muestran agresiones, peleas o escenas de violencia que pueden afectar emocionalmente.</p>
+                    <div class="prevention">
+                        <h4><i class="fas fa-shield-alt"></i> Prevención:</h4>
+                        <ul>
+                            <li>🚫 Evita compartir o reenviar contenido violento</li>
+                            <li>🧘‍♀️ Mantén calma y distancia emocional</li>
+                            <li>📚 Aprende a diferenciar la ficción de la realidad</li>
+                            <li>📢 Reporta publicaciones peligrosas</li>
+                        </ul>
                     </div>
                 </div>
-                
-                <!-- Contenido Ofensivo o Polémico -->
-                <div class="type-card">
-                    <div class="type-header" style="border-color: var(--warning);">
-                        <div class="type-icon">💢</div>
-                        <h3 class="type-title">Contenido Ofensivo o Polémico</h3>
-                        <span class="danger-level medium">RIESGO MEDIO</span>
-                    </div>
-                    <div class="type-content">
-                        <p>Insultos, burlas, mensajes discriminatorios o que critican fuertemente a personas, grupos o ideas.</p>
-                        
-                        <div class="examples">
-                            <h4><i class="fas fa-skull-crossbones"></i> Ejemplos:</h4>
-                            <ul>
-                                <li>🗣️ Comentarios racistas, homofóbicos o xenófobos</li>
-                                <li>😂 Memes que se burlan de grupos vulnerables</li>
-                                <li>👎 Críticas destructivas y ataques personales</li>
-                                <li>🚫 Contenido que promueve estereotipos dañinos</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="prevention">
-                            <h4><i class="fas fa-shield-alt"></i> Prevención:</h4>
-                            <ul>
-                                <li>💭 Piensa antes de comentar o compartir</li>
-                                <li>❤️ Promueve el respeto y la inclusión</li>
-                                <li>🚫 No alimentes discusiones tóxicas</li>
-                                <li>📋 Denuncia contenido discriminatorio</li>
-                            </ul>
-                        </div>
-                        
-                        <h4><i class="fas fa-globe"></i> Plataformas comunes:</h4>
-                        <div class="platforms">
-                            <span class="platform-tag">Twitter</span>
-                            <span class="platform-tag">Facebook</span>
-                            <span class="platform-tag">Foros</span>
-                            <span class="platform-tag">YouTube Comments</span>
-                        </div>
+
+                <div class="topic-card">
+                    <h2>🗯️ Contenido Ofensivo</h2>
+                    <p>Mensajes, memes o comentarios que discriminan, insultan o buscan humillar a alguien por su apariencia, género, cultura u origen.</p>
+                    <div class="prevention">
+                        <h4><i class="fas fa-shield-alt"></i> Prevención:</h4>
+                        <ul>
+                            <li>💬 Ignora comentarios ofensivos o responde con respeto</li>
+                            <li>🤝 Apoya a quien es víctima de bullying</li>
+                            <li>📢 Reporta mensajes ofensivos en redes sociales</li>
+                            <li>📚 Infórmate sobre ciudadanía digital y empatía online</li>
+                        </ul>
                     </div>
                 </div>
-            </section>
-            
-            <section class="risk-section">
-                <h2><i class="fas fa-exclamation-circle"></i> ¿Por qué el contenido provocador es riesgoso para adolescentes?</h2>
-                <p>En el contexto de adolescentes y redes sociales, el contenido provocador puede ser <strong>peligroso</strong> porque:</p>
-                <ul style="margin-left: 20px; margin-top: 15px;">
-                    <li>🧠 El cerebro adolescente está en desarrollo y es más susceptible a la influencia</li>
-                    <li>😔 Puede afectar la autoestima y salud mental</li>
-                    <li>👥 Existe presión social para participar en retos peligrosos</li>
-                    <li>📱 El acceso constante a internet aumenta la exposición</li>
-                    <li>🤝 Puede normalizar conductas de riesgo entre pares</li>
-                    <li>💭 Dificulta el desarrollo de un pensamiento crítico saludable</li>
-                </ul>
-            </section>
-            
-           
-        </div>
-    </main>
-    
+            </div>
+        </main>
+    </div>
+
     <script>
-        // Toggle del menú en dispositivos móviles
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.toggle('active');
-        });
-        
-        // Interactividad para los checkboxes de navegación - TU DISEÑO
-        const navItems = document.querySelectorAll('.nav-item');
-        
-        navItems.forEach(item => {
-            item.addEventListener('click', function() {
-                // Remover clase active de todos los items
-                navItems.forEach(navItem => {
-                    navItem.classList.remove('active');
-                });
-                
-                // Agregar clase active al item clickeado
-                this.classList.add('active');
-                
-                // Toggle del checkbox
-                const checkbox = this.querySelector('.custom-checkbox');
-                if (checkbox) {
-                    checkbox.classList.toggle('checked');
-                }
-            });
-        });
+        // Partículas
+        const particlesContainer = document.getElementById('particles');
+        for(let i=0;i<20;i++){
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size=Math.random()*10+5;
+            const left=Math.random()*100;
+            const delay=Math.random()*15;
+            const duration=Math.random()*10+10;
+            particle.style.width=`${size}px`;
+            particle.style.height=`${size}px`;
+            particle.style.left=`${left}%`;
+            particle.style.animationDelay=`${delay}s`;
+            particle.style.animationDuration=`${duration}s`;
+            particlesContainer.appendChild(particle);
+        }
     </script>
 </body>
 </html>
