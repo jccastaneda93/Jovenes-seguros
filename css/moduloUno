@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 1: Ciudadanía digital crítica y responsable</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .window-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            min-height: 90vh;
+        }
+
+        .window-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #5a1f9a;
+        }
+
+        .window-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .control-btn:nth-child(1) {
+            background: #ffd700;
+            color: #333;
+        }
+
+        .control-btn:nth-child(2) {
+            background: #00d4ff;
+            color: white;
+        }
+
+        .control-btn:nth-child(3) {
+            background: #ff4757;
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .module-title {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 30px 40px;
+            text-align: center;
+            border-bottom: 4px solid #f5576c;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-title::before {
+            content: '🎓';
+            position: absolute;
+            font-size: 10em;
+            opacity: 0.1;
+            top: -30px;
+            right: 50px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        .module-title h1 {
+            font-size: 2.5em;
+            color: #333;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #f8f9ff;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border-right: 4px solid #e0e0e0;
+        }
+
+        .menu-btn {
+            background: linear-gradient(135deg, #a855f7 0%, #6b21a8 100%);
+            color: white;
+            padding: 18px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(168, 85, 247, 0.4);
+            text-align: left;
+        }
+
+        .menu-btn:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.6);
+        }
+
+        .menu-btn.active {
+            background: linear-gradient(135deg, #6b21a8 0%, #a855f7 100%);
+            border-left: 5px solid #ffd700;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 50px;
+            background: linear-gradient(135deg, #fef3e2 0%, #ffeef8 100%);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .topic-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .topic-card:hover::before {
+            opacity: 1;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .topic-icon {
+            font-size: 6em;
+            margin-bottom: 20px;
+            display: block;
+            animation: bounce 2s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .topic-card:nth-child(1) .topic-icon { animation-delay: 0s; }
+        .topic-card:nth-child(2) .topic-icon { animation-delay: 0.2s; }
+        .topic-card:nth-child(3) .topic-icon { animation-delay: 0.4s; }
+        .topic-card:nth-child(4) .topic-icon { animation-delay: 0.6s; }
+
+        .topic-card h2 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .topic-card:nth-child(1) {
+            border-top: 6px solid #ff6b6b;
+        }
+
+        .topic-card:nth-child(2) {
+            border-top: 6px solid #4ecdc4;
+        }
+
+        .topic-card:nth-child(3) {
+            border-top: 6px solid #ffd93d;
+        }
+
+        .topic-card:nth-child(4) {
+            border-top: 6px solid #6c5ce7;
+        }
+
+        .topic-card:nth-child(1):hover {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+        }
+
+        .topic-card:nth-child(2):hover {
+            background: linear-gradient(135deg, #f0ffff 0%, #d4f5f5 100%);
+        }
+
+        .topic-card:nth-child(3):hover {
+            background: linear-gradient(135deg, #fffef0 0%, #fff5d4 100%);
+        }
+
+        .topic-card:nth-child(4):hover {
+            background: linear-gradient(135deg, #f5f3ff 0%, #e5e0ff 100%);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .topic-card {
+            animation: fadeInUp 0.8s ease backwards;
+        }
+
+        .topic-card:nth-child(1) { animation-delay: 0.1s; }
+        .topic-card:nth-child(2) { animation-delay: 0.2s; }
+        .topic-card:nth-child(3) { animation-delay: 0.3s; }
+        .topic-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .emoji-float {
+            position: fixed;
+            font-size: 2.5em;
+            animation: floatAround 15s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.6;
+        }
+
+        @keyframes floatAround {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -30px) rotate(15deg); }
+            50% { transform: translate(0, -60px) rotate(-15deg); }
+            75% { transform: translate(-30px, -30px) rotate(10deg); }
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 4px solid #e0e0e0;
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 20px;
+            }
+
+            .menu-btn {
+                white-space: nowrap;
+                min-width: 150px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                padding: 30px 20px;
+            }
+
+            .module-title h1 {
+                font-size: 1.8em;
+            }
+
+            .topic-card {
+                padding: 30px 20px;
+            }
+
+            .topic-icon {
+                font-size: 4em;
+            }
+
+            .topic-card h2 {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Emojis flotantes decorativos -->
+    <div class="emoji-float" style="top: 5%; left: 5%;">🎮</div>
+    <div class="emoji-float" style="top: 15%; right: 10%; animation-delay: 3s;">💡</div>
+    <div class="emoji-float" style="bottom: 20%; left: 8%; animation-delay: 6s;">🌟</div>
+    <div class="emoji-float" style="bottom: 10%; right: 15%; animation-delay: 9s;">✨</div>
+
+    <div class="window-container">
+        <!-- Barra de ventana -->
+        <div class="window-header">
+            <div class="window-title">🎓 Aula virtual: Seguridad digital para Jóvenes</div>
+            <div class="window-controls">
+                <button class="control-btn">−</button>
+                <button class="control-btn">□</button>
+                <button class="control-btn">✕</button>
+            </div>
+        </div>
+
+        <!-- Título del módulo -->
+        <div class="module-title">
+            <h1>Módulo 1: Ciudadanía digital crítica y responsable</h1>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <!-- Menú lateral -->
+            <aside class="sidebar">
+                <button class="menu-btn">🏠 Inicio</button>
+                <button class="menu-btn active">📚 Módulo 1</button>
+                <button class="menu-btn">📖 Módulo 2</button>
+                <button class="menu-btn">📗 Módulo 3</button>
+            </aside>
+
+            <!-- Área de contenido -->
+            <div class="content-area">
+                <div class="cards-grid">
+                    <!-- Tarjeta 1: Retos Virales -->
+                    <div class="topic-card" onclick="goToTopic('retos-virales')">
+                        <span class="topic-icon">🔥</span>
+                        <h2>Retos Virales</h2>
+                    </div>
+
+                    <!-- Tarjeta 2: Mensajes Ofensivos -->
+                    <div class="topic-card" onclick="goToTopic('mensajes-ofensivos')">
+                        <span class="topic-icon">💬</span>
+                        <h2>Mensajes ofensivos</h2>
+                    </div>
+
+                    <!-- Tarjeta 3: Contenido Provocador -->
+                    <div class="topic-card" onclick="goToTopic('contenido-provocador')">
+                        <span class="topic-icon">📢</span>
+                        <h2>Contenido provocador</h2>
+                    </div>
+
+                    <!-- Tarjeta 4: Comentarios Discriminatorios -->
+                    <div class="topic-card" onclick="goToTopic('comentarios-discriminatorios')">
+                        <span class="topic-icon">❌</span>
+                        <h2>Comentarios Discriminatorios</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad para los botones de control de ventana
+        document.querySelectorAll('.control-btn').forEach((btn, index) => {
+            btn.addEventListener('click', function() {
+                if (index === 0) {
+                    alert('⬇️ Minimizar ventana');
+                } else if (index === 1) {
+                    alert('⬜ Maximizar ventana');
+                } else if (index === 2) {
+                    if (confirm('❌ ¿Cerrar ventana?')) {
+                        window.history.back();
+                    }
+                }
+            });
+        });
+
+        // Funcionalidad para los botones del menú
+        document.querySelectorAll('.menu-btn').forEach((btn) => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                alert('🚀 Navegando a: ' + this.textContent);
+            });
+        });
+
+        // Navegar a temas
+        function goToTopic(topic) {
+            const topicNames = {
+                'retos-virales': '🔥 Retos Virales',
+                'mensajes-ofensivos': '💬 Mensajes Ofensivos',
+                'contenido-provocador': '📢 Contenido Provocador',
+                'comentarios-discriminatorios': '❌ Comentarios Discriminatorios'
+            };
+            alert(`🎯 Accediendo a: ${topicNames[topic]}\n\nAquí aprenderás todo sobre este tema de forma segura y divertida.`);
+        }
+
+        // Crear más emojis flotantes dinámicamente
+        const emojis = ['🎯', '💻', '🎨', '🚀', '⚡', '🌈', '🎪', '🎭'];
+        setInterval(() => {
+            if (document.querySelectorAll('.emoji-float').length < 12) {
+                const emoji = document.createElement('div');
+                emoji.className = 'emoji-float';
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.top = Math.random() * 80 + '%';
+                emoji.style.left = Math.random() * 90 + '%';
+                emoji.style.animationDelay = Math.random() * 10 + 's';
+                document.body.appendChild(emoji);
+                
+                setTimeout(() => emoji.remove(), 15000);
+            }
+        }, 5000);
+
+        // Efecto de partículas al hacer click en las tarjetas
+        document.querySelectorAll('.topic-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                for (let i = 0; i < 10; i++) {
+                    const particle = document.createElement('div');
+                    particle.style.position = 'absolute';
+                    particle.style.left = x + 'px';
+                    particle.style.top = y + 'px';
+                    particle.style.width = '8px';
+                    particle.style.height = '8px';
+                    particle.style.borderRadius = '50%';
+                    particle.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                    particle.style.pointerEvents = 'none';
+                    particle.style.zIndex = '1000';
+                    this.appendChild(particle);
+                    
+                    const angle = (Math.PI * 2 * i) / 10;
+                    const velocity = 2;
+                    const dx = Math.cos(angle) * velocity;
+                    const dy = Math.sin(angle) * velocity;
+                    
+                    let posX = x;
+                    let posY = y;
+                    let opacity = 1;
+                    
+                    const animate = () => {
+                        posX += dx * 5;
+                        posY += dy * 5;
+                        opacity -= 0.02;
+                        particle.style.left = posX + 'px';
+                        particle.style.top = posY + 'px';
+                        particle.style.opacity = opacity;
+                        
+                        if (opacity > 0) {
+                            requestAnimationFrame(animate);
+                        } else {
+                            particle.remove();
+                        }
+                    };
+                    
+                    animate();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

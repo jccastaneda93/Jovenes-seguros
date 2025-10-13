@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 1: Ciudadanía digital crítica y responsable</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0f0f1e;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .window-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: #1a1a2e;
+            min-height: 100vh;
+        }
+
+        .window-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .window-title {
+            font-size: 0.95em;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 0.3px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:nth-child(1) { background: #ff5f57; }
+        .control-btn:nth-child(2) { background: #ffbd2e; }
+        .control-btn:nth-child(3) { background: #28ca42; }
+
+        .control-btn:hover {
+            filter: brightness(1.2);
+            transform: scale(1.1);
+        }
+
+        .module-title {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 40px 60px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .module-title h1 {
+            font-size: 2.2em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .main-content {
+            display: flex;
+            min-height: calc(100vh - 200px);
+        }
+
+        .sidebar {
+            width: 280px;
+            background: #16213e;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .menu-btn {
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            padding: 16px 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            letter-spacing: 0.3px;
+        }
+
+        .menu-btn:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: #667eea;
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .menu-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 60px;
+            background: #1a1a2e;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .topic-card {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 50px 40px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(102, 126, 234, 0.15) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .topic-card:hover::before {
+            opacity: 1;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
+        }
+
+        .topic-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .topic-card:nth-child(1) .topic-icon-wrapper {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .topic-card:nth-child(2) .topic-icon-wrapper {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+        }
+
+        .topic-card:nth-child(3) .topic-icon-wrapper {
+            background: linear-gradient(135deg, #fa8bff 0%, #2bd2ff 100%);
+            box-shadow: 0 10px 30px rgba(250, 139, 255, 0.3);
+        }
+
+        .topic-card:nth-child(4) .topic-icon-wrapper {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            box-shadow: 0 10px 30px rgba(168, 237, 234, 0.3);
+        }
+
+        .topic-card h2 {
+            font-size: 1.6em;
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.3px;
+        }
+
+        .topic-card p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95em;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+            color: #667eea;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .topic-card {
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .topic-card:nth-child(1) { animation-delay: 0.1s; }
+        .topic-card:nth-child(2) { animation-delay: 0.15s; }
+        .topic-card:nth-child(3) { animation-delay: 0.2s; }
+        .topic-card:nth-child(4) { animation-delay: 0.25s; }
+
+        .glow-effect {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .topic-card:nth-child(1) .glow-effect {
+            background: radial-gradient(circle, rgba(255,107,107,0.15) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
+        }
+
+        .topic-card:nth-child(2) .glow-effect {
+            background: radial-gradient(circle, rgba(79,172,254,0.15) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
+        }
+
+        .topic-card:nth-child(3) .glow-effect {
+            background: radial-gradient(circle, rgba(250,139,255,0.15) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
+        }
+
+        .topic-card:nth-child(4) .glow-effect {
+            background: radial-gradient(circle, rgba(168,237,234,0.15) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 20px;
+            }
+
+            .menu-btn {
+                white-space: nowrap;
+                min-width: 140px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                padding: 30px 20px;
+            }
+
+            .module-title {
+                padding: 30px 20px;
+            }
+
+            .module-title h1 {
+                font-size: 1.6em;
+            }
+
+            .topic-card {
+                padding: 35px 25px;
+            }
+
+            .topic-icon-wrapper {
+                width: 60px;
+                height: 60px;
+                font-size: 2em;
+            }
+
+            .topic-card h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="window-container">
+        <!-- Barra de ventana -->
+        <div class="window-header">
+            <div class="window-title">Aula virtual: Seguridad digital para Jóvenes</div>
+            <div class="window-controls">
+                <button class="control-btn"></button>
+                <button class="control-btn"></button>
+                <button class="control-btn"></button>
+            </div>
+        </div>
+
+        <!-- Título del módulo -->
+        <div class="module-title">
+            <h1>Módulo 1: Ciudadanía digital crítica y responsable</h1>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <!-- Menú lateral -->
+            <aside class="sidebar">
+                <button class="menu-btn">Inicio</button>
+                <button class="menu-btn active">Módulo 1</button>
+                <button class="menu-btn">Módulo 2</button>
+                <button class="menu-btn">Módulo 3</button>
+            </aside>
+
+            <!-- Área de contenido -->
+            <div class="content-area">
+                <div class="cards-grid">
+                    <!-- Tarjeta 1: Retos Virales -->
+                    <div class="topic-card" onclick="goToTopic('retos-virales')">
+                        <div class="glow-effect"></div>
+                        <div class="topic-icon-wrapper">🔥</div>
+                        <h2>Retos Virales</h2>
+                        <p>Identifica contenido peligroso y aprende a protegerte de tendencias virales que pueden poner en riesgo tu seguridad.</p>
+                        <span class="badge">Nivel 1</span>
+                    </div>
+
+                    <!-- Tarjeta 2: Mensajes Ofensivos -->
+                    <div class="topic-card" onclick="goToTopic('mensajes-ofensivos')">
+                        <div class="glow-effect"></div>
+                        <div class="topic-icon-wrapper">💬</div>
+                        <h2>Mensajes Ofensivos</h2>
+                        <p>Reconoce el cyberbullying, aprende a responder de forma inteligente y protege tu bienestar digital.</p>
+                        <span class="badge">Nivel 1</span>
+                    </div>
+
+                    <!-- Tarjeta 3: Contenido Provocador -->
+                    <div class="topic-card" onclick="goToTopic('contenido-provocador')">
+                        <div class="glow-effect"></div>
+                        <div class="topic-icon-wrapper">📢</div>
+                        <h2>Contenido Provocador</h2>
+                        <p>Desarrolla pensamiento crítico para identificar desinformación y contenido manipulado en redes sociales.</p>
+                        <span class="badge">Nivel 2</span>
+                    </div>
+
+                    <!-- Tarjeta 4: Comentarios Discriminatorios -->
+                    <div class="topic-card" onclick="goToTopic('comentarios-discriminatorios')">
+                        <div class="glow-effect"></div>
+                        <div class="topic-icon-wrapper">❌</div>
+                        <h2>Comentarios Discriminatorios</h2>
+                        <p>Construye espacios digitales inclusivos y aprende a actuar contra el discurso de odio online.</p>
+                        <span class="badge">Nivel 2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad para los botones de control de ventana
+        var controlBtns = document.querySelectorAll('.control-btn');
+        for (var i = 0; i < controlBtns.length; i++) {
+            controlBtns[i].addEventListener('click', function(e) {
+                var index = Array.prototype.indexOf.call(controlBtns, e.target);
+                if (index === 2) {
+                    if (confirm('¿Cerrar ventana?')) {
+                        window.history.back();
+                    }
+                }
+            });
+        }
+
+        // Funcionalidad para los botones del menú
+        var menuBtns = document.querySelectorAll('.menu-btn');
+        for (var j = 0; j < menuBtns.length; j++) {
+            menuBtns[j].addEventListener('click', function() {
+                for (var k = 0; k < menuBtns.length; k++) {
+                    menuBtns[k].classList.remove('active');
+                }
+                this.classList.add('active');
+            });
+        }
+
+        // Navegar a temas
+        function goToTopic(topic) {
+            const topicNames = {
+                'retos-virales': 'Retos Virales',
+                'mensajes-ofensivos': 'Mensajes Ofensivos',
+                'contenido-provocador': 'Contenido Provocador',
+                'comentarios-discriminatorios': 'Comentarios Discriminatorios'
+            };
+            console.log(`Navegando a: ${topicNames[topic]}`);
+        }
+
+        // Efecto de seguimiento del cursor en las tarjetas
+        var cards = document.querySelectorAll('.topic-card');
+        for (var i = 0; i < cards.length; i++) {
+            cards[i].addEventListener('mousemove', function(e) {
+                var rect = this.getBoundingClientRect();
+                var x = e.clientX - rect.left;
+                var y = e.clientY - rect.top;
+                
+                var centerX = rect.width / 2;
+                var centerY = rect.height / 2;
+                
+                var rotateX = (y - centerY) / 20;
+                var rotateY = (centerX - x) / 20;
+                
+                this.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-10px)';
+            });
+            
+            cards[i].addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        }
+    </script>
+</body>
+</html>
