@@ -4,14 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberZone - Seguridad Digital para Jóvenes</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Variables y reset */
         :root {
             --primary: #8b5cf6;
             --secondary: #00d4ff;
@@ -23,6 +17,12 @@
             --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1a1a3e 100%);
@@ -32,7 +32,7 @@
             line-height: 1.6;
         }
 
-        /* Partículas de fondo mejoradas */
+        /* Partículas de fondo */
         .particles {
             position: fixed;
             top: 0;
@@ -121,6 +121,7 @@
             }
         }
 
+        /* Estructura principal */
         .container {
             position: relative;
             z-index: 2;
@@ -128,7 +129,7 @@
             min-height: 100vh;
         }
 
-        /* Sidebar mejorada */
+        /* Barra lateral */
         .sidebar {
             width: 300px;
             padding: 30px 20px;
@@ -183,13 +184,6 @@
             align-items: center;
         }
 
-        .nav-button i {
-            margin-right: 12px;
-            font-size: 20px;
-            width: 24px;
-            text-align: center;
-        }
-
         .nav-button::before {
             content: '';
             position: absolute;
@@ -216,6 +210,13 @@
             background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
             border-color: var(--primary);
             box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .nav-icon {
+            margin-right: 12px;
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
         }
 
         .user-profile {
@@ -249,6 +250,7 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
+        /* Contenido principal */
         .main-content {
             flex: 1;
             padding: 40px 60px;
@@ -284,7 +286,7 @@
             line-height: 1.6;
         }
 
-        /* Estilos para módulos y temas */
+        /* Módulos y temas */
         .modules-container {
             display: flex;
             flex-direction: column;
@@ -323,7 +325,7 @@
             align-items: center;
         }
 
-        .module-title i {
+        .module-icon {
             margin-right: 15px;
             font-size: 24px;
             color: var(--secondary);
@@ -464,6 +466,7 @@
             border-radius: 12px;
         }
 
+        /* Sección de introducción */
         .intro-section {
             max-width: 900px;
             margin: 0 auto 50px;
@@ -522,6 +525,7 @@
             box-shadow: 0 15px 30px rgba(139, 92, 246, 0.6);
         }
 
+        /* Gamificación */
         .gamification {
             display: flex;
             justify-content: space-between;
@@ -562,6 +566,7 @@
             letter-spacing: 1px;
         }
 
+        /* Responsive */
         @media (max-width: 1024px) {
             .gamification {
                 flex-direction: column;
@@ -619,26 +624,26 @@
     <div class="container">
         <div class="sidebar">
             <div class="logo">
-                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="logo-icon">🛡️</div>
                 <div class="logo-text">CyberZone</div>
             </div>
             
             <button class="nav-button active" onclick="showPage('inicio', this)">
-                <i class="fas fa-home"></i> Inicio
+                <span class="nav-icon">🏠</span> Inicio
             </button>
             <button class="nav-button" onclick="showPage('modulo1', this)">
-                <i class="fas fa-user-shield"></i> Ciudadanía Digital
+                <span class="nav-icon">👤</span> Ciudadanía Digital
             </button>
             <button class="nav-button" onclick="showPage('modulo2', this)">
-                <i class="fas fa-lock"></i> Privacidad & Datos
+                <span class="nav-icon">🔒</span> Privacidad & Datos
             </button>
             <button class="nav-button" onclick="showPage('modulo3', this)">
-                <i class="fas fa-code"></i> Ciberseguridad
+                <span class="nav-icon">💻</span> Ciberseguridad
             </button>
 
             <div class="user-profile">
                 <div class="avatar">
-                    <i class="fas fa-user"></i>
+                    👤
                 </div>
                 <div class="user-info">
                     <h3>CyberExplorador</h3>
@@ -658,7 +663,7 @@
                     <h2>Tu Aventura Digital Comienza Aquí</h2>
                     <p>Explora nuestros módulos interactivos diseñados específicamente para jóvenes como tú. Aprende sobre seguridad en redes sociales, protección contra estafas y cómo mantener tu identidad digital segura.</p>
                     <p>Completa actividades, gana insignias y conviértete en un experto en ciberseguridad.</p>
-                    <button class="cta-button" onclick="showPage('modulo1', document.querySelector('.nav-button:nth-child(2)'))">Comenzar Aventura</button>
+                    <button class="cta-button" onclick="showPage('modulo1', document.querySelectorAll('.nav-button')[1])">Comenzar Aventura</button>
                 </div>
 
                 <h2 style="font-size: 32px; margin: 40px 0 20px; color: white; text-align: center;">Tu Progreso</h2>
@@ -667,7 +672,7 @@
                     <!-- Módulo 1 -->
                     <div class="module">
                         <div class="module-header">
-                            <h3 class="module-title"><i class="fas fa-user-shield"></i> Módulo 1: Ciudadanía Digital</h3>
+                            <h3 class="module-title"><span class="module-icon">👤</span> Módulo 1: Ciudadanía Digital</h3>
                             <div class="module-progress">
                                 <div class="progress-circle" id="progress-module1">
                                     <span class="progress-text">25%</span>
@@ -702,7 +707,7 @@
                     <!-- Módulo 2 -->
                     <div class="module">
                         <div class="module-header">
-                            <h3 class="module-title"><i class="fas fa-lock"></i> Módulo 2: Privacidad y Datos</h3>
+                            <h3 class="module-title"><span class="module-icon">🔒</span> Módulo 2: Privacidad y Datos</h3>
                             <div class="module-progress">
                                 <div class="progress-circle" id="progress-module2">
                                     <span class="progress-text">50%</span>
@@ -736,7 +741,7 @@
                     <!-- Módulo 3 -->
                     <div class="module">
                         <div class="module-header">
-                            <h3 class="module-title"><i class="fas fa-code"></i> Módulo 3: Ciberseguridad Práctica</h3>
+                            <h3 class="module-title"><span class="module-icon">💻</span> Módulo 3: Ciberseguridad Práctica</h3>
                             <div class="module-progress">
                                 <div class="progress-circle" id="progress-module3">
                                     <span class="progress-text">67%</span>
@@ -785,28 +790,31 @@
                 </div>
             </div>
 
-            <!-- Otras páginas (simplificadas para este ejemplo) -->
+            <!-- Otras páginas -->
             <div id="modulo1" class="page">
                 <div class="intro-section">
-                    <div class="intro-icon"><i class="fas fa-user-shield"></i></div>
+                    <div class="intro-icon">👤</div>
                     <h2>Módulo 1: Ciudadanía Digital</h2>
-                    <p>Contenido detallado del módulo 1...</p>
+                    <p>En este módulo aprenderás a identificar riesgos en línea, protegerte del cyberbullying y desarrollar un pensamiento crítico para navegar de forma segura por internet.</p>
+                    <button class="cta-button" onclick="showPage('inicio', document.querySelectorAll('.nav-button')[0])">Volver al Inicio</button>
                 </div>
             </div>
 
             <div id="modulo2" class="page">
                 <div class="intro-section">
-                    <div class="intro-icon"><i class="fas fa-lock"></i></div>
+                    <div class="intro-icon">🔒</div>
                     <h2>Módulo 2: Privacidad y Datos</h2>
-                    <p>Contenido detallado del módulo 2...</p>
+                    <p>Descubre cómo proteger tu información personal, configurar correctamente la privacidad en redes sociales y entender el valor de tus datos en el mundo digital.</p>
+                    <button class="cta-button" onclick="showPage('inicio', document.querySelectorAll('.nav-button')[0])">Volver al Inicio</button>
                 </div>
             </div>
 
             <div id="modulo3" class="page">
                 <div class="intro-section">
-                    <div class="intro-icon"><i class="fas fa-code"></i></div>
+                    <div class="intro-icon">💻</div>
                     <h2>Módulo 3: Ciberseguridad Práctica</h2>
-                    <p>Contenido detallado del módulo 3...</p>
+                    <p>Aprende técnicas avanzadas de protección: desde crear contraseñas seguras hasta identificar intentos de phishing y proteger todos tus dispositivos.</p>
+                    <button class="cta-button" onclick="showPage('inicio', document.querySelectorAll('.nav-button')[0])">Volver al Inicio</button>
                 </div>
             </div>
         </div>
@@ -835,7 +843,7 @@
             const progressModule2 = document.getElementById('progress-module2');
             const progressModule3 = document.getElementById('progress-module3');
             
-            // Simular progreso (en una aplicación real, estos valores vendrían de una base de datos)
+            // Simular progreso
             progressModule1.style.background = 'conic-gradient(var(--primary) 25%, rgba(255,255,255,0.1) 0%)';
             progressModule2.style.background = 'conic-gradient(var(--primary) 50%, rgba(255,255,255,0.1) 0%)';
             progressModule3.style.background = 'conic-gradient(var(--primary) 67%, rgba(255,255,255,0.1) 0%)';
