@@ -160,87 +160,56 @@
         <div class="types-section">
             <h2 class="types-title">
                 <span class="section-emoji">📋</span> Tipos de Comentarios Discriminatorios
-            </h2>
-            
-            <div class="types-grid">
-                <div class="type-card">
-                    <div class="type-icon">
-                        <i class="fas fa-venus-mars"></i>
+            <!-- Efecto de partículas -->
+            <div class="particles" id="particles"></div>
+
+            <div class="window-layout" style="display:flex;min-height:100vh;background:#0f0f23;">
+                <!-- Menú lateral -->
+                <aside class="sidebar" style="width:280px;background:#16213e;padding:30px 20px;display:flex;flex-direction:column;gap:12px;border-right:1px solid rgba(255,255,255,0.05);min-height:100vh;">
+                    <div class="logo" style="display:flex;align-items:center;margin-bottom:30px;">
+                        <div class="logo-icon" style="font-size:32px;margin-right:15px;color:#00d4ff;text-shadow:0 0 10px #00d4ff;">🛡️</div>
+                        <div class="logo-text" style="font-size:24px;font-weight:800;background:linear-gradient(135deg,#8b5cf6 0%,#00d4ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">CyberZone</div>
                     </div>
-                    <h4><span class="type-emoji">🚻</span>Discriminación de Género</h4>
-                    <div class="type-description">
-                        Comentarios que refuerzan estereotipos sobre roles y capacidades basados en el género.
+                    <button class="nav-button active" style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border:none;color:#fff;padding:16px 20px;border-radius:12px;font-weight:600;font-size:1em;cursor:pointer;margin-bottom:8px;">🏠 Inicio</button>
+                    <button class="nav-button" style="background:transparent;color:rgba(255,255,255,0.7);padding:16px 20px;border:1px solid rgba(255,255,255,0.1);border-radius:12px;font-weight:600;font-size:1em;cursor:pointer;margin-bottom:8px;">👤 Ciudadanía Digital</button>
+                    <button class="nav-button" style="background:transparent;color:rgba(255,255,255,0.7);padding:16px 20px;border:1px solid rgba(255,255,255,0.1);border-radius:12px;font-weight:600;font-size:1em;cursor:pointer;margin-bottom:8px;">🔒 Privacidad & Datos</button>
+                    <button class="nav-button" style="background:transparent;color:rgba(255,255,255,0.7);padding:16px 20px;border:1px solid rgba(255,255,255,0.1);border-radius:12px;font-weight:600;font-size:1em;cursor:pointer;margin-bottom:8px;">💻 Ciberseguridad</button>
+                    <div class="user-profile" style="margin-top:auto;display:flex;align-items:center;gap:12px;">
+                        <div class="avatar" style="font-size:2em;">👤</div>
+                        <div class="user-info">
+                            <h3 style="margin:0;font-size:1em;">CyberExplorador</h3>
+                            <p style="margin:0;font-size:0.9em;">Nivel 3 | 240 XP</p>
+                        </div>
                     </div>
-                    <div class="type-examples">
-                        <div class="bad-example"><span class="example-emoji">👨</span>"Los hombres no lloran"</div>
-                        <div class="bad-example"><span class="example-emoji">👩</span>"Eso es trabajo de mujeres"</div>
+                </aside>
+
+                <!-- Contenido principal -->
+                <main class="main-content" style="flex:1;padding:60px;background:#1a1a2e;">
+                    <div class="module-title" style="padding-bottom:30px;">
+                        <h1 style="font-size:2.2em;font-weight:700;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.5px;">Comentarios Discriminatorios</h1>
+                        <p style="color:rgba(255,255,255,0.7);font-size:1.1em;margin-top:10px;">Aprende a identificar y responder a comentarios ofensivos de manera positiva 🌈</p>
                     </div>
-                </div>
-                
-                <div class="type-card">
-                    <div class="type-icon">
-                        <i class="fas fa-globe-americas"></i>
+                    <div class="cards-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:30px;max-width:1100px;margin:0 auto;">
+                        <div class="topic-card" style="background:linear-gradient(135deg,#16213e 0%,#1a1a2e 100%);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:40px 30px;">
+                            <h2 style="font-size:1.3em;color:#fff;margin-bottom:12px;font-weight:700;letter-spacing:-0.3px;">� Tipo de comentarios</h2>
+                            <ul style="color:rgba(255,255,255,0.85);font-size:1em;list-style:none;padding-left:0;">
+                                <li>☑️ Comentarios ofensivos directos 😠</li>
+                                <li>ℹ️ Información educativa 📚</li>
+                            </ul>
+                        </div>
+                        <div class="topic-card" style="background:linear-gradient(135deg,#16213e 0%,#1a1a2e 100%);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:40px 30px;">
+                            <h2 style="font-size:1.3em;color:#fff;margin-bottom:12px;font-weight:700;letter-spacing:-0.3px;">💡 Cómo responder a comentarios discriminatorios</h2>
+                            <ul style="color:rgba(255,255,255,0.85);font-size:1em;list-style:none;padding-left:0;">
+                                <li>🧘‍♀️ Mantén la calma y respira profundamente</li>
+                                <li>💖 Expresa tus sentimientos con respeto</li>
+                                <li>📢 Educa sobre por qué el comentario es inapropiado</li>
+                                <li>🤝 Busca apoyo si es necesario</li>
+                                <li>🔍 Información sobre recursos de ayuda 🆘</li>
+                            </ul>
+                        </div>
                     </div>
-                    <h4><span class="type-emoji">🌍</span>Discriminación Racial/Étnica</h4>
-                    <div class="type-description">
-                        Comentarios basados en origen étnico, color de piel, nacionalidad o características culturales.
-                    </div>
-                    <div class="type-examples">
-                        <div class="bad-example"><span class="example-emoji">🗣️</span>"Tu acento es raro"</div>
-                        <div class="bad-example"><span class="example-emoji">👥</span>"No pareces de aquí"</div>
-                    </div>
-                </div>
-                
-                <div class="type-card">
-                    <div class="type-icon">
-                        <i class="fas fa-user-friends"></i>
-                    </div>
-                    <h4><span class="type-emoji">👤</span>Discriminación por Apariencia</h4>
-                    <div class="type-description">
-                        Comentarios sobre características físicas como peso, estatura, rasgos faciales o estilo.
-                    </div>
-                    <div class="type-examples">
-                        <div class="bad-example"><span class="example-emoji">⚖️</span>"Estás muy gordo/a"</div>
-                        <div class="bad-example"><span class="example-emoji">💇</span>"Qué feo ese peinado"</div>
-                    </div>
-                </div>
-                
-                <div class="type-card">
-                    <div class="type-icon">
-                        <i class="fas fa-wheelchair"></i>
-                    </div>
-                    <h4><span class="type-emoji">♿</span>Discriminación por Capacidades</h4>
-                    <div class="type-description">
-                        Comentarios sobre habilidades físicas, mentales o condiciones de salud.
-                    </div>
-                    <div class="type-examples">
-                        <div class="bad-example"><span class="example-emoji">⏱️</span>"Eres muy lento para entender"</div>
-                        <div class="bad-example"><span class="example-emoji">🚷</span>"No puedes jugar con nosotros"</div>
-                    </div>
-                </div>
-                
-                <div class="type-card">
-                    <div class="type-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h4><span class="type-emoji">❤️</span>Discriminación por Orientación Sexual</h4>
-                    <div class="type-description">
-                        Comentarios sobre preferencias sexuales, identidad de género o expresión personal.
-                    </div>
-                    <div class="type-examples">
-                        <div class="bad-example"><span class="example-emoji">🚫</span>"Eso es antinatural"</div>
-                        <div class="bad-example"><span class="example-emoji">🎭</span>"Actúas muy raro"</div>
-                    </div>
-                </div>
-                
-                <div class="type-card">
-                    <div class="type-icon">
-                        <i class="fas fa-pray"></i>
-                    </div>
-                    <h4><span class="type-emoji">🛐</span>Discriminación Religiosa</h4>
-                    <div class="type-description">
-                        Comentarios sobre creencias religiosas, prácticas espirituales o símbolos de fe.
-                    </div>
+                </main>
+            </div>
                     <div class="type-examples">
                         <div class="bad-example"><span class="example-emoji">⛪</span>"Tu religión es extraña"</div>
                         <div class="bad-example"><span class="example-emoji">🧕</span>"Eso que usas en la cabeza es raro"</div>
