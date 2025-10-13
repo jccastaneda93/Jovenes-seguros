@@ -5,45 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comentarios Discriminatorios - CyberZone</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/estilo1.css">
   <link rel="stylesheet" href="css/estilo2.css">
 </head>
 <body>
-    <!-- Barra de Navegación CyberZone -->
-    <nav class="cyber-nav">
-        <div class="nav-container">
-            <div class="cyber-logo">
-                <i class="fas fa-robot logo-icon"></i>
-                <h1>CyberZone 🚀</h1>
+    <!-- Botón de menú para móviles -->
+    <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+     <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">CyberZone</div>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active">
-                        <span class="nav-emoji">🏠</span> Inicio
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="nav-emoji">🎯</span> Reto
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="nav-emoji">🧠</span> Módulo 1
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="nav-emoji">🔍</span> Módulo 2
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="nav-emoji">🛠️</span> Módulo 3
-                    </a>
-                </li>
-            </ul>
+            
+            <button class="nav-button active" onclick="showPage('inicio', this)">
+                <span class="nav-icon">🏠</span> Inicio
+            </button>
+            <button class="nav-button" onclick="showPage('modulo1', this)">
+                <span class="nav-icon">👤</span> Ciudadanía Digital
+            </button>
+            <button class="nav-button" onclick="showPage('modulo2', this)">
+                <span class="nav-icon">🔒</span> Privacidad & Datos
+            </button>
+            <button class="nav-button" onclick="showPage('modulo3', this)">
+                <span class="nav-icon">💻</span> Ciberseguridad
+            </button>
+
+            <div class="user-profile">
+                <div class="avatar">
+                    👤
+                </div>
+                <div class="user-info">
+                    <h3>CyberExplorador</h3>
+                    <p>Nivel 3 | 240 XP</p>
+                </div>
+            </div>
         </div>
-    </nav>
+    
 
     <div class="container">
         <header>
