@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contenido Provocador - Guía Completa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="css/estilo1.css">
     <style>
         :root {
             --primary: #6a11cb;
@@ -362,46 +363,35 @@
         <i class="fas fa-bars"></i>
     </button>
     
-    <!-- TU MENÚ LATERAL EXACTO -->
-    <nav class="sidebar" id="sidebar">
-        <div class="nav-section">
-            <h3>Navegación</h3>
-            <ul class="nav-items">
-                <li>
-                    <div class="nav-item">
-                        <div class="checkbox-container">
-                            <div class="custom-checkbox"></div>
-                            <span class="nav-label">Inicio</span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="nav-item active">
-                        <div class="checkbox-container">
-                            <div class="custom-checkbox checked"></div>
-                            <span class="nav-label">Módulo 1</span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="nav-item">
-                        <div class="checkbox-container">
-                            <div class="custom-checkbox"></div>
-                            <span class="nav-label">Módulo 2</span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="nav-item">
-                        <div class="checkbox-container">
-                            <div class="custom-checkbox"></div>
-                            <span class="nav-label">Módulo 3</span>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+     <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">CyberZone</div>
+            </div>
+            
+            <button class="nav-button active" onclick="showPage('inicio', this)">
+                <span class="nav-icon">🏠</span> Inicio
+            </button>
+            <button class="nav-button" onclick="showPage('modulo1', this)">
+                <span class="nav-icon">👤</span> Ciudadanía Digital
+            </button>
+            <button class="nav-button" onclick="showPage('modulo2', this)">
+                <span class="nav-icon">🔒</span> Privacidad & Datos
+            </button>
+            <button class="nav-button" onclick="showPage('modulo3', this)">
+                <span class="nav-icon">💻</span> Ciberseguridad
+            </button>
+
+            <div class="user-profile">
+                <div class="avatar">
+                    👤
+                </div>
+                <div class="user-info">
+                    <h3>CyberExplorador</h3>
+                    <p>Nivel 3 | 240 XP</p>
+                </div>
+            </div>
         </div>
-    </nav>
     
     <!-- Contenido principal -->
     <main class="main-content">
