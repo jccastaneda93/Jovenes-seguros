@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Comentarios Discriminatorios - Seguridad Digital</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #8b5cf6;
+      --secondary: #00d4ff;
+      --accent: #ff3e80;
+      --dark: #0f0f23;
+      --darker: #090915;
+      --light: #f0f4ff;
+      --card-bg: rgba(30, 30, 60, 0.7);
+      --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing:antialiased; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1a1a3e 100%);
+      min-height: 100vh;
+      color: var(--light);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Partículas */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--secondary);
+      border-radius: 50%;
+      animation: float-particle 15s infinite ease-in-out;
+      box-shadow: 0 0 10px var(--secondary);
+      opacity: 0.9;
+    }
+    @keyframes float-particle {
+      0%,100% { transform: translateY(110vh) translateX(0) scale(0.5); opacity: 0; }
+      10% { opacity: 1; }
+      50% { transform: translateY(-10vh) translateX(40px) scale(1); }
+      90% { opacity: 0.9; }
+    }
+
+    /* Layout principal */
+    .window-layout {
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Sidebar (mockup) */
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg,#111428 0%, #16213e 100%);
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-right: 1px solid rgba(255,255,255,0.05);
+      min-height: 100vh;
+    }
+    .logo { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+    .logo-icon { font-size:28px; color:var(--secondary); text-shadow:0 0 10px rgba(0,212,255,0.25); }
+    .logo-text {
+      font-size:20px;
+      font-weight:800;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .nav-button {
+      background: transparent;
+      color: rgba(255,255,255,0.85);
+      padding: 12px 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      font-weight:600;
+      cursor:pointer;
+      text-align:left;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      transition: all 0.25s;
+    }
+    .nav-button:hover { background: rgba(139,92,246,0.12); transform: translateY(-3px); box-shadow: var(--neon-glow); }
+    .nav-button.active { background: linear-gradient(135deg,var(--primary),#6366f1); color:#fff; box-shadow: var(--neon-glow); border-color: rgba(139,92,246,0.6); }
+
+    .user-profile { margin-top:auto; display:flex; gap:12px; align-items:center; padding-top:10px; }
+    .avatar { font-size:1.8rem; }
+    .user-info h3 { font-size:0.95rem; margin:0; }
+    .user-info p { font-size:0.85rem; margin:0; color:rgba(255,255,255,0.65); }
+
+    /* Main content */
+    .main-content {
+      flex: 1;
+      padding: 48px 64px;
+      background: transparent;
+      min-height: 100vh;
+      position: relative; /* needed for right illustration absolute inside */
+      overflow: visible;
+    }
+
+    .module-title { padding-bottom: 18px; max-width:900px; }
+    .module-title h1 {
+      font-size: 2.2rem;
+      font-weight:700;
+      background: linear-gradient(135deg,#667eea 0%, #764ba2 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      letter-spacing:-0.4px;
+    }
+    .module-title p { color: rgba(255,255,255,0.8); font-size:1.05rem; margin-top:8px; }
+
+    /* Grid cards */
+    .cards-grid {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      max-width:1100px;
+      margin-top:18px;
+    }
+    .topic-card {
+      background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 28px;
+      animation: fadeIn .6s ease-out;
+    }
+    .topic-card h2 { font-size:1.15rem; color:#fff; margin-bottom:12px; font-weight:700; }
+    .topic-card ul { list-style:none; color: rgba(255,255,255,0.85); font-size:0.98rem; padding-left:0; }
+    .topic-card li { margin-bottom:8px; display:flex; align-items:center; gap:10px; }
+
+    /* sections (types/examples/game) */
+    .types-section, .examples-section, .game-container {
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      border: 2px solid rgba(139,92,246,0.28);
+      border-radius: 18px;
+      padding: 34px;
+      margin-top: 34px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    .types-title, .examples-title, .game-title {
+      font-size: 1.9rem;
+      font-weight:700;
+      margin-bottom: 22px;
+      color: white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+    }
+
+    .type-examples { display:flex; gap:16px; margin-top:18px; flex-wrap:wrap; justify-content:center; }
+    .bad-example {
+      padding:12px 14px;
+      background: rgba(239,68,68,0.16);
+      border: 1px solid rgba(239,68,68,0.35);
+      border-radius:10px;
+      display:flex; gap:8px; align-items:center; color:#fff;
+    }
+
+    .example-category { margin-bottom:22px; }
+    .category-title { font-size:1.05rem; font-weight:600; color:#fff; display:flex; gap:10px; align-items:center; margin-bottom:10px; }
+    .example-item { padding:10px 12px; margin-bottom:8px; border-radius:8px; display:flex; gap:10px; align-items:center; }
+    .bad-example-item { background: rgba(239,68,68,0.08); border-left:4px solid #ef4444; color:#fff; }
+    .good-example { background: rgba(16,185,129,0.08); border-left:4px solid #10b981; color:#fff; }
+
+    /* Game */
+    .game-scenario { font-size:1.15rem; font-weight:600; text-align:center; color:#fff; padding:18px; background: rgba(40,40,80,0.5); border-radius:12px; margin-bottom:18px; }
+    .game-options {
+      display:grid;
+      grid-template-columns: repeat(2,1fr);
+      gap:18px;
+      max-width:900px;
+      margin: 0 auto;
+    }
+    .game-option {
+      padding:18px;
+      background: rgba(40,40,80,0.45);
+      border: 2px solid rgba(139,92,246,0.22);
+      border-radius:12px;
+      cursor:pointer;
+      transition: all .25s;
+      text-align:center;
+      font-size:0.98rem;
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+    }
+    .game-option:hover { transform: translateY(-6px); background: rgba(139,92,246,0.14); box-shadow: var(--neon-glow); }
+    .game-option.correct { background: rgba(16,185,129,0.28); border-color:#10b981; }
+    .game-option.incorrect { background: rgba(239,68,68,0.28); border-color:#ef4444; }
+    .game-feedback { margin-top:18px; padding:14px; border-radius:12px; font-weight:700; text-align:center; display:none; }
+    .game-feedback.correct { display:block; background: rgba(16,185,129,0.16); color: #10b981; }
+    .game-feedback.incorrect { display:block; background: rgba(239,68,68,0.14); color: #ef4444; }
+
+    .animated-btn {
+      display:inline-flex; align-items:center; gap:8px;
+      margin:20px auto 0; padding:12px 22px;
+      background: linear-gradient(135deg,var(--primary),var(--secondary));
+      color:#fff; border:none; border-radius:10px; cursor:pointer; font-weight:700;
+      box-shadow: 0 8px 20px rgba(139,92,246,0.18);
+    }
+    .animated-btn:hover { transform: translateY(-4px); }
+
+    .game-stats { display:flex; justify-content:center; gap:36px; margin-top:22px; color:#fff; }
+    .stat { text-align:center; }
+    .stat-value { font-size:1.5rem; font-weight:800; color:var(--secondary); }
+
+    /* Right-side illustration (no fixed — moves with content) */
+    .illustration-right {
+      position: absolute;
+      right: 40px; /* sits to the right of main content */
+      top: 120px;
+      width: 420px;
+      max-width: 36%;
+      opacity: 0.92;
+      pointer-events: none;
+      z-index: 1; /* behind main content text (main-content is z-index:2 via layout) */
+      mix-blend-mode: screen;
+      filter: saturate(110%) drop-shadow(0 20px 40px rgba(0,0,0,0.35));
+    }
+    /* ensure the illustration does not overlap small screens */
+    @media (max-width: 1200px) {
+      .illustration-right { right: 18px; width: 340px; top: 160px; max-width:40%; opacity:0.85; }
+    }
+    @media (max-width: 900px) {
+      .illustration-right { display:none; } /* hide on small screens */
+    }
+
+    /* small helpers */
+    .center { display:flex; align-items:center; justify-content:center; gap:10px; }
+
+    @keyframes fadeIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: translateY(0); } }
+
+    @media (max-width: 1024px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .game-options { grid-template-columns: 1fr; }
+      .main-content { padding: 36px 28px; }
+    }
+
+    @media (max-width: 768px) {
+      .window-layout { flex-direction: column; }
+      .sidebar { width:100%; min-height:auto; flex-direction:row; gap:12px; padding:12px; align-items:center; }
+      .main-content { padding:22px; }
+      .module-title h1 { font-size:1.6rem; }
+      .types-title, .examples-title, .game-title { font-size:1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Partículas -->
+  <div class="particles" id="particles"></div>
+
+  <div class="window-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" role="navigation" aria-label="Navegación principal">
+      <div class="logo">
+        <div class="logo-icon">🛡️</div>
+        <div class="logo-text">CyberZone</div>
+      </div>
+
+      <button class="nav-button active">🏠 Inicio</button>
+      <button class="nav-button">📘 Módulo 1</button>
+      <button class="nav-button">📗 Módulo 2</button>
+      <button class="nav-button">📙 Módulo 3</button>
+
+      <div class="user-profile" aria-hidden="true">
+        <div class="avatar">👤</div>
+        <div class="user-info">
+          <h3>CyberExplorador</h3>
+          <p>Nivel 3 | 240 XP</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content" role="main">
+      <div class="module-title">
+        <h1>Comentarios Discriminatorios</h1>
+        <p>Aprende a identificar y responder a comentarios ofensivos de manera positiva 🌈</p>
+      </div>
+
+      <div class="cards-grid" aria-hidden="false">
+        <div class="topic-card">
+          <h2>💭 Tipo de comentarios</h2>
+          <ul>
+            <li>☑️ Comentarios ofensivos directos 😠</li>
+            <li>ℹ️ Información educativa 📚</li>
+          </ul>
+        </div>
+
+        <div class="topic-card">
+          <h2>💡 Cómo responder a comentarios discriminatorios</h2>
+          <ul>
+            <li>🧘‍♀️ Mantén la calma y respira profundamente</li>
+            <li>💖 Expresa tus sentimientos con respeto</li>
+            <li>📢 Educa sobre por qué el comentario es inapropiado</li>
+            <li>🤝 Busca apoyo si es necesario</li>
+            <li>🔍 Información sobre recursos de ayuda 🆘</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="types-section" aria-labelledby="types-title">
+        <h2 class="types-title" id="types-title"><span>📋</span> Tipos de Comentarios Discriminatorios</h2>
+
+        <div class="type-examples">
+          <div class="bad-example"><span class="example-emoji">⛪</span>"Tu religión es extraña"</div>
+          <div class="bad-example"><span class="example-emoji">🧕</span>"Eso que usas en la cabeza es raro"</div>
+        </div>
+      </div>
+
+      <div class="examples-section" aria-labelledby="examples-title">
+        <h2 class="examples-title" id="examples-title"><span>💬</span> Ejemplos de Comentarios</h2>
+
+        <div class="example-category">
+          <h3 class="category-title"><span>🚻</span> Sobre Género</h3>
+          <div class="example-item bad-example-item"><span>👨</span>"Los hombres no deberían llorar, es de débiles"</div>
+          <div class="example-item bad-example-item"><span>👩</span>"Eso es trabajo de mujeres, tú no podrías hacerlo"</div>
+          <div class="example-item good-example"><span>🌈</span>"Todos podemos expresar nuestras emociones libremente"</div>
+        </div>
+
+        <div class="example-category">
+          <h3 class="category-title"><span>🌍</span> Sobre Origen o Cultura</h3>
+          <div class="example-item bad-example-item"><span>🗣️</span>"Tu acento suena raro, ¿de dónde eres?"</div>
+          <div class="example-item bad-example-item"><span>🍛</span>"Tu comida huele raro, deberías comer comida normal"</div>
+          <div class="example-item good-example"><span>🌎</span>"Me encanta conocer diferentes culturas y tradiciones"</div>
+        </div>
+
+        <div class="example-category">
+          <h3 class="category-title"><span>👤</span> Sobre Apariencia Física</h3>
+          <div class="example-item bad-example-item"><span>⚖️</span>"Estás muy gordo/a, deberías hacer dieta"</div>
+          <div class="example-item bad-example-item"><span>🦁</span>"Con ese pelo rizado pareces un león"</div>
+          <div class="example-item good-example"><span>✨</span>"Cada persona tiene una belleza única y especial"</div>
+        </div>
+      </div>
+
+      <!-- Juego interactivo -->
+      <div class="game-container" aria-labelledby="game-title">
+        <h2 class="game-title" id="game-title"><span>🎮</span> Practica tus respuestas</h2>
+
+        <div class="game-scenario" id="scenario">🎭 Un compañero hace un chiste sobre el acento de un estudiante nuevo. ¿Cómo respondes?</div>
+
+        <div class="game-options" role="list">
+          <div class="game-option" role="button" tabindex="0" onclick="checkAnswer(0)" onkeypress="if(event.key==='Enter') checkAnswer(0)"><span class="option-emoji">😅</span>Me río para no parecer antisocial</div>
+          <div class="game-option" role="button" tabindex="0" onclick="checkAnswer(1)" onkeypress="if(event.key==='Enter') checkAnswer(1)"><span class="option-emoji">💬</span>Le digo: "Ese comentario puede herir sentimientos"</div>
+          <div class="game-option" role="button" tabindex="0" onclick="checkAnswer(2)" onkeypress="if(event.key==='Enter') checkAnswer(2)"><span class="option-emoji">🙈</span>Ignoro la situación</div>
+        </div>
+
+        <div class="game-feedback" id="feedback">🎯 ¡Elige una opción para comenzar!</div>
+
+        <button class="animated-btn" onclick="nextScenario()"><span class="btn-emoji">⏭️</span> Siguiente Situación</button>
+
+        <div class="game-stats">
+          <div class="stat"><div class="stat-emoji">⭐</div><div class="stat-value" id="score">0</div><div>Puntos</div></div>
+          <div class="stat"><div class="stat-emoji">✅</div><div class="stat-value" id="correct">0</div><div>Correctas</div></div>
+        </div>
+      </div>
+
+      <!-- Right-side animated flat illustration (moves with content) -->
+      <div class="illustration-right" aria-hidden="true">
+        <!-- SVG ilustración tipo flat, tonos morados/azules -->
+        <svg viewBox="0 0 720 720" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" focusable="false">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#8b5cf6"/>
+              <stop offset="100%" stop-color="#00d4ff"/>
+            </linearGradient>
+            <linearGradient id="g2" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.06"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02"/>
+            </linearGradient>
+          </defs>
+
+          <!-- soft blob background -->
+          <g transform="translate(40,20)">
+            <ellipse cx="360" cy="320" rx="320" ry="300" fill="url(#g1)" opacity="0.12"/>
+            <ellipse cx="360" cy="320" rx="300" ry="260" fill="url(#g2)" />
+          </g>
+
+          <!-- character 1 (left) -->
+          <g transform="translate(110,280) scale(0.9)">
+            <rect x="0" y="0" width="140" height="140" rx="18" fill="#fff" opacity="0.02"/>
+            <circle cx="70" cy="40" r="30" fill="#ffd9d9"/>
+            <rect x="22" y="70" width="96" height="46" rx="10" fill="#7c61ff"/>
+            <path d="M40 90 q30 20 60 0" stroke="#5a3cbc" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <rect x="32" y="110" width="76" height="10" rx="6" fill="#fff" opacity="0.06"/>
+          </g>
+
+          <!-- laptop -->
+          <g transform="translate(300,350) scale(1)">
+            <rect x="0" y="0" width="260" height="160" rx="14" fill="#0f1724" stroke="rgba(255,255,255,0.04)"/>
+            <rect x="18" y="18" width="224" height="100" rx="8" fill="#081228"/>
+            <rect x="18" y="22" width="120" height="18" rx="6" fill="#8b5cf6" opacity="0.12">
+              <animate attributeName="x" values="18;28;18" dur="6s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="90" y="68" width="120" height="10" rx="6" fill="#00d4ff" opacity="0.08"/>
+            <rect x="0" y="132" width="260" height="18" rx="6" fill="#0b1220"/>
+          </g>
+
+          <!-- character 2 (right) -->
+          <g transform="translate(440,220) scale(0.95)">
+            <rect x="0" y="0" width="120" height="160" rx="16" fill="#fff" opacity="0.02"/>
+            <circle cx="60" cy="36" r="26" fill="#ffe7c7"/>
+            <rect x="20" y="70" width="80" height="48" rx="8" fill="#00d4ff" opacity="0.08"/>
+            <path d="M30 95 q30 18 60 0" stroke="#0a7bb3" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </g>
+
+          <!-- decorative floating device -->
+          <g transform="translate(180,120) scale(0.9)">
+            <rect x="0" y="0" width="140" height="90" rx="12" fill="#fff" opacity="0.03"/>
+            <circle cx="110" cy="20" r="8" fill="#8b5cf6" />
+            <rect x="12" y="14" width="100" height="18" rx="8" fill="#0b1220"/>
+          </g>
+
+          <!-- small floating shapes animated -->
+          <g id="shapes" transform="translate(0,0)">
+            <circle cx="580" cy="80" r="8" fill="#8b5cf6" opacity="0.9">
+              <animate attributeName="cy" values="80;60;80" dur="6s" repeatCount="indefinite"/>
+            </circle>
+            <rect x="520" y="180" width="12" height="12" rx="3" fill="#00d4ff" opacity="0.95">
+              <animate attributeName="y" values="180;170;180" dur="5s" repeatCount="indefinite"/>
+            </rect>
+            <circle cx="490" cy="300" r="6" fill="#ff3e80" opacity="0.9">
+              <animate attributeName="cy" values="300;320;300" dur="7s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+        </svg>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // --- Partículas dinámicas (mismo comportamiento que antes) ---
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 15;
+    for (let i = 0; i < particleCount; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 10 + 5;
+      const left = Math.random() * 100;
+      const delay = Math.random() * 15;
+      const duration = Math.random() * 10 + 10;
+      p.style.width = `${size}px`;
+      p.style.height = `${size}px`;
+      p.style.left = `${left}%`;
+      p.style.top = `${Math.random() * 100}%`;
+      p.style.animationDelay = `${delay}s`;
+      p.style.animationDuration = `${duration}s`;
+      particlesContainer.appendChild(p);
+    }
+
+    // --- Juego interactivo (mismas reglas) ---
+    const scenarios = [
+      {
+        scenario: "🎭 Un compañero hace un chiste sobre el acento de un estudiante nuevo. ¿Cómo respondes?",
+        options: [
+          "😅 Me río para no parecer antisocial",
+          "💬 Le digo: 'Ese comentario puede herir sentimientos'",
+          "🙈 Ignoro la situación"
+        ],
+        correct: 1,
+        explanation: "✅ Correcto. Expresar respetuosamente cómo los comentarios pueden afectar a otros es importante."
+      },
+      {
+        scenario: "👨 Alguien comenta que 'los hombres no deberían llorar'. ¿Cuál es tu respuesta?",
+        options: [
+          "👍 'Tienes razón'",
+          "💖 'Todos tenemos derecho a expresar emociones'",
+          "🤐 No digo nada"
+        ],
+        correct: 1,
+        explanation: "🎉 ¡Bien hecho! Los estereotipos limitan la expresión emocional saludable."
+      },
+      {
+        scenario: "👥 Un amigo bromea sobre el peso de otra persona. ¿Qué haces?",
+        options: [
+          "😂 Me uno a la broma",
+          "🛡️ Le digo: 'Los comentarios sobre el cuerpo pueden ser hirientes'",
+          "🔀 Cambio de tema"
+        ],
+        correct: 1,
+        explanation: "🌟 Excelente. Defender a otros de comentarios inapropiados crea un ambiente más respetuoso."
+      }
+    ];
+
+    let currentScenario = 0;
+    let score = 0;
+    let correctAnswers = 0;
+    let answered = false;
+
+    function initializeGame() {
+      displayScenario();
+      updateStats();
+    }
+
+    function displayScenario() {
+      const scenarioElement = document.getElementById('scenario');
+      const optionsElements = document.querySelectorAll('.game-option');
+      const feedbackElement = document.getElementById('feedback');
+
+      const s = scenarios[currentScenario];
+      scenarioElement.textContent = s.scenario;
+      optionsElements.forEach((opt, i) => {
+        if (s.options[i]) opt.innerHTML = s.options[i];
+      });
+
+      feedbackElement.textContent = "🎯 ¡Elige una opción para comenzar!";
+      feedbackElement.className = "game-feedback";
+      answered = false;
+      optionsElements.forEach(opt => opt.classList.remove('correct','incorrect'));
+    }
+
+    function checkAnswer(selected) {
+      if (answered) return;
+      const feedbackElement = document.getElementById('feedback');
+      const optionsElements = document.querySelectorAll('.game-option');
+      const correctAnswer = scenarios[currentScenario].correct;
+
+      // show which is correct
+      optionsElements[correctAnswer].classList.add('correct');
+
+      if (selected === correctAnswer) {
+        feedbackElement.innerHTML = "✅ " + scenarios[currentScenario].explanation;
+        feedbackElement.className = "game-feedback correct";
+        score += 10;
+        correctAnswers++;
+      } else {
+        optionsElements[selected].classList.add('incorrect');
+        feedbackElement.innerHTML = "❌ " + scenarios[currentScenario].explanation;
+        feedbackElement.className = "game-feedback incorrect";
+      }
+
+      answered = true;
+      updateStats();
+    }
+
+    function nextScenario() {
+      currentScenario = (currentScenario + 1) % scenarios.length;
+      displayScenario();
+    }
+
+    function updateStats() {
+      document.getElementById('score').textContent = score;
+      document.getElementById('correct').textContent = correctAnswers;
+    }
+
+    window.addEventListener('load', initializeGame);
+  </script>
+</body>
+</html>

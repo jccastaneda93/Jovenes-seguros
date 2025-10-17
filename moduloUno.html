@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retos Virales Peligrosos - Seguridad Digital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables y reset */
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #00d4ff;
+            --accent: #ff3e80;
+            --dark: #0f0f23;
+            --darker: #090915;
+            --light: #f0f4ff;
+            --card-bg: rgba(30, 30, 60, 0.7);
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1a1a3e 100%);
+            min-height: 100vh;
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Partículas de fondo */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: float-particle 15s infinite ease-in-out;
+            box-shadow: 0 0 10px var(--secondary);
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 1s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 3s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 4.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 1.5s; }
+
+        @keyframes float-particle {
+            0%, 100% {
+                transform: translateY(100vh) translateX(0) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-10vh) translateX(50px) scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(139, 92, 246, 0.8), 0 0 60px rgba(139, 92, 246, 0.4);
+            }
+        }
+
+        /* Contenedor principal */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            margin-right: 15px;
+            color: var(--secondary);
+            text-shadow: 0 0 10px var(--secondary);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            background: rgba(40, 40, 80, 0.6);
+            color: white;
+            border: 2px solid transparent;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-button:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .nav-button.active {
+            background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Título principal */
+        .main-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .title-icon {
+            font-size: 50px;
+            animation: pulse 2s infinite;
+        }
+
+        /* Layout de dos columnas */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        /* Columna izquierda - Módulos */
+        .modules-sidebar {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-out;
+            height: fit-content;
+        }
+
+        .sidebar-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .modules-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .module-item {
+            padding: 15px 20px;
+            background: rgba(40, 40, 80, 0.5);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .module-item:hover {
+            background: rgba(139, 92, 246, 0.2);
+            transform: translateX(5px);
+        }
+
+        .module-item.active {
+            background: rgba(139, 92, 246, 0.3);
+            border-left: 4px solid var(--primary);
+        }
+
+        .module-icon {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Columna derecha - Retos */
+        .challenges-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .challenge-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-out;
+            display: flex;
+            gap: 25px;
+        }
+
+        .challenge-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .challenge-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .challenge-content {
+            flex: 1;
+        }
+
+        .challenge-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .challenge-icon {
+            font-size: 24px;
+            color: var(--secondary);
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-bullet {
+            color: var(--secondary);
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .danger-level {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 8px 15px;
+            background: rgba(239, 68, 68, 0.2);
+            border-radius: 10px;
+            width: fit-content;
+        }
+
+        .danger-icon {
+            color: #ef4444;
+        }
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            text-decoration: none;
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .more-challenges {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .more-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 10px;
+        }
+
+        .more-link:hover {
+            text-decoration: underline;
+            text-shadow: 0 0 10px var(--secondary);
+            background: rgba(139, 92, 246, 0.3);
+        }
+
+        /* Juego Interactivo */
+        .game-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .game-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .game-description {
+            text-align: center;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 18px;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .game-question {
+            font-size: 22px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .game-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .game-option {
+            padding: 20px;
+            background: rgba(40, 40, 80, 0.5);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .game-option:hover {
+            background: rgba(139, 92, 246, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .game-option.correct {
+            background: rgba(16, 185, 129, 0.3);
+            border-color: #10b981;
+        }
+
+        .game-option.incorrect {
+            background: rgba(239, 68, 68, 0.3);
+            border-color: #ef4444;
+        }
+
+        .game-feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .game-feedback.correct {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            display: block;
+        }
+
+        .game-feedback.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            display: block;
+        }
+
+        .game-next {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .game-next:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .game-progress {
+            width: 100%;
+            max-width: 600px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .game-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Sección de prevención */
+        .prevention-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .prevention-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .prevention-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .prevention-tip {
+            background: rgba(40, 40, 80, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .prevention-tip:hover {
+            transform: translateY(-5px);
+            background: rgba(139, 92, 246, 0.2);
+        }
+
+        .tip-icon-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .tip-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .tip-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .prevention-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .challenge-card {
+                flex-direction: column;
+            }
+            
+            .challenge-image {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .game-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .main-title {
+                font-size: 36px;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .challenge-title {
+                font-size: 24px;
+            }
+            
+            .prevention-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">CyberZone</div>
+            </div>
+            
+            <div class="nav-menu">
+                <button class="nav-button active">
+                    <i class="fas fa-home"></i>
+                    Inicio
+                </button>
+                <button class="nav-button">
+                    <i class="fas fa-user-shield"></i>
+                    Módulo 1
+                </button>
+                <button class="nav-button">
+                    <i class="fas fa-lock"></i>
+                    Módulo 2
+                </button>
+                <button class="nav-button">
+                    <i class="fas fa-code"></i>
+                    Módulo 3
+                </button>
+            </div>
+        </div>
+
+        <h1 class="main-title">
+            <span class="title-icon">⚠️</span>
+            Retos Virales Peligrosos
+            <span class="title-icon">🚫</span>
+        </h1>
+
+        <div class="content-layout">
+            <!-- Columna izquierda - Módulos -->
+            <div class="modules-sidebar">
+                <h2 class="sidebar-title">
+                    <i class="fas fa-compass"></i>
+                    Navegación
+                </h2>
+                <div class="modules-list">
+                    <div class="module-item active">
+                        <span class="module-icon"><i class="fas fa-home"></i></span>
+                        <span>Inicio</span>
+                    </div>
+                    <div class="module-item"onclick="window.location.href='moduloUno.html'" style="cursor:pointer;">
+                        <span class="module-icon"><i class="fas fa-user-shield"></i></span>
+                        <span>Ciudadanía Digital</span>
+                        <button class="cta-button" onclick="window.location.href='index.html#modulo1'">Comenzar Aventura</button>
+                    </div>
+                    <div class="module-item">
+                        <span class="module-icon"><i class="fas fa-lock"></i></span>
+                        <span>Privacidad y Datos</span>
+                    </div>
+                    <div class="module-item">
+                        <span class="module-icon"><i class="fas fa-code"></i></span>
+                        <span>Ciberseguridad</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna derecha - Retos -->
+            <div class="challenges-content">
+                <!-- Reto 1 -->
+                <div class="challenge-card">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Ballena Azul" class="challenge-image">
+                    <div class="challenge-content">
+                        <h2 class="challenge-title">
+                            <span class="challenge-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                            Reto de la Ballena Azul
+                        </h2>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <span class="info-bullet"><i class="fas fa-chevron-right"></i></span>
+                                <span>Serie de 50 desafíos que culminan en autolesiones</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-bullet"><i class="fas fa-chevron-right"></i></span>
+                                <span>Dirigido principalmente a adolescentes vulnerables</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-bullet"><i class="fas fa-chevron-right"></i></span>
+                                <span>Los administradores exigen pruebas fotográficas</span>
+                            </div>
+                        </div>
+                        <div class="danger-level">
+                            <i class="fas fa-skull-crossbones danger-icon"></i>
+                            <span>Nivel de peligro: ALTO</span>
+                        </div>
+                        <!-- Botón para ir a otro HTML -->
+                        <a href="tema1-detalle.html" class="action-button">
+                            <i class="fas fa-arrow-right"></i>
+                            Ver más información sobre este tema
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Reto 2 -->
+                <div class="challenge-card">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Apagón" class="challenge-image">
+                    <div class="challenge-content">
+                        <h2 class="challenge-title">
+                            <span class="challenge-icon"><i class="fas fa-ban"></i></span>
+                            Reto del Apagón
+                        </h2>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <span class="info-bullet"><i class="fas fa-chevron-right"></i></span>
+                                <span>Consiste en hiperventilar y luego contener la respiración</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-bullet"><i class="fas fa-chevron-right"></i></span>
+                                <span>Puede causar pérdida de conciencia y daño cerebral</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-bullet"><i class="fas fa-chevron-right"></i></span>
+                                <span>Ha resultado en muertes por asfixia accidental</span>
+                            </div>
+                        </div>
+                        <div class="danger-level">
+                            <i class="fas fa-skull-crossbones danger-icon"></i>
+                            <span>Nivel de peligro: EXTREMO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="more-challenges">
+                    <a href="img/retos.png" download="retos.png">
+                        <i class="fas fa-search"></i>
+                        Consulte otros retos aquí
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Juego Interactivo -->
+        <div class="game-section">
+            <h2 class="game-title">
+                <i class="fas fa-gamepad"></i>
+                ¿Eres un Experto en Seguridad Digital?
+            </h2>
+            <p class="game-description">Pon a prueba tus conocimientos sobre retos virales peligrosos y aprende a protegerte.</p>
+            
+            <div class="game-container">
+                <div class="game-question" id="question">¿Qué harías si un amigo te invita a participar en un reto viral peligroso?</div>
+                
+                <div class="game-options">
+                    <div class="game-option" data-correct="false">Aceptaría para no quedarme fuera del grupo</div>
+                    <div class="game-option" data-correct="true">Le explicaría los peligros y buscaría ayuda de un adulto</div>
+                    <div class="game-option" data-correct="false">Participaría pero sin tomar fotos como prueba</div>
+                    <div class="game-option" data-correct="false">Lo intentaría una vez para ver qué se siente</div>
+                </div>
+                
+                <div class="game-feedback" id="feedback"></div>
+                <button class="game-next" id="next-btn">Siguiente Pregunta</button>
+                
+                <div class="game-progress">
+                    <div class="game-progress-bar" id="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de prevención -->
+        <div class="prevention-section">
+            <h2 class="prevention-title">
+                <i class="fas fa-shield-alt"></i>
+                Cómo prevenir la participación en retos peligrosos
+            </h2>
+            <div class="prevention-content">
+                <div class="prevention-tip">
+                    <div class="tip-icon-container">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="tip-title">Supervisión activa</h3>
+                    <p class="tip-description">Mantente informado sobre las tendencias en redes sociales y conversa regularmente con los jóvenes sobre los contenidos que consumen.</p>
+                </div>
+                
+                <div class="prevention-tip">
+                    <div class="tip-icon-container">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="tip-title">Comunicación abierta</h3>
+                    <p class="tip-description">Fomenta un ambiente de confianza donde los jóvenes se sientan cómodos compartiendo sus experiencias en línea sin temor a represalias.</p>
+                </div>
+                
+                <div class="prevention-tip">
+                    <div class="tip-icon-container">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="tip-title">Educación crítica</h3>
+                    <p class="tip-description">Enseña a identificar contenido manipulador y a cuestionar la veracidad e intenciones detrás de los retos virales.</p>
+                </div>
+                
+                <div class="prevention-tip">
+                    <div class="tip-icon-container">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3 class="tip-title">Señales de alerta</h3>
+                    <p class="tip-description">Reconoce cambios de comportamiento, aislamiento social o interés repentino en contenidos peligrosos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Juego interactivo
+        const questions = [
+            {
+                question: "¿Qué harías si un amigo te invita a participar en un reto viral peligroso?",
+                options: [
+                    "Aceptaría para no quedarme fuera del grupo",
+                    "Le explicaría los peligros y buscaría ayuda de un adulto",
+                    "Participaría pero sin tomar fotos como prueba",
+                    "Lo intentaría una vez para ver qué se siente"
+                ],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es la mejor forma de ayudar a alguien que está participando en retos peligrosos?",
+                options: [
+                    "Ignorarlo para no empeorar la situación",
+                    "Unirse para demostrar que no es tan peligroso",
+                    "Hablar con un adulto de confianza o consejero escolar",
+                    "Grabarlo y subirlo a redes para alertar a otros"
+                ],
+                correct: 2
+            },
+            {
+                question: "¿Qué característica tienen la mayoría de los retos virales peligrosos?",
+                options: [
+                    "Siempre son fáciles de identificar como peligrosos",
+                    "Empiezan inofensivos y gradualmente se vuelven peligrosos",
+                    "Solo los publican personas malintencionadas",
+                    "Nunca involucran daño físico"
+                ],
+                correct: 1
+            },
+            {
+                question: "Si ves contenido sobre retos peligrosos en redes sociales, ¿qué deberías hacer?",
+                options: [
+                    "Compartirlo para que otros sepan del peligro",
+                    "Guardarlo para mostrárselo a mis amigos",
+                    "Reportar el contenido y bloquear al usuario",
+                    "Ignorarlo y seguir desplazando"
+                ],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionElement = document.getElementById('question');
+        const optionsElements = document.querySelectorAll('.game-option');
+        const feedbackElement = document.getElementById('feedback');
+        const nextButton = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            questionElement.textContent = question.question;
+            
+            optionsElements.forEach((option, index) => {
+                option.textContent = question.options[index];
+                option.dataset.correct = index === question.correct ? 'true' : 'false';
+                option.classList.remove('correct', 'incorrect');
+            });
+            
+            feedbackElement.classList.remove('correct', 'incorrect');
+            feedbackElement.style.display = 'none';
+            nextButton.style.display = 'none';
+            
+            // Actualizar barra de progreso
+            progressBar.style.width = `${((currentQuestion) / questions.length) * 100}%`;
+        }
+
+        function showFeedback(isCorrect) {
+            if (isCorrect) {
+                feedbackElement.textContent = '¡Correcto! Has tomado una decisión segura.';
+                feedbackElement.classList.add('correct');
+                score++;
+            } else {
+                feedbackElement.textContent = 'Incorrecto. Esta opción podría ponerte en peligro.';
+                feedbackElement.classList.add('incorrect');
+            }
+            feedbackElement.style.display = 'block';
+            nextButton.style.display = 'block';
+        }
+
+        // Event listeners para las opciones
+        optionsElements.forEach(option => {
+            option.addEventListener('click', function() {
+                if (this.dataset.correct === 'true') {
+                    this.classList.add('correct');
+                    showFeedback(true);
+                } else {
+                    this.classList.add('incorrect');
+                    // Mostrar también la respuesta correcta
+                    optionsElements.forEach(opt => {
+                        if (opt.dataset.correct === 'true') {
+                            opt.classList.add('correct');
+                        }
+                    });
+                    showFeedback(false);
+                }
+                
+                // Deshabilitar más clicks
+                optionsElements.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                });
+            });
+        });
+
+        // Event listener para el botón siguiente
+        nextButton.addEventListener('click', function() {
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                // Habilitar clicks nuevamente
+                optionsElements.forEach(opt => {
+                    opt.style.pointerEvents = 'auto';
+                });
+                loadQuestion();
+            } else {
+                // Fin del juego
+                questionElement.textContent = `¡Juego completado! Obtuviste ${score} de ${questions.length} respuestas correctas.`;
+                document.querySelector('.game-options').style.display = 'none';
+                feedbackElement.style.display = 'none';
+                nextButton.style.display = 'none';
+                progressBar.style.width = '100%';
+                
+                // Mostrar mensaje final
+                const finalMessage = document.createElement('div');
+                finalMessage.className = 'game-feedback correct';
+                finalMessage.style.display = 'block';
+                finalMessage.textContent = score === questions.length ? 
+                    '¡Excelente! Eres un experto en seguridad digital.' :
+                    'Buen trabajo. Sigue aprendiendo sobre seguridad digital.';
+                document.querySelector('.game-container').appendChild(finalMessage);
+            }
+        });
+
+        // Inicializar el juego
+        loadQuestion();
+
+        // Animación de entrada para los elementos
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.challenge-card, .prevention-tip, .modules-sidebar, .game-section');
+            elements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Interactividad para los botones de navegación
+        const navButtons = document.querySelectorAll('.nav-button');
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Interactividad para los módulos
+        const moduleItems = document.querySelectorAll('.module-item');
+        moduleItems.forEach(item => {
+            item.addEventListener('click', function() {
+                moduleItems.forEach(mod => mod.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Virtual: Seguridad Digital para Jóvenes</title>
+    <link rel="stylesheet" href="css/estilo1.css">
+</head>
+<body>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">CyberZone</div>
+            </div>
+            
+            <button class="nav-button active" onclick="showPage('inicio', this)">
+                <span class="nav-icon">🏠</span> Inicio
+            </button>
+            <button class="nav-button" onclick="showPage('modulo1', this)">
+                <span class="nav-icon">👤</span> Ciudadanía Digital
+            </button>
+            <button class="nav-button" onclick="window.location.href='modulo2.html'">
+                <span class="nav-icon">🔒</span> Privacidad & Datos
+            </button>
+            <button class="nav-button" onclick="showPage('modulo3', this)">
+                <span class="nav-icon">💻</span> Ciberseguridad
+            </button>
+
+            <div class="user-profile">
+                <div class="avatar">
+                    👤
+                </div>
+                <div class="user-info">
+                    <h3>CyberExplorador</h3>
+                    <p>Nivel 3 | 240 XP</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Página Inicio -->
+            <div id="inicio" class="page active">
+                <h1 class="page-title">Aula Virtual: Seguridad Digital para Jóvenes</h1>
+                <p class="page-subtitle">Domina el mundo digital con confianza. Aprende a proteger tu información, identificar riesgos y convertirte en un ciudadano digital responsable.</p>
+                
+                <div class="intro-section">
+                    <div class="intro-icon">🚀</div>
+                    <h2>Tu Aventura Digital Comienza Aquí</h2>
+                    <p>Explora nuestros módulos interactivos diseñados específicamente para jóvenes como tú. Aprende sobre seguridad en redes sociales, protección contra estafas y cómo mantener tu identidad digital segura.</p>
+                    <p>Completa actividades, gana insignias y conviértete en un experto en ciberseguridad.</p>
+                    <button class="cta-button" onclick="showPage('modulo1', document.querySelectorAll('.nav-button')[1])">Comenzar Aventura</button>
+                </div>
+
+                <h2 style="font-size: 32px; margin: 40px 0 20px; color: white; text-align: center;">Tu Progreso</h2>
+                
+                <div class="modules-container">
+                    <!-- Módulo 1 -->
+                    <div class="module" onclick="showPage('modulo1', document.querySelectorAll('.nav-button')[1])">
+                        <div class="module-header">
+                            <h3 class="module-title"><span class="module-icon">👤</span> Módulo 1: Ciudadanía Digital</h3>
+                            <div class="module-progress">
+                                <div class="progress-circle" id="progress-module1">
+                                    <span class="progress-text">25%</span>
+                                </div>
+                                <span>Progreso</span>
+                            </div>
+                        </div>
+                        <div class="topics-list">
+                            <div class="topic not-started">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 1: Identificación de Riesgos</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Tema 1.1: Retos virales peligrosos</span>
+                                        <span class="subtopic">Tema 1.2: Contenido inapropiado</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 2: Comunicación Segura</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Tema 2.1: Cyberbullying</span>
+                                        <span class="subtopic">Tema 2.2: Mensajes ofensivos</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Módulo 2 -->
+                    <div class="module" onclick="window.location.href='modulo2.html'">
+                        <div class="module-header">
+                            <h3 class="module-title"><span class="module-icon">🔒</span> Módulo 2: Privacidad y Datos</h3>
+                            <div class="module-progress">
+                                <div class="progress-circle" id="progress-module2">
+                                    <span class="progress-text">50%</span>
+                                </div>
+                                <span>Progreso</span>
+                            </div>
+                        </div>
+                        <div class="topics-list">
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 1: Protección de Información</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Tema 1.1: Datos personales</span>
+                                        <span class="subtopic">Tema 1.2: Configuración de privacidad</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 2: Huella Digital</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Tema 2.1: Rastro en internet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Módulo 3 -->
+                    <div class="module" onclick="showPage('modulo3', document.querySelectorAll('.nav-button')[3])">
+                        <div class="module-header">
+                            <h3 class="module-title"><span class="module-icon">💻</span> Módulo 3: Ciberseguridad Práctica</h3>
+                            <div class="module-progress">
+                                <div class="progress-circle" id="progress-module3">
+                                    <span class="progress-text">67%</span>
+                                </div>
+                                <span>Progreso</span>
+                            </div>
+                        </div>
+                        <div class="topics-list">
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 1: Contraseñas Seguras</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Tema 1.1: Creación de contraseñas</span>
+                                        <span class="subtopic">Tema 1.2: Gestores de contraseñas</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 2: Autenticación</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Tema 2.1: Verificación en dos pasos</span>
+                                        <span class="subtopic">Tema 2.2: Biometría</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gamification">
+                    <div class="stats-card">
+                        <div class="stats-number" id="modules-completed">2/3</div>
+                        <div class="stats-label">Módulos Completados</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-number" id="topics-completed">5/7</div>
+                        <div class="stats-label">Temas Completados</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-number" id="xp-points">240</div>
+                        <div class="stats-label">Puntos de Experiencia</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página Módulo 1 - Ciudadanía Digital -->
+            <div id="modulo1" class="page">
+                <div class="module1-content">
+                    <div class="module1-header">
+                        <h1 class="module1-title">Módulo 1: Ciudadanía Digital Crítica y Responsable</h1>
+                        <p class="module1-subtitle">Aprende a navegar por el mundo digital de forma segura, identificar contenido peligroso y proteger tu bienestar en línea.</p>
+                    </div>
+
+                    <div class="module1-topics">
+                        <div class="module1-topic" onclick="window.location.href='moduloUno.html'" style="cursor:pointer;">
+                            <div class="module1-topic-icon">🔥</div>
+                            <h3 class="module1-topic-title">Retos Virales</h3>
+                            <p class="module1-topic-description">Identifica contenido peligroso y aprende a protegerte de tendencias virales que pueden poner en riesgo tu seguridad física y mental.</p>
+                        </div>
+                        
+                        <div class="module1-topic" onclick="window.location.href='moduloC.html'" style="cursor:pointer;">
+                           
+                            <div class="module1-topic-icon">💬</div>
+                            <h3 class="module1-topic-title">Comentarios discriminatorios</h3>
+                            <p class="module1-topic-description">Reconoce el cyberbullying, aprende a responder de forma inteligente y protege tu bienestar digital y el de tus amigos.</p>
+                        </div>
+                        
+                        <div class="module1-topic"  onclick="window.location.href='moduloUnoB.html'" style="cursor:pointer;">
+                            <div class="module1-topic-icon">📢</div>
+                            <h3 class="module1-topic-title">Contenido Provocador</h3>
+                            <p class="module1-topic-description">Desarrolla pensamiento crítico para identificar desinformación y contenido diseñado para manipular emociones y opiniones.</p>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    <div class="intro-section">
+                        <h2>¿Listo para continuar?</h2>
+                        <p>Completa las actividades de este módulo para desbloquear el siguiente nivel y ganar puntos de experiencia.</p>
+                        <button class="cta-button" onclick="window.location.href='modulo2.html'">Continuar al Módulo 2</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página Módulo 2 -->
+            <div id="modulo2" class="page">
+                <div class="intro-section">
+                    <div class="intro-icon">🔒</div>
+                    <h2>Módulo 2: Privacidad y Datos</h2>
+                    <p>Descubre cómo proteger tu información personal, configurar correctamente la privacidad en redes sociales y entender el valor de tus datos en el mundo digital.</p>
+                    <p>¡Desbloquea este módulo completando el Módulo 1!</p>
+                    <button class="cta-button" onclick="showPage('modulo1', document.querySelectorAll('.nav-button')[1])">Completar Módulo 1</button>
+                </div>
+            </div>
+
+            <!-- Página Módulo 3 -->
+            <div id="modulo3" class="page">
+                <div class="intro-section">
+                    <div class="intro-icon">💻</div>
+                    <h2>Módulo 3: Ciberseguridad Práctica</h2>
+                    <p>Aprende técnicas avanzadas de protección: desde crear contraseñas seguras hasta identificar intentos de phishing y proteger todos tus dispositivos.</p>
+                    <p>¡Desbloquea este módulo completando el Módulo 2!</p>
+                    <button class="cta-button" onclick="window.location.href='modulo2.html'">Completar Módulo 2</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId, buttonElement) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+            
+            // Actualizar progreso visual
+            if(pageId === 'inicio') {
+                updateProgressBars();
+            }
+        }
+
+        function updateProgressBars() {
+            // Actualizar círculos de progreso
+            const progressModule1 = document.getElementById('progress-module1');
+            const progressModule2 = document.getElementById('progress-module2');
+            const progressModule3 = document.getElementById('progress-module3');
+            
+            // Simular progreso
+            progressModule1.style.background = 'conic-gradient(var(--primary) 25%, rgba(255,255,255,0.1) 0%)';
+            progressModule2.style.background = 'conic-gradient(var(--primary) 50%, rgba(255,255,255,0.1) 0%)';
+            progressModule3.style.background = 'conic-gradient(var(--primary) 67%, rgba(255,255,255,0.1) 0%)';
+        }
+
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgressBars();
+        });
+    </script>
+</body>
+</html>

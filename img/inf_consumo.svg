@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <style>
+    .bg{fill:#0f1724}
+    .card{fill:#fff; stroke:#e2e8f0; stroke-width:2}
+    .title{fill:#0f1724; font-size:28px; font-weight:700}
+    .text{fill:#0f1724; font-size:18px}
+    .accent{fill:#8b5cf6}
+  </style>
+  <rect class="bg" width="800" height="1000"/>
+  <rect x="40" y="40" width="720" height="920" rx="16" class="card"/>
+  <text x="90" y="100" class="title">Consumo Digital Consciente</text>
+  <text x="90" y="150" class="text">1. Verifica la fuente antes de compartir.</text>
+  <text x="90" y="190" class="text">2. Prioriza contenido que aporte valor.</text>
+  <text x="90" y="230" class="text">3. Establece límites de tiempo de uso.</text>
+  <text x="90" y="300" class="title accent">Guía rápida</text>
+  <text x="90" y="340" class="text">• Pregunta: ¿quién hizo esto?</text>
+  <text x="90" y="370" class="text">• Busca corroboración independiente.</text>
+  <text x="90" y="400" class="text">• Evita el consumo pasivo en horas nocturnas.</text>
+</svg>
