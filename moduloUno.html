@@ -172,6 +172,8 @@
             gap: 15px;
         }
 
+        /* module-item styles are provided globally in css/estilo1.css */
+
         .module-item {
             padding: 15px 20px;
             background: rgba(40, 40, 80, 0.5);
@@ -651,29 +653,30 @@
                     Navegación
                 </h2>
                 <div class="modules-list">
-                    <div class="module-item" onclick="window.location.href='index.html#modulo2'">
+                    <a class="module-item" href="index.html#modulo1">
+                        <div class="module-icon">�</div>
+                        <div>
+                            <div style="font-weight:700;">Módulo 1: Ciudadanía Digital</div>
+                            <div style="font-size:13px; color:rgba(255,255,255,0.7)">Retos virales y ciudadanía digital</div>
+                        </div>
+                    </a>
+                    <a class="module-item" href="index.html#modulo2">
                         <div class="module-icon">🔒</div>
                         <div>
                             <div style="font-weight:700;">Módulo 2: Privacidad & Datos</div>
                             <div style="font-size:13px; color:rgba(255,255,255,0.7)">Protección de información y huella digital</div>
                         </div>
-                    </div>
+                    </a>
+                    <a class="module-item" href="index.html#modulo3">
+                        <div class="module-icon">💻</div>
+                        <div>
+                            <div style="font-weight:700;">Módulo 3: Ciberseguridad</div>
+                            <div style="font-size:13px; color:rgba(255,255,255,0.7)">Protección práctica de dispositivos</div>
+                        </div>
+                    </a>
                     <div class="module-item active">
                         <span class="module-icon"><i class="fas fa-home"></i></span>
                         <span>Inicio</span>
-                    </div>
-                    <div class="module-item"onclick="window.location.href='moduloUno.html'" style="cursor:pointer;">
-                        <span class="module-icon"><i class="fas fa-user-shield"></i></span>
-                        <span>Ciudadanía Digital</span>
-                        <button class="cta-button" onclick="window.location.href='index.html#modulo1'">Comenzar Aventura</button>
-                    </div>
-                    <div class="module-item">
-                        <span class="module-icon"><i class="fas fa-lock"></i></span>
-                        <span>Privacidad y Datos</span>
-                    </div>
-                    <div class="module-item">
-                        <span class="module-icon"><i class="fas fa-code"></i></span>
-                        <span>Ciberseguridad</span>
                     </div>
                 </div>
             </div>

@@ -135,6 +135,20 @@
             box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
         }
 
+        /* Support older page that uses .modules-sidebar (moduloUno.html) - make it look like .sidebar */
+        .modules-sidebar {
+            width: 320px;
+            padding: 28px 22px;
+            background: rgba(30, 30, 45, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            border: 2px solid rgba(139, 92, 246, 0.25);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.12), 4px 6px 25px rgba(0,0,0,0.45);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
         .logo {
             display: flex;
             align-items: center;
@@ -297,6 +311,115 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             animation: fadeIn 0.8s ease-out;
         }
+
+            /* Ensure anchor-based module items inherit the intended style and look like pills */
+            .modules-list a.module-item,
+            .modules-list .module-item {
+                padding: 14px 18px;
+                background: rgba(34, 34, 56, 0.6);
+                border-radius: 12px;
+                transition: all 0.25s ease;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: white;
+                text-decoration: none;
+                border: 1px solid rgba(255,255,255,0.03);
+                box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+            }
+
+            .modules-list a.module-item .module-icon,
+            .modules-list .module-item .module-icon {
+                width: 42px;
+                height: 42px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+                background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(0,0,0,0.06));
+                font-size: 18px;
+                color: var(--secondary);
+            }
+
+            .modules-list a.module-item .module-body,
+            .modules-list .module-item .module-body {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .modules-list a.module-item .module-title,
+            .modules-list .module-item .module-title { font-weight:700; color:inherit; }
+
+            /* Active / highlighted pill (like the screenshot) */
+            .modules-list .module-item.active,
+            .modules-list a.module-item.active {
+                background: linear-gradient(90deg, rgba(99,102,241,0.18), rgba(139,92,246,0.12));
+                border-color: rgba(139,92,246,0.45);
+                box-shadow: 0 8px 20px rgba(139,92,246,0.12), inset 0 0 0 1px rgba(255,255,255,0.02);
+                color: #fff;
+            }
+
+            .modules-list .module-item.active .module-icon,
+            .modules-list a.module-item.active .module-icon {
+                background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(99,102,241,0.06));
+                color: #111;
+            }
+
+            /* Small CTA inside a module item (e.g. "Comenzar Aventura") */
+            .modules-list .module-item .small-cta {
+                margin-left: auto;
+                padding: 8px 10px;
+                background: #fff;
+                color: #222;
+                border-radius: 6px;
+                font-weight: 700;
+                font-size: 13px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            }
+
+            /* Scoped overrides for moduloUno.html sidebar so Module 2 remains unaffected */
+            .modules-sidebar .modules-list a.module-item,
+            .modules-sidebar .modules-list .module-item {
+                padding: 16px 18px;
+                background: rgba(48, 46, 66, 0.75);
+                border-radius: 14px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: white;
+                text-decoration: none;
+                border: 1px solid rgba(0,0,0,0.12);
+                box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+            }
+
+            .modules-sidebar .modules-list a.module-item .module-icon,
+            .modules-sidebar .modules-list .module-item .module-icon {
+                width: 46px;
+                height: 46px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 12px;
+                background: rgba(255,255,255,0.03);
+                font-size: 18px;
+                color: var(--secondary);
+            }
+
+            .modules-sidebar .modules-list .module-item.active,
+            .modules-sidebar .modules-list a.module-item.active {
+                background: linear-gradient(90deg, rgba(99,102,241,0.15), rgba(139,92,246,0.12));
+                border-color: rgba(139,92,246,0.45);
+                box-shadow: 0 10px 30px rgba(139,92,246,0.12);
+            }
+
+            .modules-sidebar .modules-list .module-item.active .module-icon,
+            .modules-sidebar .modules-list a.module-item.active .module-icon {
+                background: linear-gradient(135deg, rgba(139,92,246,0.14), rgba(99,102,241,0.06));
+                color: #111;
+            }
+
+            .modules-list a.module-item .module-subtitle,
+            .modules-list .module-item .module-subtitle { font-size:13px; color:rgba(255,255,255,0.7); }
 
         .module:hover {
             border-color: var(--primary);
