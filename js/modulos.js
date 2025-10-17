@@ -1,5 +1,53 @@
 // Shared module helpers for quizzes, certificates and SVG conversion
 (function() {
+    // state for modal accessibility
+    let _lastFocusedElement = null;
+    let _keydownHandler = null;
+    const STATS_KEY = 'miniGameStats_v1';
+
+    function loadStats() {
+        try { return JSON.parse(localStorage.getItem(STATS_KEY) || '{}'); } catch(e){ return {}; }
+    }
+    function saveStats(s){ try { localStorage.setItem(STATS_KEY, JSON.stringify(s)); } catch(e){} }
+    function incStat(gameId, field, by=1){ const s = loadStats(); s[gameId] = s[gameId] || {opens:0, attempts:0, successes:0}; s[gameId][field] = (s[gameId][field]||0) + by; saveStats(s); return s[gameId]; }
+    function resetStats(gameId){ const s = loadStats(); if (gameId) { delete s[gameId]; } else { for(const k in s) delete s[k]; } saveStats(s); }
+
+    function showToast(msg, timeout=3500){
+        const existing = document.getElementById('mini-toast');
+        if (existing) existing.remove();
+        const t = document.createElement('div');
+        t.id = 'mini-toast';
+        t.textContent = msg;
+        t.style.position = 'fixed';
+        t.style.right = '16px';
+        t.style.bottom = '16px';
+        t.style.background = 'rgba(15,23,36,0.95)';
+        t.style.color = '#fff';
+        t.style.padding = '10px 14px';
+        t.style.borderRadius = '10px';
+        t.style.boxShadow = '0 6px 18px rgba(0,0,0,0.4)';
+        t.style.zIndex = 10000;
+        document.body.appendChild(t);
+        setTimeout(()=>{ t.style.transition='opacity 300ms'; t.style.opacity='0'; setTimeout(()=>t.remove(),300); }, timeout);
+    }
+
+    function showModalMessage(message, success){
+        const feedback = document.getElementById('mini-game-feedback');
+        if (!feedback) return showToast(message);
+        feedback.textContent = message;
+        feedback.className = 'game-feedback ' + (success ? 'correct' : 'incorrect');
+        feedback.style.display = 'block';
+    }
+
+    function renderStatsInModal(gameId){
+        const statsEl = document.getElementById('mini-game-stats');
+        if (!statsEl) return;
+        const all = loadStats();
+        const g = all[gameId] || {opens:0, attempts:0, successes:0};
+        statsEl.innerHTML = `<div style="font-size:13px;color:#ddd">Abierto: <strong>${g.opens}</strong> · Intentos: <strong>${g.attempts}</strong> · Éxitos: <strong>${g.successes}</strong></div><div style="margin-top:6px;text-align:right;"><button id="mini-reset-stats" class="action-button" style="background:rgba(255,255,255,0.06);">Resetear estadísticas</button></div>`;
+        const resetBtn = document.getElementById('mini-reset-stats');
+        if (resetBtn) resetBtn.addEventListener('click', ()=>{ resetStats(gameId); renderStatsInModal(gameId); showModalMessage('Estadísticas reiniciadas.', true); });
+    }
     // Grade a quiz block
     function gradeQuiz(quizId, answers) {
         const quizEl = document.getElementById(quizId);
@@ -53,8 +101,8 @@
             }
         });
 
-        const pct = total ? Math.round((correct/total)*100) : 0;
-        alert(`Resultado global: ${correct} de ${total} correctas (${pct}%).`);
+    const pct = total ? Math.round((correct/total)*100) : 0;
+    showToast(`Resultado global: ${correct} de ${total} correctas (${pct}%).`);
         const studentNameEl = document.getElementById('student-name') || document.getElementById('student-name-m2');
         const studentName = (studentNameEl && studentNameEl.value) ? studentNameEl.value : 'Estudiante';
         generateCertificatePNG(studentName, pct);
@@ -146,12 +194,212 @@
         }).catch(()=> alert('No se pudo descargar la infografía'));
     }
 
+    // --- Mini-game modal helpers (create modal on demand so it's available across pages)
+    function createMiniGameModalIfNeeded() {
+        let modal = document.getElementById('mini-game-modal');
+        if (modal) return modal;
+        modal = document.createElement('div');
+        modal.id = 'mini-game-modal';
+        modal.style.display = 'none';
+        modal.style.position = 'fixed';
+        modal.style.inset = '0';
+        modal.style.background = 'rgba(0,0,0,0.6)';
+        modal.style.alignItems = 'center';
+        modal.style.justifyContent = 'center';
+        modal.style.zIndex = '9999';
+
+        const box = document.createElement('div');
+        box.style.background = '#0b1220';
+        box.style.color = '#fff';
+        box.style.padding = '18px';
+        box.style.borderRadius = '12px';
+        box.style.width = 'min(720px,95%)';
+        box.style.boxShadow = '0 20px 60px rgba(0,0,0,0.6)';
+
+        const header = document.createElement('div');
+        header.style.display = 'flex';
+        header.style.justifyContent = 'space-between';
+        header.style.alignItems = 'center';
+        header.style.gap = '8px';
+
+        const h3 = document.createElement('h3');
+        h3.id = 'mini-game-title';
+        h3.style.margin = '0';
+        h3.textContent = 'Mini-juego';
+
+    const closeBtn = document.createElement('button');
+    closeBtn.id = 'mini-game-close';
+    closeBtn.innerText = '✕';
+    closeBtn.setAttribute('aria-label','Cerrar diálogo');
+        closeBtn.style.background = 'transparent';
+        closeBtn.style.border = 'none';
+        closeBtn.style.color = '#fff';
+        closeBtn.style.fontSize = '20px';
+        closeBtn.style.cursor = 'pointer';
+        closeBtn.addEventListener('click', closeMiniGame);
+
+        header.appendChild(h3);
+        header.appendChild(closeBtn);
+
+    const body = document.createElement('div');
+    body.id = 'mini-game-body';
+    body.style.marginTop = '12px';
+    body.style.color = '#ddd';
+    body.setAttribute('role','region');
+    body.setAttribute('aria-live','polite');
+
+    const feedback = document.createElement('div');
+    feedback.id = 'mini-game-feedback';
+    feedback.className = 'game-feedback';
+    feedback.style.display = 'none';
+    feedback.style.marginTop = '12px';
+
+    const stats = document.createElement('div');
+    stats.id = 'mini-game-stats';
+    stats.style.marginTop = '12px';
+
+        const footer = document.createElement('div');
+        footer.style.marginTop = '16px';
+        footer.style.textAlign = 'right';
+        const footerClose = document.createElement('button');
+        footerClose.className = 'action-button';
+        footerClose.innerText = 'Cerrar';
+        footerClose.addEventListener('click', closeMiniGame);
+        footer.appendChild(footerClose);
+
+    box.appendChild(header);
+    box.appendChild(body);
+    box.appendChild(feedback);
+    box.appendChild(stats);
+    box.appendChild(footer);
+    // Accessibility: link dialog to title/body
+    modal.setAttribute('role','dialog');
+    modal.setAttribute('aria-modal','true');
+    modal.setAttribute('aria-labelledby','mini-game-title');
+    modal.setAttribute('aria-describedby','mini-game-body');
+        // close when clicking on backdrop
+        modal.addEventListener('click', function(e){ if (e.target === modal) closeMiniGame(); });
+
+        modal.appendChild(box);
+        document.body.appendChild(modal);
+        return modal;
+    }
+
+    function openMiniGame(id) {
+        const modal = createMiniGameModalIfNeeded();
+        const title = document.getElementById('mini-game-title');
+        const body = document.getElementById('mini-game-body');
+        if (!title || !body) return;
+        // save focus and prepare keyboard handling
+        _lastFocusedElement = document.activeElement;
+        // attach keydown handler to manage Escape and Tab trap
+        _keydownHandler = function(e) {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                closeMiniGame();
+                return;
+            }
+            if (e.key === 'Tab') {
+                // focus trap
+                const focusable = modal.querySelectorAll('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])');
+                const nodes = Array.prototype.filter.call(focusable, function(el){ return el.offsetWidth || el.offsetHeight || el.getClientRects().length; });
+                if (nodes.length === 0) return;
+                const first = nodes[0];
+                const last = nodes[nodes.length-1];
+                if (e.shiftKey) {
+                    if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+                } else {
+                    if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+                }
+            }
+        };
+        document.addEventListener('keydown', _keydownHandler);
+    // increment open counter and render stats
+    try { incStat(id,'opens'); } catch(e){}
+    if (id === 'game-password') {
+            title.textContent = 'Fortalece tu contraseña';
+            body.innerHTML = '<ol><li>Evita palabras comunes o patrones.</li><li>Usa frases largas y únicas.</li><li>Activa 2FA cuando sea posible.</li></ol><p>Selecciona las 3 recomendaciones correctas:</p><div><label><input type="checkbox" value="1"> Usar "12345" (malo)</label><br><label><input type="checkbox" value="2"> Usar frase larga con espacios (bueno)</label><br><label><input type="checkbox" value="3"> Reusar la misma contraseña en varias cuentas (malo)</label><br><label><input type="checkbox" value="4"> Usar un gestor de contraseñas (bueno)</label></div><div style="margin-top:12px;text-align:right;"><button class="action-button" id="mini-check-password">Comprobar</button></div>';
+            // attach handler
+            setTimeout(()=>{
+                const btn = document.getElementById('mini-check-password');
+                if (btn) btn.addEventListener('click', checkPasswordGame);
+                renderStatsInModal('game-password');
+            }, 0);
+        } else if (id === 'game-wifi') {
+            title.textContent = 'Wi‑Fi Seguro';
+            body.innerHTML = '<p>Elige la opción más segura al conectarte a una red pública:</p><ul><li>No realizar operaciones sensibles sin VPN.</li><li>Conectarse siempre a cualquier red abierta.</li><li>Compartir archivos libremente.</li></ul><div style="margin-top:12px;text-align:right;"><button class="action-button" id="mini-check-wifi">Comprobar</button></div>';
+            setTimeout(()=>{
+                const btn = document.getElementById('mini-check-wifi');
+                if (btn) btn.addEventListener('click', checkWifiGame);
+                renderStatsInModal('game-wifi');
+            }, 0);
+        } else if (id === 'game-consumo') {
+            title.textContent = 'Consumo digital consciente';
+            body.innerHTML = '<p>Encuentra la afirmación más fiable entre las siguientes:</p><ul><li>Una noticia sin fuente es probablemente falsa.</li><li>Una publicación con muchos likes siempre es verdadera.</li><li>Si viene de un familiar, se puede compartir sin verificar.</li></ul><div style="margin-top:12px;text-align:right;"><button class="action-button" id="mini-check-consumo">Comprobar</button></div>';
+            setTimeout(()=>{ const b = document.getElementById('mini-check-consumo'); if (b) b.addEventListener('click', ()=>{ incStat('game-consumo','attempts'); incStat('game-consumo','successes'); renderStatsInModal('game-consumo'); showModalMessage('Correcto: verificar fuentes. Los likes no garantizan veracidad. Confirma antes de compartir.', true); }); },0);
+        } else if (id === 'game-malware') {
+            title.textContent = 'Detecta malware';
+            body.innerHTML = '<p>Selecciona las acciones que ayudan a evitar malware:</p><ul><li>Descargar software desde la web oficial.</li><li>Ignorar actualizaciones del sistema.</li><li>Instalar extensiones desde tiendas oficiales.</li></ul><div style="margin-top:12px;text-align:right;"><button class="action-button" id="mini-check-malware">Comprobar</button></div>';
+            setTimeout(()=>{ const b = document.getElementById('mini-check-malware'); if (b) b.addEventListener('click', ()=>{ incStat('game-malware','attempts'); incStat('game-malware','successes'); renderStatsInModal('game-malware'); showModalMessage('Correcto: usar fuentes oficiales, mantener actualizado el sistema y evitar software pirateado.', true); }); },0);
+        } else if (id === 'game-pseudo') {
+            title.textContent = 'Verifica la fuente';
+            body.innerHTML = '<p>¿Qué pasos debes seguir para validar una afirmación científica?</p><ol><li>Buscar la fuente original y su evidencia.</li><li>Verificar si hay consenso científico.</li><li>Consultar fact-checkers y fuentes oficiales.</li></ol><div style="margin-top:12px;text-align:right;"><button class="action-button" id="mini-check-pseudo">Comprobar</button></div>';
+            setTimeout(()=>{ const b = document.getElementById('mini-check-pseudo'); if (b) b.addEventListener('click', ()=>{ incStat('game-pseudo','attempts'); incStat('game-pseudo','successes'); renderStatsInModal('game-pseudo'); showModalMessage('Correcto: busca evidencia, revisa fuentes confiables y evita compartir sin verificar.', true); }); },0);
+        } else {
+            title.textContent = 'Mini-juego';
+            body.textContent = 'Actividad no encontrada.';
+        }
+        modal.style.display = 'flex';
+        // set accessibility attributes and focus
+        modal.setAttribute('role','dialog');
+        modal.setAttribute('aria-modal','true');
+        modal.tabIndex = -1;
+        // focus the close button if present, otherwise the modal container
+        setTimeout(()=>{
+            const c = document.getElementById('mini-game-close');
+            if (c) c.focus(); else modal.focus();
+        },50);
+    }
+
+    function closeMiniGame() {
+        const modal = document.getElementById('mini-game-modal');
+        if (modal) modal.style.display = 'none';
+        // remove keyboard handler and restore focus
+        if (_keydownHandler) {
+            document.removeEventListener('keydown', _keydownHandler);
+            _keydownHandler = null;
+        }
+        if (_lastFocusedElement && typeof _lastFocusedElement.focus === 'function') {
+            try { _lastFocusedElement.focus(); } catch(e) {}
+            _lastFocusedElement = null;
+        }
+    }
+
+    function checkPasswordGame() {
+        incStat('game-password','attempts');
+        incStat('game-password','successes');
+        renderStatsInModal('game-password');
+        showModalMessage('Has verificado las recomendaciones. Correcto: usar frase larga, usar gestor y activar 2FA.', true);
+    }
+
+    function checkWifiGame() {
+        incStat('game-wifi','attempts');
+        incStat('game-wifi','successes');
+        renderStatsInModal('game-wifi');
+        showModalMessage('Correcto: no realizar operaciones sensibles en redes públicas y usar VPN.', true);
+    }
+
     // Expose to global scope
     window.gradeQuiz = gradeQuiz;
     window.gradeAllAndGenerate = gradeAllAndGenerate;
     window.generateCertificatePNG = generateCertificatePNG;
     window.downloadInlineSvgAsPng = downloadInlineSvgAsPng;
     window.downloadInlineSvgAsPngFromUrl = downloadInlineSvgAsPngFromUrl;
+    // Mini-game globals
+    window.openMiniGame = openMiniGame;
+    window.closeMiniGame = closeMiniGame;
+    window.checkPasswordGame = checkPasswordGame;
+    window.checkWifiGame = checkWifiGame;
 
     // Attach default listeners when DOM ready
     document.addEventListener('DOMContentLoaded', function() {

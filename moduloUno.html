@@ -651,7 +651,7 @@
                     Navegación
                 </h2>
                 <div class="modules-list">
-                    <div class="module-item" onclick="document.getElementById('modulo2-content').scrollIntoView({behavior:'smooth'})">
+                    <div class="module-item" onclick="window.location.href='index.html#modulo2'">
                         <div class="module-icon">🔒</div>
                         <div>
                             <div style="font-weight:700;">Módulo 2: Privacidad & Datos</div>
@@ -759,8 +759,8 @@
                         </h2>
                         <p style="color:rgba(255,255,255,0.85)">Protege tu información, aprende sobre huella digital y gestión segura de contraseñas. Contenido interactivo y recursos prácticos.</p>
                         <div style="margin-top:12px; display:flex; gap:10px;">
-                            <a href="#modulo2-content" class="action-button">Abrir Módulo 2</a>
-                            <a href="modulo2.html" class="action-button" style="background:rgba(255,255,255,0.06)">Abrir en página separada</a>
+                            <a href="index.html#modulo2" class="action-button">Abrir Módulo 2</a>
+                            <a href="index.html#modulo2" class="action-button" style="background:rgba(255,255,255,0.06)">Abrir en nueva pestaña</a>
                         </div>
                     </div>
                 </div>
@@ -840,13 +840,15 @@
 
             <!-- Infografías compactas -->
             <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap;">
-                <div style="flex:1 1 220px; background:#071029; padding:12px; border-radius:10px;">
-                    <h4 style="color:white;">Infografía: Contraseñas</h4>
-                    <img src="img/inf_contrasenas.svg" alt="contraseñas" style="width:100%; border-radius:8px; background:#fff;">
+                <div style="flex:1 1 220px; background:#071029; padding:12px; border-radius:10px; display:flex; flex-direction:column; gap:8px; align-items:stretch;">
+                    <h4 style="color:white; margin:0;">Mini-juego: Fortalece tu contraseña</h4>
+                    <p style="color:#ddd; font-size:14px;">Encuentra 3 recomendaciones para mejorar una contraseña débil.</p>
+                    <button class="action-button" onclick="openMiniGame('game-password')" style="align-self:center; padding:8px 12px;">Jugar ahora</button>
                 </div>
-                <div style="flex:1 1 220px; background:#071029; padding:12px; border-radius:10px;">
-                    <h4 style="color:white;">Infografía: Wi‑Fi</h4>
-                    <img src="img/inf_wifi.svg" alt="wifi" style="width:100%; border-radius:8px; background:#fff;">
+                <div style="flex:1 1 220px; background:#071029; padding:12px; border-radius:10px; display:flex; flex-direction:column; gap:8px; align-items:stretch;">
+                    <h4 style="color:white; margin:0;">Mini-juego: Wi‑Fi seguro</h4>
+                    <p style="color:#ddd; font-size:14px;">Responde las preguntas rápidas sobre redes públicas y cómo protegerte.</p>
+                    <button class="action-button" onclick="openMiniGame('game-wifi')" style="align-self:center; padding:8px 12px;">Jugar ahora</button>
                 </div>
             </div>
         </div>
@@ -1150,5 +1152,6 @@
         // Certificate generation provided by shared js/modulos.js
     </script>
     <script src="js/modulos.js"></script>
+    <!-- Modal created dynamically by js/modulos.js -->
 </body>
 </html>

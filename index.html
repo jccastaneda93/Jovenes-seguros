@@ -232,6 +232,34 @@
                         
                         
                     </div>
+                    <!-- Mini-juegos accesibles desde Módulo 1 -->
+                    <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+                        <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:12px; border-radius:10px; width:220px;">
+                            <h4 style="margin:0; color:#fff;">Mini-juego: Consumo</h4>
+                            <p style="color:#ddd; font-size:13px;">Práctica rápida para verificar fuentes.</p>
+                            <button class="action-button" onclick="openMiniGame('game-consumo')" style="margin-top:8px;">Jugar</button>
+                        </div>
+                        <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:12px; border-radius:10px; width:220px;">
+                            <h4 style="margin:0; color:#fff;">Mini-juego: Contraseñas</h4>
+                            <p style="color:#ddd; font-size:13px;">Fortalece tus credenciales.</p>
+                            <button class="action-button" onclick="openMiniGame('game-password')" style="margin-top:8px;">Jugar</button>
+                        </div>
+                        <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:12px; border-radius:10px; width:220px;">
+                            <h4 style="margin:0; color:#fff;">Mini-juego: Wi‑Fi</h4>
+                            <p style="color:#ddd; font-size:13px;">Protege tu conexión en público.</p>
+                            <button class="action-button" onclick="openMiniGame('game-wifi')" style="margin-top:8px;">Jugar</button>
+                        </div>
+                        <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:12px; border-radius:10px; width:220px;">
+                            <h4 style="margin:0; color:#fff;">Mini-juego: Detecta malware</h4>
+                            <p style="color:#ddd; font-size:13px;">Decisiones para evitar infecciones.</p>
+                            <button class="action-button" onclick="openMiniGame('game-malware')" style="margin-top:8px;">Jugar</button>
+                        </div>
+                        <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:12px; border-radius:10px; width:220px;">
+                            <h4 style="margin:0; color:#fff;">Mini-juego: Verifica</h4>
+                            <p style="color:#ddd; font-size:13px;">Aprende a revisar evidencia.</p>
+                            <button class="action-button" onclick="openMiniGame('game-pseudo')" style="margin-top:8px;">Jugar</button>
+                        </div>
+                    </div>
                     
                     <div class="intro-section">
                         <h2>¿Listo para continuar?</h2>
@@ -484,80 +512,34 @@
                         <h3>Infografías</h3>
                         <p>Puedes descargar las infografías en SVG o PNG. Si estás abriendo el archivo localmente, la conversión a PNG funciona sin servidor.</p>
                         <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start;">
-
-                            <div style="width:240px; padding:8px; background:#0f1724; border-radius:8px;">
-                                <!-- Inline SVG: inf_consumo -->
-                                <svg id="inf-consumo-svg" xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" style="width:100%; background:#fff; border-radius:6px;">
-                                  <style>.bg{fill:#0f1724}.card{fill:#fff;stroke:#e2e8f0;stroke-width:2}.title{fill:#0f1724;font-size:28px;font-weight:700}.text{fill:#0f1724;font-size:18px}.accent{fill:#8b5cf6}</style>
-                                  <rect class="bg" width="800" height="1000"/>
-                                  <rect x="40" y="40" width="720" height="920" rx="16" class="card"/>
-                                  <text x="90" y="100" class="title">Consumo Digital Consciente</text>
-                                  <text x="90" y="150" class="text">1. Verifica la fuente antes de compartir.</text>
-                                  <text x="90" y="190" class="text">2. Prioriza contenido que aporte valor.</text>
-                                  <text x="90" y="230" class="text">3. Establece límites de tiempo de uso.</text>
-                                </svg>
-                                <a href="img/inf_consumo.svg" download="inf_consumo.svg" style="display:block; margin-top:6px; color:var(--secondary);">Descargar SVG</a>
-                                <button onclick="downloadInlineSvgAsPng(document.getElementById('inf-consumo-svg'), 'inf_consumo.png')" style="display:block; margin-top:6px; background:#2563eb; color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer;">Descargar PNG</button>
+                            <div style="width:240px; padding:12px; background:#0f1724; border-radius:8px;">
+                                <h4 style="margin:0; color:#fff;">Mini-juego: Consumo consciente</h4>
+                                <p style="color:#ddd; font-size:13px;">Encuentra la afirmación más fiable.</p>
+                                <button class="action-button" onclick="openMiniGame('game-consumo')" style="margin-top:8px;">Jugar</button>
                             </div>
 
-                            <div style="width:240px; padding:8px; background:#0f1724; border-radius:8px;">
-                                <!-- Inline SVG: inf_contrasenas -->
-                                <svg id="inf-contrasenas-svg" xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" style="width:100%; background:#fff; border-radius:6px;">
-                                  <style>.bg{fill:#0f1724}.card{fill:#fff;stroke:#e2e8f0;stroke-width:2}.title{fill:#0f1724;font-size:28px;font-weight:700}.text{fill:#0f1724;font-size:18px}</style>
-                                  <rect class="bg" width="800" height="1000"/>
-                                  <rect x="40" y="40" width="720" height="920" rx="16" class="card"/>
-                                  <text x="90" y="100" class="title">Gestión de Contraseñas</text>
-                                  <text x="90" y="150" class="text">• Usa contraseñas únicas y largas.</text>
-                                  <text x="90" y="180" class="text">• Usa un gestor de contraseñas confiable.</text>
-                                  <text x="90" y="210" class="text">• Activa autenticación de dos factores (2FA).</text>
-                                </svg>
-                                <a href="img/inf_contrasenas.svg" download="inf_contrasenas.svg" style="display:block; margin-top:6px; color:var(--secondary);">Descargar SVG</a>
-                                <button onclick="downloadInlineSvgAsPng(document.getElementById('inf-contrasenas-svg'), 'inf_contrasenas.png')" style="display:block; margin-top:6px; background:#2563eb; color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer;">Descargar PNG</button>
+                            <div style="width:240px; padding:12px; background:#0f1724; border-radius:8px;">
+                                <h4 style="margin:0; color:#fff;">Mini-juego: Contraseñas seguras</h4>
+                                <p style="color:#ddd; font-size:13px;">Arma una contraseña más segura.</p>
+                                <button class="action-button" onclick="openMiniGame('game-password')" style="margin-top:8px;">Jugar</button>
                             </div>
 
-                            <div style="width:240px; padding:8px; background:#0f1724; border-radius:8px;">
-                                <!-- Inline SVG: inf_malware -->
-                                <svg id="inf-malware-svg" xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" style="width:100%; background:#fff; border-radius:6px;">
-                                  <style>.bg{fill:#0f1724}.card{fill:#fff;stroke:#e2e8f0;stroke-width:2}.title{fill:#0f1724;font-size:28px;font-weight:700}.text{fill:#0f1724;font-size:18px}</style>
-                                  <rect class="bg" width="800" height="1000"/>
-                                  <rect x="40" y="40" width="720" height="920" rx="16" class="card"/>
-                                  <text x="90" y="100" class="title">Protección contra Malware</text>
-                                  <text x="90" y="150" class="text">• Descarga sólo de fuentes oficiales.</text>
-                                  <text x="90" y="180" class="text">• Mantén el antivirus y el sistema actualizado.</text>
-                                  <text x="90" y="210" class="text">• Evita ejecutar archivos desconocidos.</text>
-                                </svg>
-                                <a href="img/inf_malware.svg" download="inf_malware.svg" style="display:block; margin-top:6px; color:var(--secondary);">Descargar SVG</a>
-                                <button onclick="downloadInlineSvgAsPng(document.getElementById('inf-malware-svg'), 'inf_malware.png')" style="display:block; margin-top:6px; background:#2563eb; color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer;">Descargar PNG</button>
+                            <div style="width:240px; padding:12px; background:#0f1724; border-radius:8px;">
+                                <h4 style="margin:0; color:#fff;">Mini-juego: Detecta malware</h4>
+                                <p style="color:#ddd; font-size:13px;">Decide qué acciones evitar para proteger tu equipo.</p>
+                                <button class="action-button" onclick="openMiniGame('game-malware')" style="margin-top:8px;">Jugar</button>
                             </div>
 
-                            <div style="width:240px; padding:8px; background:#0f1724; border-radius:8px;">
-                                <!-- Inline SVG: inf_pseudo -->
-                                <svg id="inf-pseudo-svg" xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" style="width:100%; background:#fff; border-radius:6px;">
-                                  <style>.bg{fill:#0f1724}.card{fill:#fff;stroke:#e2e8f0;stroke-width:2}.title{fill:#0f1724;font-size:28px;font-weight:700}.text{fill:#0f1724;font-size:18px}</style>
-                                  <rect class="bg" width="800" height="1000"/>
-                                  <rect x="40" y="40" width="720" height="920" rx="16" class="card"/>
-                                  <text x="90" y="100" class="title">Detectar Pseudociencia</text>
-                                  <text x="90" y="150" class="text">• Busca evidencia y fuentes confiables.</text>
-                                  <text x="90" y="180" class="text">• Desconfía de testimonios sin datos.</text>
-                                  <text x="90" y="210" class="text">• Verifica la autoría y afiliaciones.</text>
-                                </svg>
-                                <a href="img/inf_pseudo.svg" download="inf_pseudo.svg" style="display:block; margin-top:6px; color:var(--secondary);">Descargar SVG</a>
-                                <button onclick="downloadInlineSvgAsPng(document.getElementById('inf-pseudo-svg'), 'inf_pseudo.png')" style="display:block; margin-top:6px; background:#2563eb; color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer;">Descargar PNG</button>
+                            <div style="width:240px; padding:12px; background:#0f1724; border-radius:8px;">
+                                <h4 style="margin:0; color:#fff;">Mini-juego: Verifica la fuente</h4>
+                                <p style="color:#ddd; font-size:13px;">Decide si una noticia necesita verificación.</p>
+                                <button class="action-button" onclick="openMiniGame('game-pseudo')" style="margin-top:8px;">Jugar</button>
                             </div>
 
-                            <div style="width:240px; padding:8px; background:#0f1724; border-radius:8px;">
-                                <!-- Inline SVG: inf_wifi -->
-                                <svg id="inf-wifi-svg" xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" style="width:100%; background:#fff; border-radius:6px;">
-                                  <style>.bg{fill:#0f1724}.card{fill:#fff;stroke:#e2e8f0;stroke-width:2}.title{fill:#0f1724;font-size:28px;font-weight:700}.text{fill:#0f1724;font-size:18px}</style>
-                                  <rect class="bg" width="800" height="1000"/>
-                                  <rect x="40" y="40" width="720" height="920" rx="16" class="card"/>
-                                  <text x="90" y="100" class="title">Uso Seguro de Wi‑Fi Pública</text>
-                                  <text x="90" y="150" class="text">• Evita transacciones sensibles en redes abiertas.</text>
-                                  <text x="90" y="180" class="text">• Usa VPN y verifica la SSID correcta.</text>
-                                  <text x="90" y="210" class="text">• Desactiva el uso compartido de archivos.</text>
-                                </svg>
-                                <a href="img/inf_wifi.svg" download="inf_wifi.svg" style="display:block; margin-top:6px; color:var(--secondary);">Descargar SVG</a>
-                                <button onclick="downloadInlineSvgAsPng(document.getElementById('inf-wifi-svg'), 'inf_wifi.png')" style="display:block; margin-top:6px; background:#2563eb; color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer;">Descargar PNG</button>
+                            <div style="width:240px; padding:12px; background:#0f1724; border-radius:8px;">
+                                <h4 style="margin:0; color:#fff;">Mini-juego: Wi‑Fi Seguro</h4>
+                                <p style="color:#ddd; font-size:13px;">Prácticas para mantener tu conexión segura.</p>
+                                <button class="action-button" onclick="openMiniGame('game-wifi')" style="margin-top:8px;">Jugar</button>
                             </div>
 
                         </div>
