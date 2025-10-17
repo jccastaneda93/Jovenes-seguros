@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aula Virtual: Seguridad Digital para Jóvenes</title>
     <link rel="stylesheet" href="css/estilo1.css">
+    <style>
+        /* Estilos específicos para Módulo 2 - mejoras visuales accesibles */
+        .fun { transition: box-shadow 400ms ease, transform 300ms ease; }
+        .fun:hover { box-shadow: var(--neon-glow); transform: translateY(-6px); }
+
+        .toggle-btn[aria-expanded="true"] { outline: 3px solid rgba(139,92,246,0.18); }
+
+        .quiz button { margin-top:10px; }
+
+        /* Respetar preferencias de movimiento reducido */
+        @media (prefers-reduced-motion: reduce) {
+            .fun, .quiz button, .toggle-btn { transition: none !important; transform: none !important; }
+        }
+    </style>
 </head>
 <body>
     <div class="particles">
@@ -32,11 +46,7 @@
             <button class="nav-button" onclick="showPage('modulo1', this)">
                 <span class="nav-icon">👤</span> Ciudadanía Digital
             </button>
-<<<<<<< HEAD
-            <button class="nav-button" onclick="window.location.href='modulo2.html'">
-=======
             <button class="nav-button" onclick="showPage('modulo2', this)">
->>>>>>> f6c32322f72fb6f8c0e1489e63b1d252e90d2a89
                 <span class="nav-icon">🔒</span> Privacidad & Datos
             </button>
             <button class="nav-button" onclick="showPage('modulo3', this)">
@@ -107,11 +117,7 @@
                     </div>
 
                     <!-- Módulo 2 -->
-<<<<<<< HEAD
-                    <div class="module" onclick="window.location.href='modulo2.html'">
-=======
                     <div class="module" onclick="showPage('modulo2', document.querySelectorAll('.nav-button')[2])">
->>>>>>> f6c32322f72fb6f8c0e1489e63b1d252e90d2a89
                         <div class="module-header">
                             <h3 class="module-title"><span class="module-icon">🔒</span> Módulo 2: Privacidad y Datos</h3>
                             <div class="module-progress">
@@ -230,24 +236,375 @@
                     <div class="intro-section">
                         <h2>¿Listo para continuar?</h2>
                         <p>Completa las actividades de este módulo para desbloquear el siguiente nivel y ganar puntos de experiencia.</p>
-<<<<<<< HEAD
-                        <button class="cta-button" onclick="window.location.href='modulo2.html'">Continuar al Módulo 2</button>
-=======
                         <button class="cta-button" onclick="showPage('modulo2', document.querySelectorAll('.nav-button')[2])">Continuar al Módulo 2</button>
->>>>>>> f6c32322f72fb6f8c0e1489e63b1d252e90d2a89
                     </div>
                 </div>
             </div>
 
-            <!-- Página Módulo 2 -->
+            <!-- Página Módulo 2 (integrado) -->
             <div id="modulo2" class="page">
-                <div class="intro-section">
-                    <div class="intro-icon">🔒</div>
-                    <h2>Módulo 2: Privacidad y Datos</h2>
-                    <p>Descubre cómo proteger tu información personal, configurar correctamente la privacidad en redes sociales y entender el valor de tus datos en el mundo digital.</p>
-                    <p>¡Desbloquea este módulo completando el Módulo 1!</p>
-                    <button class="cta-button" onclick="showPage('modulo1', document.querySelectorAll('.nav-button')[1])">Completar Módulo 1</button>
-                </div>
+                <header style="padding:24px; text-align:center; background:linear-gradient(135deg,var(--dark), #0f1724); color:var(--light); border-bottom:1px solid rgba(255,255,255,0.03);">
+                    <h1 style="display:flex; align-items:center; justify-content:center; gap:12px;"><span style="font-size:40px;">🔐</span> Módulo 2: Privacidad y Datos <span style="font-size:28px; transform:translateY(2px);">✨</span></h1>
+                    <p style="max-width:900px; margin:8px auto 0;">Descubre cómo proteger tu información personal, configurar correctamente la privacidad en redes sociales y entender el valor de tus datos en el mundo digital.</p>
+                    <p style="margin-top:8px;"><a href="#" onclick="showPage('inicio', document.querySelectorAll('.nav-button')[0]); return false;" style="color:var(--secondary);">◀ Volver al índice</a></p>
+                    <div style="margin-top:12px;">
+                        <small style="color:rgba(255,255,255,0.65);">Pro tip: responde los quizzes y genera tu certificado 🎓</small>
+                    </div>
+                </header>
+
+                <main style="max-width:1100px; margin:30px auto; padding:20px;">
+                    <!-- Contenido detallado del Módulo 2 -->
+
+                    <!-- Temas principales solicitados -->
+                    <section id="consumo-digital" class="module-section fun" style="margin-bottom:30px;">
+                        <h2>Consumo digital consciente y ético</h2>
+                        <p>Objetivo: Desarrollar hábitos de consumo de información y entretenimiento que respeten a otras personas, la verdad y la propia salud digital.</p>
+
+                        <div class="video-block" style="margin-top:12px;">
+                            <h3>Video explicativo</h3>
+                            <div style="background:#111; padding:12px; border-radius:8px; color:#fff;">
+                                <p><strong>Video:</strong> Consumo digital consciente (Placeholder)</p>
+                                <p>Transcripción/Resumen: Aprenderás a identificar fuentes fiables, evitar el consumo pasivo excesivo y elegir contenido que aporte valor.</p>
+                            </div>
+                        </div>
+
+                        <article class="case-study" style="margin-top:16px; padding:14px; background:linear-gradient(180deg, rgba(20,20,40,0.6), rgba(16,16,30,0.6)); border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.5); border:1px solid rgba(139,92,246,0.06);">
+                            <h4>Análisis de caso real: Difusión de rumores</h4>
+                            <p>Escenario: Un rumor sobre un estudiante se comparte en grupos y redes; se desconocen las fuentes y el rumor crece en pocas horas.</p>
+                            <ol>
+                                <li>Riesgos: daño reputacional, escalada de conflicto, acoso.</li>
+                                <li>Preguntas para el debate:
+                                    <ul>
+                                        <li>¿Qué evidencia necesitarías antes de creer o compartir la información?</li>
+                                        <li>¿Qué consecuencias pueden tener compartir sin verificar?</li>
+                                        <li>¿Qué acciones responsables puede tomar un testigo del rumor?</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <button class="toggle-btn" data-target="resp-difusion" aria-expanded="false" style="padding:8px 12px; border-radius:8px; background:linear-gradient(90deg,var(--primary),var(--secondary)); color:#fff; border:none; cursor:pointer; box-shadow:0 6px 18px rgba(139,92,246,0.18);">Mostrar guía de debate y posibles respuestas</button>
+                            <div id="resp-difusion" class="hidden-answer" style="margin-top:10px; display:none;">
+                                <p><strong>Guía:</strong> verificar fuentes, preguntar a la persona afectada en privado, reportar la publicación si infringe normas, no reenviar.</p>
+                            </div>
+                        </article>
+                    </section>
+
+                    <section id="gestion-contraseñas" class="module-section fun" style="margin-bottom:30px;">
+                        <h2>Gestión segura de contraseñas y accesos</h2>
+                        <p>Objetivo: Aprender a crear, almacenar y gestionar contraseñas seguras y a usar autenticación adicional cuando sea posible.</p>
+
+                        <div class="video-block" style="margin-top:12px;">
+                            <h3>Video explicativo</h3>
+                            <div style="background:#111; padding:12px; border-radius:8px; color:#fff;">
+                                <p><strong>Video:</strong> Contraseñas seguras y gestores (Placeholder)</p>
+                                <p>Transcripción/Resumen: principios de contraseñas largas, frases de paso, uso de gestores y 2FA.</p>
+                            </div>
+                        </div>
+
+                        <article class="case-study" style="margin-top:16px; padding:14px; background:rgba(20,20,40,0.6); border-radius:10px;">
+                            <h4>Análisis de caso real: Uso de contraseñas débiles</h4>
+                            <p>Escenario: Un alumno usa la misma contraseña sencilla en su correo y en una plataforma escolar; su cuenta es comprometida.</p>
+                            <ol>
+                                <li>Riesgos: pérdida de acceso, exposición de datos personales, suplantación.</li>
+                                <li>Preguntas para el debate:
+                                    <ul>
+                                        <li>¿Qué prácticas fallaron y cómo se podrían corregir?</li>
+                                        <li>¿Cuál es la ventaja de un gestor de contraseñas?</li>
+                                        <li>¿Cómo implementar 2FA y por qué ayuda?</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <button class="toggle-btn" data-target="resp-contraseñas" aria-expanded="false" style="padding:8px 12px; border-radius:8px; background:linear-gradient(90deg,#06b6d4,#8b5cf6); color:#fff; border:none; cursor:pointer; box-shadow:0 6px 18px rgba(6,182,212,0.12);">Mostrar guía de debate y posibles respuestas</button>
+                            <div id="resp-contraseñas" class="hidden-answer" style="margin-top:10px; display:none;">
+                                <p><strong>Guía:</strong> usar contraseñas únicas y largas, activar 2FA, emplear gestores para generar y guardar contraseñas.</p>
+                            </div>
+                        </article>
+                    </section>
+
+                    <section id="navegacion-malware" class="module-section fun" style="margin-bottom:30px;">
+                        <h2>Navegación segura y protección contra malware</h2>
+                        <p>Objetivo: Reconocer sitios y enlaces maliciosos, usar prácticas de cuarentena y herramientas para proteger dispositivos.</p>
+
+                        <div class="video-block" style="margin-top:12px;">
+                            <h3>Video explicativo</h3>
+                            <div style="background:#111; padding:12px; border-radius:8px; color:#fff;">
+                                <p><strong>Video:</strong> Cómo identificar sitios maliciosos (Placeholder)</p>
+                                <p>Transcripción/Resumen: señales de alerta (URLs sospechosas, certificados, redirecciones), uso de antivirus y extensiones de navegador confiables.</p>
+                            </div>
+                        </div>
+
+                        <article class="case-study" style="margin-top:16px; padding:14px; background:rgba(20,20,40,0.6); border-radius:10px;">
+                            <h4>Análisis de caso real: Acceso a sitios web maliciosos</h4>
+                            <p>Escenario: Un estudiante descarga un programa desde un sitio no oficial y su equipo empieza a comportarse de forma extraña.</p>
+                            <ol>
+                                <li>Riesgos: infección por malware, robo de credenciales, pérdida de datos.</li>
+                                <li>Preguntas para el debate:
+                                    <ul>
+                                        <li>¿Qué señales indicarían infección?</li>
+                                        <li>¿Qué pasos inmediatos se deben tomar al detectar comportamiento extraño?</li>
+                                        <li>¿Cómo prevenir descargas inseguras en el futuro?</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <button class="toggle-btn" data-target="resp-malware" aria-expanded="false" style="padding:8px 12px; border-radius:8px; background:linear-gradient(90deg,#f97316,#f43f5e); color:#fff; border:none; cursor:pointer; box-shadow:0 6px 18px rgba(244,63,94,0.12);">Mostrar guía de debate y posibles respuestas</button>
+                            <div id="resp-malware" class="hidden-answer" style="margin-top:10px; display:none;">
+                                <p><strong>Guía:</strong> desconectar de la red, ejecutar antivirus/antimalware, restaurar desde copia de seguridad y evitar fuentes no oficiales.</p>
+                            </div>
+                        </article>
+                    </section>
+
+                    <section id="alfabetizacion" class="module-section fun" style="margin-bottom:30px;">
+                        <h2>Alfabetización mediática y verificación de información</h2>
+                        <p>Objetivo: Aprender a evaluar fuentes, detectar pseudociencia y teorías conspirativas, y fortalecer pensamiento crítico.</p>
+
+                        <div class="video-block" style="margin-top:12px;">
+                            <h3>Video explicativo</h3>
+                            <div style="background:#111; padding:12px; border-radius:8px; color:#fff;">
+                                <p><strong>Video:</strong> Cómo verificar información y detectar pseudociencia (Placeholder)</p>
+                                <p>Transcripción/Resumen: comprobación de fuentes, triangulación, uso de fact-checkers y señales de pseudociencia.</p>
+                            </div>
+                        </div>
+
+                        <article class="case-study" style="margin-top:16px; padding:14px; background:rgba(20,20,40,0.6); border-radius:10px;">
+                            <h4>Análisis de caso real: Contenido pseudocientífico o conspirativo</h4>
+                            <p>Escenario: Un video viral promueve una cura falsa respaldada por testimonios sin evidencia científica.</p>
+                            <ol>
+                                <li>Riesgos: decisiones de salud peligrosas, desinformación y pérdida de confianza en fuentes válidas.</li>
+                                <li>Preguntas para el debate:
+                                    <ul>
+                                        <li>¿Qué pruebas buscarías para validar una afirmación de salud?</li>
+                                        <li>¿Cómo comunicarías a alguien que comparte esta información sin avergonzarlo?</li>
+                                        <li>¿Qué fuentes confiables consultarías?</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <button class="toggle-btn" data-target="resp-pseudo" aria-expanded="false" style="padding:8px 12px; border-radius:8px; background:linear-gradient(90deg,#34d399,#60a5fa); color:#fff; border:none; cursor:pointer; box-shadow:0 6px 18px rgba(52,211,153,0.12);">Mostrar guía de debate y posibles respuestas</button>
+                            <div id="resp-pseudo" class="hidden-answer" style="margin-top:10px; display:none;">
+                                <p><strong>Guía:</strong> buscar estudios revisados por pares, consultar instituciones oficiales, usar fact-checkers y preguntar por evidencia antes de compartir.</p>
+                            </div>
+                        </article>
+                    </section>
+
+                    <section id="autoproteccion" class="module-section fun" style="margin-bottom:40px;">
+                        <h2>Ciberseguridad y autoprotección digital</h2>
+                        <p>Objetivo: Consolidar prácticas de protección personal y herramientas para mantener la seguridad en dispositivos y cuentas.</p>
+
+                        <div class="video-block" style="margin-top:12px;">
+                            <h3>Video explicativo</h3>
+                            <div style="background:#111; padding:12px; border-radius:8px; color:#fff;">
+                                <p><strong>Video:</strong> Autoprotección digital y buenas prácticas (Placeholder)</p>
+                                <p>Transcripción/Resumen: copias de seguridad, actualizaciones, gestión de permisos y uso seguro de redes públicas.</p>
+                            </div>
+                        </div>
+
+                        <article class="case-study" style="margin-top:16px; padding:14px; background:rgba(20,20,40,0.6); border-radius:10px;">
+                            <h4>Análisis de caso real: Uso de redes Wi-Fi públicas sin protección</h4>
+                            <p>Escenario: Un grupo estudia en una cafetería y varios dispositivos se conectan a la Wi‑Fi abierta sin VPN; una cuenta es interceptada.</p>
+                            <ol>
+                                <li>Riesgos: intercepción de credenciales, ataques man-in-the-middle, pérdida de privacidad.</li>
+                                <li>Preguntas para el debate:
+                                    <ul>
+                                        <li>¿Qué prácticas seguras se debieron aplicar antes de conectarse?</li>
+                                        <li>¿Cómo detectar si una red pública es peligrosa?</li>
+                                        <li>¿Qué herramientas ayudan a proteger la conexión?</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <button class="toggle-btn" data-target="resp-wifi" aria-expanded="false" style="padding:8px 12px; border-radius:8px; background:linear-gradient(90deg,#06b6d4,#06d6a0); color:#fff; border:none; cursor:pointer; box-shadow:0 6px 18px rgba(6,182,212,0.12);">Mostrar guía de debate y posibles respuestas</button>
+                            <div id="resp-wifi" class="hidden-answer" style="margin-top:10px; display:none;">
+                                <p><strong>Guía:</strong> usar VPN, evitar operaciones sensibles en redes públicas, verificar la SSID correcta y preferir conexión con datos móviles o redes protegidas.</p>
+                            </div>
+                        </article>
+                    </section>
+
+                    <!-- Quiz interactivo por tema -->
+                    <section id="quizzes" style="margin-top:20px; padding:18px; background:linear-gradient(180deg, rgba(18,18,30,0.6), rgba(14,14,26,0.6)); border-radius:12px; border:1px solid rgba(255,255,255,0.02);">
+                        <h3>Quiz interactivo</h3>
+                        <p>Responde las preguntas de cada tema y pulsa "Calificar" para recibir retroalimentación.</p>
+
+                        <div style="margin-top:12px; display:flex; gap:12px; align-items:center;">
+                            <label for="student-name" style="color:#fff;">Nombre (para certificado):</label>
+                            <input id="student-name" type="text" placeholder="Tu nombre" style="padding:8px 10px; border-radius:8px; border:1px solid #333; background:#fff; color:#000; min-width:220px;">
+                            <button id="grade-all-btn" style="padding:10px 14px; border-radius:10px; background:linear-gradient(90deg,#06b6d4,#8b5cf6); color:#fff; border:none; cursor:pointer; box-shadow:0 10px 24px rgba(139,92,246,0.12);">Calificar todo y generar certificado PNG</button>
+                        </div>
+
+                        <div class="quiz" id="quiz-consumo" style="margin-top:12px; padding:12px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));">
+                            <h4>Consumo digital consciente y ético</h4>
+                            <p>1) ¿Qué debes hacer antes de compartir una noticia que parece dañina para alguien?</p>
+                            <label><input type="radio" name="q1" value="a"> Compartir inmediatamente para advertir a otros</label><br>
+                            <label><input type="radio" name="q1" value="b"> Verificar la fuente y la evidencia antes de compartir</label><br>
+                            <label><input type="radio" name="q1" value="c"> Borrar la publicación sin más</label><br>
+                            <button onclick="gradeQuiz('quiz-consumo', {q1:'b'})" style="padding:8px 10px; border-radius:8px; background:linear-gradient(90deg,#10b981,#60a5fa); color:#fff; border:none; cursor:pointer;">Calificar</button>
+                            <div class="quiz-feedback" style="margin-top:8px; color:#ffd; display:none;"></div>
+                        </div>
+
+                        <div class="quiz" id="quiz-contrasenas" style="margin-top:12px;">
+                            <h4>Gestión segura de contraseñas y accesos</h4>
+                            <p>1) ¿Por qué es peligroso usar la misma contraseña en varios sitios?</p>
+                            <label><input type="radio" name="q2" value="a"> Porque es más fácil recordarla</label><br>
+                            <label><input type="radio" name="q2" value="b"> Porque si se compromete una cuenta, atacan las demás</label><br>
+                            <label><input type="radio" name="q2" value="c"> No es peligroso si la contraseña es corta</label><br>
+                            <button onclick="gradeQuiz('quiz-contrasenas', {q2:'b'})">Calificar</button>
+                            <div class="quiz-feedback" style="margin-top:8px; color:#ffd; display:none;"></div>
+                        </div>
+
+                        <div class="quiz" id="quiz-malware" style="margin-top:12px;">
+                            <h4>Navegación segura y protección contra malware</h4>
+                            <p>1) Señal de un sitio posiblemente malicioso:</p>
+                            <label><input type="radio" name="q3" value="a"> URL con muchos caracteres extraños o dominio desconocido</label><br>
+                            <label><input type="radio" name="q3" value="b"> Página con certificado HTTPS válido y favicon</label><br>
+                            <label><input type="radio" name="q3" value="c"> Sitio que aparece primero en búsquedas</label><br>
+                            <button onclick="gradeQuiz('quiz-malware', {q3:'a'})">Calificar</button>
+                            <div class="quiz-feedback" style="margin-top:8px; color:#ffd; display:none;"></div>
+                        </div>
+
+                        <div class="quiz" id="quiz-pseudo" style="margin-top:12px;">
+                            <h4>Alfabetización mediática y verificación</h4>
+                            <p>1) Una señal de pseudociencia es:</p>
+                            <label><input type="radio" name="q4" value="a"> Uso de testimonios personales en lugar de evidencias científicas</label><br>
+                            <label><input type="radio" name="q4" value="b"> Referencias a estudios revisados por pares</label><br>
+                            <label><input type="radio" name="q4" value="c"> Enlace a fuentes oficiales</label><br>
+                            <button onclick="gradeQuiz('quiz-pseudo', {q4:'a'})">Calificar</button>
+                            <div class="quiz-feedback" style="margin-top:8px; color:#ffd; display:none;"></div>
+                        </div>
+
+                        <div class="quiz" id="quiz-wifi" style="margin-top:12px;">
+                            <h4>Ciberseguridad y autoprotección digital</h4>
+                            <p>1) ¿Qué práctica reduce el riesgo al usar una Wi‑Fi pública?</p>
+                            <label><input type="radio" name="q5" value="a"> Usar VPN y evitar transacciones sensibles</label><br>
+                            <label><input type="radio" name="q5" value="b"> Compartir archivos importantes por P2P</label><br>
+                            <label><input type="radio" name="q5" value="c"> Desactivar el cortafuegos</label><br>
+                            <button onclick="gradeQuiz('quiz-wifi', {q5:'a'})">Calificar</button>
+                            <div class="quiz-feedback" style="margin-top:8px; color:#ffd; display:none;"></div>
+                        </div>
+
+                    </section>
+
+                    <!-- Infografías descargables (SVG inline para permitir conversión local a PNG) -->
+                    <section id="infografias" style="margin-top:20px; padding:18px; background:rgba(25,25,40,0.6); border-radius:10px; color:var(--light);">
+                        <h3>Infografías</h3>
+                        <p>Puedes descargar las infografías en SVG o PNG. Si estás abriendo el archivo localmente, la conversión a PNG funciona sin servidor.</p>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start;">
+
+                            <div style="width:240px; padding:8px; background:#0f1724; border-radius:8px;">
+                                <!-- Inline SVG: inf_consumo -->
+                                <svg id="inf-consumo-svg" xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" style="width:100%; background:#fff; border-radius:6px;">
+                                  <style>.bg{fill:#0f1724}.card{fill:#fff;stroke:#e2e8f0;stroke-width:2}.title{fill:#0f1724;font-size:28px;font-weight:700}.text{fill:#0f1724;font-size:18px}.accent{fill:#8b5cf6}</style>
+                                  <rect class="bg" width="800" height="1000"/>
+                                  <rect x="40" y="40" width="720" height="920" rx="16" class="card"/>
+                                  <text x="90" y="100" class="title">Consumo Digital Consciente</text>
+                                  <text x="90" y="150" class="text">1. Verifica la fuente antes de compartir.</text>
+                                  <text x="90" y="190" class="text">2. Prioriza contenido que aporte valor.</text>
+                                  <text x="90" y="230" class="text">3. Establece límites de tiempo de uso.</text>
+                                </svg>
+                                <a href="img/inf_consumo.svg" download="inf_consumo.svg" style="display:block; margin-top:6px; color:var(--secondary);">Descargar SVG</a>
+                                <button onclick="downloadInlineSvgAsPng(document.getElementById('inf-consumo-svg'), 'inf_consumo.png')" style="display:block; margin-top:6px; background:#2563eb; color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer;">Descargar PNG</button>
+                            </div>
+
+                            <div style="width:240px; padding:8px; background:#0f1724; border-radius:8px;">
+                                <!-- Inline SVG: inf_contrasenas -->
+                                <svg id="inf-contrasenas-svg" xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" style="width:100%; background:#fff; border-radius:6px;">
+                                  <style>.bg{fill:#0f1724}.card{fill:#fff;stroke:#e2e8f0;stroke-width:2}.title{fill:#0f1724;font-size:28px;font-weight:700}.text{fill:#0f1724;font-size:18px}</style>
+                                  <rect class="bg" width="800" height="1000"/>
+                                  <rect x="40" y="40" width="720" height="920" rx="16" class="card"/>
+                                  <text x="90" y="100" class="title">Gestión de Contraseñas</text>
+                                  <text x="90" y="150" class="text">• Usa contraseñas únicas y largas.</text>
+                                  <text x="90" y="180" class="text">• Usa un gestor de contraseñas confiable.</text>
+                                  <text x="90" y="210" class="text">• Activa autenticación de dos factores (2FA).</text>
+                                </svg>
+                                <a href="img/inf_contrasenas.svg" download="inf_contrasenas.svg" style="display:block; margin-top:6px; color:var(--secondary);">Descargar SVG</a>
+                                <button onclick="downloadInlineSvgAsPng(document.getElementById('inf-contrasenas-svg'), 'inf_contrasenas.png')" style="display:block; margin-top:6px; background:#2563eb; color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer;">Descargar PNG</button>
+                            </div>
+
+                            <div style="width:240px; padding:8px; background:#0f1724; border-radius:8px;">
+                                <!-- Inline SVG: inf_malware -->
+                                <svg id="inf-malware-svg" xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" style="width:100%; background:#fff; border-radius:6px;">
+                                  <style>.bg{fill:#0f1724}.card{fill:#fff;stroke:#e2e8f0;stroke-width:2}.title{fill:#0f1724;font-size:28px;font-weight:700}.text{fill:#0f1724;font-size:18px}</style>
+                                  <rect class="bg" width="800" height="1000"/>
+                                  <rect x="40" y="40" width="720" height="920" rx="16" class="card"/>
+                                  <text x="90" y="100" class="title">Protección contra Malware</text>
+                                  <text x="90" y="150" class="text">• Descarga sólo de fuentes oficiales.</text>
+                                  <text x="90" y="180" class="text">• Mantén el antivirus y el sistema actualizado.</text>
+                                  <text x="90" y="210" class="text">• Evita ejecutar archivos desconocidos.</text>
+                                </svg>
+                                <a href="img/inf_malware.svg" download="inf_malware.svg" style="display:block; margin-top:6px; color:var(--secondary);">Descargar SVG</a>
+                                <button onclick="downloadInlineSvgAsPng(document.getElementById('inf-malware-svg'), 'inf_malware.png')" style="display:block; margin-top:6px; background:#2563eb; color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer;">Descargar PNG</button>
+                            </div>
+
+                            <div style="width:240px; padding:8px; background:#0f1724; border-radius:8px;">
+                                <!-- Inline SVG: inf_pseudo -->
+                                <svg id="inf-pseudo-svg" xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" style="width:100%; background:#fff; border-radius:6px;">
+                                  <style>.bg{fill:#0f1724}.card{fill:#fff;stroke:#e2e8f0;stroke-width:2}.title{fill:#0f1724;font-size:28px;font-weight:700}.text{fill:#0f1724;font-size:18px}</style>
+                                  <rect class="bg" width="800" height="1000"/>
+                                  <rect x="40" y="40" width="720" height="920" rx="16" class="card"/>
+                                  <text x="90" y="100" class="title">Detectar Pseudociencia</text>
+                                  <text x="90" y="150" class="text">• Busca evidencia y fuentes confiables.</text>
+                                  <text x="90" y="180" class="text">• Desconfía de testimonios sin datos.</text>
+                                  <text x="90" y="210" class="text">• Verifica la autoría y afiliaciones.</text>
+                                </svg>
+                                <a href="img/inf_pseudo.svg" download="inf_pseudo.svg" style="display:block; margin-top:6px; color:var(--secondary);">Descargar SVG</a>
+                                <button onclick="downloadInlineSvgAsPng(document.getElementById('inf-pseudo-svg'), 'inf_pseudo.png')" style="display:block; margin-top:6px; background:#2563eb; color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer;">Descargar PNG</button>
+                            </div>
+
+                            <div style="width:240px; padding:8px; background:#0f1724; border-radius:8px;">
+                                <!-- Inline SVG: inf_wifi -->
+                                <svg id="inf-wifi-svg" xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" style="width:100%; background:#fff; border-radius:6px;">
+                                  <style>.bg{fill:#0f1724}.card{fill:#fff;stroke:#e2e8f0;stroke-width:2}.title{fill:#0f1724;font-size:28px;font-weight:700}.text{fill:#0f1724;font-size:18px}</style>
+                                  <rect class="bg" width="800" height="1000"/>
+                                  <rect x="40" y="40" width="720" height="920" rx="16" class="card"/>
+                                  <text x="90" y="100" class="title">Uso Seguro de Wi‑Fi Pública</text>
+                                  <text x="90" y="150" class="text">• Evita transacciones sensibles en redes abiertas.</text>
+                                  <text x="90" y="180" class="text">• Usa VPN y verifica la SSID correcta.</text>
+                                  <text x="90" y="210" class="text">• Desactiva el uso compartido de archivos.</text>
+                                </svg>
+                                <a href="img/inf_wifi.svg" download="inf_wifi.svg" style="display:block; margin-top:6px; color:var(--secondary);">Descargar SVG</a>
+                                <button onclick="downloadInlineSvgAsPng(document.getElementById('inf-wifi-svg'), 'inf_wifi.png')" style="display:block; margin-top:6px; background:#2563eb; color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer;">Descargar PNG</button>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <div style="margin-top:20px; text-align:center;">
+                        <button onclick="window.print()" style="padding:10px 18px; border-radius:8px; background:linear-gradient(90deg,var(--primary),var(--secondary)); color:#fff; border:none; cursor:pointer;">Exportar módulo a PDF (Imprimir)</button>
+                    </div>
+                    <!-- Recursos generales y actividades -->
+                    <section id="recursos" style="margin-top:10px; padding:18px; background:rgba(30,30,50,0.6); border-radius:10px;">
+                        <h3>Actividades sugeridas y recursos</h3>
+                        <ul>
+                            <li>Actividad: Crear un plan personal de privacidad (checklist editable).</li>
+                            <li>Actividad: Taller práctico — cambiar contraseñas y activar 2FA en cuentas reales.</li>
+                            <li>Recurso: Lista de fact-checkers y cómo usarlos.</li>
+                            <li>Recurso: Guía rápida de VPNs recomendadas y gestores de contraseñas.</li>
+                        </ul>
+                    </section>
+
+                    <footer style="margin-top:30px; text-align:center; color:rgba(255,255,255,0.8);">
+                        <p>Este contenido es una base. Puedes reemplazar los vídeos por los archivos reales y extender las actividades.</p>
+                    </footer>
+                </main>
+
+                <script>
+                    // Script pequeño para toggles de respuestas/guías de debate
+                    document.querySelectorAll('.toggle-btn').forEach(btn => {
+                        // Inicializar aria-expanded
+                        if (!btn.hasAttribute('aria-expanded')) btn.setAttribute('aria-expanded','false');
+                        btn.addEventListener('click', () => {
+                            const target = btn.getAttribute('data-target');
+                            const el = document.getElementById(target);
+                            if (!el) return;
+                            const isOpen = el.style.display === 'block';
+                            if (!isOpen) {
+                                el.style.display = 'block';
+                                btn.textContent = 'Ocultar guía de debate y respuestas';
+                                btn.setAttribute('aria-expanded','true');
+                            } else {
+                                el.style.display = 'none';
+                                btn.textContent = 'Mostrar guía de debate y posibles respuestas';
+                                btn.setAttribute('aria-expanded','false');
+                            }
+                        });
+                    });
+                </script>
+                <script src="js/modulos.js"></script>
             </div>
 
             <!-- Página Módulo 3 -->
@@ -256,12 +613,8 @@
                     <div class="intro-icon">💻</div>
                     <h2>Módulo 3: Ciberseguridad Práctica</h2>
                     <p>Aprende técnicas avanzadas de protección: desde crear contraseñas seguras hasta identificar intentos de phishing y proteger todos tus dispositivos.</p>
-                    <p>¡Desbloquea este módulo completando el Módulo 2!</p>
-<<<<<<< HEAD
-                    <button class="cta-button" onclick="window.location.href='modulo2.html'">Completar Módulo 2</button>
-=======
-                    <button class="cta-button" onclick="showPage('modulo2', document.querySelectorAll('.nav-button')[2])">Completar Módulo 2</button>
->>>>>>> f6c32322f72fb6f8c0e1489e63b1d252e90d2a89
+                    <p>¡Desbloquea este módulo completando el Módulo 1!</p>
+                    <button class="cta-button" onclick="showPage('modulo2', document.querySelectorAll('.nav-button')[2])">Completar Módulo 1</button>
                 </div>
             </div>
         </div>
@@ -299,6 +652,17 @@
         // Inicializar al cargar la página
         document.addEventListener('DOMContentLoaded', function() {
             updateProgressBars();
+            // Si hay una hash en la URL (p.ej. #modulo2), abrir esa página
+            const target = window.location.hash ? window.location.hash.replace('#','') : '';
+            if (target) {
+                // Map known pages to nav-button index (inicio, modulo1, modulo2, modulo3)
+                const mapIndex = { inicio:0, modulo1:1, modulo2:2, modulo3:3 };
+                const idx = mapIndex[target];
+                if (typeof idx !== 'undefined') {
+                    const btn = document.querySelectorAll('.nav-button')[idx];
+                    if (btn) showPage(target, btn);
+                }
+            }
         });
     </script>
 </body>
