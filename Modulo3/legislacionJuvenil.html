@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberZone - Filtración de Datos Personales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #00d4ff;
+            --accent: #ff3e80;
+            --warning: #ff6b6b;
+            --success: #4ade80;
+            --dark: #0f0f23;
+            --darker: #090915;
+            --light: #f0f4ff;
+            --card-bg: rgba(30, 30, 60, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1a1a3e 100%);
+            min-height: 100vh;
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Efectos de luces en el fondo */
+        .lights-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .light {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(20px);
+            opacity: 0.8;
+            animation: pulse 8s infinite ease-in-out;
+        }
+        
+        .light-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: 10%;
+            left: 5%;
+            animation: pulse 8s infinite ease-in-out, moveX 25s infinite alternate ease-in-out;
+        }
+        
+        .light-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--secondary);
+            top: 60%;
+            right: 10%;
+            animation: pulse 10s infinite ease-in-out, moveY 30s infinite alternate ease-in-out;
+        }
+        
+        .light-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--accent);
+            bottom: 10%;
+            left: 20%;
+            animation: pulse 12s infinite ease-in-out, moveXY 20s infinite alternate ease-in-out;
+        }
+        
+        .light-4 {
+            width: 350px;
+            height: 350px;
+            background: #ffd700;
+            top: 20%;
+            right: 20%;
+            animation: pulse 9s infinite ease-in-out, moveX 35s infinite alternate ease-in-out;
+        }
+        
+        .light-5 {
+            width: 200px;
+            height: 200px;
+            background: var(--warning);
+            top: 80%;
+            left: 70%;
+            animation: pulse 11s infinite ease-in-out, moveY 28s infinite alternate ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 0.3; 
+            } 
+            50% { 
+                transform: scale(1.2); 
+                opacity: 0.5; 
+            } 
+        }
+        
+        @keyframes moveX {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50px); }
+        }
+        
+        @keyframes moveY {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+        
+        @keyframes moveXY {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(30px, 20px); }
+            50% { transform: translate(10px, 40px); }
+            75% { transform: translate(40px, 10px); }
+            100% { transform: translate(20px, 30px); }
+        }
+
+        .particles { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            pointer-events: none; 
+            z-index: 1; 
+        }
+        
+        .particle { 
+            position: absolute; 
+            width: 6px; 
+            height: 6px; 
+            background: var(--secondary); 
+            border-radius: 50%; 
+            animation: float-particle 15s infinite ease-in-out; 
+            box-shadow: 0 0 10px var(--secondary); 
+        }
+        
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 1s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 3s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 4.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 1.5s; }
+        
+        @keyframes float-particle { 
+            0%, 100% { 
+                transform: translateY(100vh) translateX(0) scale(0.5); 
+                opacity: 0; 
+            } 
+            10% { opacity: 1; } 
+            90% { opacity: 1; } 
+            50% { 
+                transform: translateY(-10vh) translateX(50px) scale(1); 
+            } 
+        }
+        
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(22, 33, 62, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: 100vh;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            margin-right: 15px;
+            color: var(--secondary);
+            text-shadow: 0 0 10px var(--secondary);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-button {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 16px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            margin-bottom: 8px;
+            text-align: left;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-button:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .nav-button.active {
+            background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+            color: white;
+        }
+
+        .user-profile {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .avatar {
+            font-size: 2em;
+        }
+
+        .user-info h3 {
+            margin: 0;
+            font-size: 1em;
+        }
+
+        .user-info p {
+            margin: 0;
+            font-size: 0.9em;
+            color: var(--text-muted);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            background: rgba(26, 26, 46, 0.8);
+            min-height: 100vh;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-title {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            font-size: 1.2em;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .intro-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .intro-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .intro-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .intro-section p {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+        }
+
+        .warning-button {
+            background: linear-gradient(135deg, var(--warning) 0%, #ff8e8e 100%);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .warning-button:hover {
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Tarjetas visuales para jóvenes */
+        .visual-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .visual-card {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+            cursor: pointer;
+        }
+
+        .visual-card.warning {
+            border-color: rgba(255, 107, 107, 0.3);
+        }
+
+        .visual-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .visual-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .visual-title {
+            font-size: 1.4em;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .visual-description {
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+
+        /* Sección de Prevención */
+        .prevention-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .prevention-title {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .prevention-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .prevention-tip {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .prevention-tip:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .tip-icon {
+            font-size: 24px;
+            color: var(--success);
+            flex-shrink: 0;
+        }
+
+        .tip-content h4 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .tip-content p {
+            color: var(--text-muted);
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .quiz-title {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .quiz-question {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            color: var(--light);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px 20px;
+            color: var(--light);
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .quiz-option.correct {
+            background: rgba(74, 222, 128, 0.2);
+            border-color: var(--success);
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(255, 107, 107, 0.2);
+            border-color: var(--warning);
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-result.success {
+            background: rgba(74, 222, 128, 0.2);
+            border: 2px solid var(--success);
+            color: var(--success);
+            display: block;
+        }
+
+        .quiz-result.error {
+            background: rgba(255, 107, 107, 0.2);
+            border: 2px solid var(--warning);
+            color: var(--warning);
+            display: block;
+        }
+
+        .xp-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(139, 92, 246, 0.2);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            padding: 10px 20px;
+            margin-top: 15px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .visual-cards, .prevention-tips {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+                padding: 20px;
+            }
+            
+            .main-content {
+                padding: 30px 20px;
+            }
+            
+            .page-title {
+                font-size: 2em;
+            }
+            
+            .visual-icon {
+                font-size: 48px;
+            }
+            
+            .quiz-options {
+                gap: 10px;
+            }
+            
+            .quiz-option {
+                padding: 12px 15px;
+            }
+            
+            .prevention-tip {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Efecto de luces en el fondo -->
+    <div class="lights-container">
+        <div class="light light-1"></div>
+        <div class="light light-2"></div>
+        <div class="light light-3"></div>
+        <div class="light light-4"></div>
+        <div class="light light-5"></div>
+    </div>
+
+    <!-- Efecto de partículas -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">CyberZone</div>
+            </div>
+            
+            <button class="nav-button active" onclick="showPage('inicio', this)">
+                <span class="nav-icon">🏠</span> Inicio
+            </button>
+            <button class="nav-button" onclick="showPage('filtracion-datos', this)">
+                <span class="nav-icon">📊</span> Filtración de Datos
+            </button>
+            <button class="nav-button" onclick="showPage('venta-datos', this)">
+                <span class="nav-icon">💰</span> Venta de Datos
+            </button>
+            <button class="nav-button" onclick="showPage('datos-escolares', this)">
+                <span class="nav-icon">🎓</span> Datos Escolares
+            </button>
+            <button class="nav-button" onclick="showPage('datos-medicos', this)">
+                <span class="nav-icon">🏥</span> Datos Médicos
+            </button>
+
+            <div class="user-profile">
+                <div class="avatar">👤</div>
+                <div class="user-info">
+                    <h3>CyberExplorador</h3>
+                    <p id="user-xp">Nivel 3 | 240 XP</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Página Inicio -->
+            <div id="inicio" class="page active">
+                <h1 class="page-title">CyberZone - Filtración de Datos Personales</h1>
+                <p class="page-subtitle">Aprende a proteger tu información personal en el mundo digital.</p>
+                
+                <div class="intro-section">
+                    <div class="intro-icon">⚠️</div>
+                    <h2>Protege tu Información Personal</h2>
+                    <p>La filtración de datos personales es uno de los riesgos más graves en línea. Conoce cómo protegerte y evitar que tu información caiga en manos equivocadas.</p>
+                    <p>Explora estos módulos para navegar de forma segura en el mundo digital.</p>
+                    <button class="cta-button warning-button" onclick="showPage('filtracion-datos', document.querySelectorAll('.nav-button')[1])">Comenzar Aprendizaje</button>
+                </div>
+
+                <h2 style="font-size: 32px; margin: 40px 0 20px; color: white; text-align: center;">Tipos de Filtración de Datos</h2>
+                
+                <div class="visual-cards">
+                    <!-- Filtración de Datos Personales -->
+                    <div class="visual-card warning" onclick="showPage('filtracion-datos', document.querySelectorAll('.nav-button')[1])">
+                        <div class="visual-icon">📊</div>
+                        <h3 class="visual-title">Filtración de Datos Personales</h3>
+                        <p class="visual-description">Acceso no autorizado a información personal sensible</p>
+                    </div>
+
+                    <!-- Venta de Datos a Terceros -->
+                    <div class="visual-card warning" onclick="showPage('venta-datos', document.querySelectorAll('.nav-button')[2])">
+                        <div class="visual-icon">💰</div>
+                        <h3 class="visual-title">Venta de Datos a Terceros</h3>
+                        <p class="visual-description">Comercialización de información personal sin consentimiento</p>
+                    </div>
+
+                    <!-- Exposición de Datos Escolares -->
+                    <div class="visual-card warning" onclick="showPage('datos-escolares', document.querySelectorAll('.nav-button')[3])">
+                        <div class="visual-icon">🎓</div>
+                        <h3 class="visual-title">Exposición de Datos Escolares</h3>
+                        <p class="visual-description">Filtración de información académica y estudiantil</p>
+                    </div>
+
+                    <!-- Exposición de Datos Médicos -->
+                    <div class="visual-card warning" onclick="showPage('datos-medicos', document.querySelectorAll('.nav-button')[4])">
+                        <div class="visual-icon">🏥</div>
+                        <h3 class="visual-title">Exposición de Datos Médicos</h3>
+                        <p class="visual-description">Acceso no autorizado a historiales médicos y de salud</p>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title"><span>🏆</span> Quiz de Conocimiento General</h2>
+                    <p class="quiz-question">¿Qué deberías hacer si descubres que tus datos personales han sido filtrados?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 50)">
+                            <span>🚨</span> Cambiar contraseñas inmediatamente y reportar el incidente
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🤫</span> Ignorarlo y esperar que no pase nada
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>😠</span> Enfrentar directamente a la empresa responsable
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📱</span> Compartir la noticia en redes sociales
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-inicio"></div>
+                </div>
+            </div>
+
+            <!-- Página Filtración de Datos Personales -->
+            <div id="filtracion-datos" class="page">
+                <div class="intro-section">
+                    <h1 class="page-title">📊 Filtración de Datos Personales</h1>
+                    <p class="page-subtitle">Comprende los riesgos y consecuencias de la filtración de datos personales en línea.</p>
+                </div>
+
+                <div class="visual-cards">
+                    <div class="visual-card warning">
+                        <div class="visual-icon">🔓</div>
+                        <h3 class="visual-title">Acceso No Autorizado</h3>
+                        <p class="visual-description">Hackers acceden a bases de datos con información personal</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">📧</div>
+                        <h3 class="visual-title">Phishing</h3>
+                        <p class="visual-description">Engaños para obtener información personal confidencial</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">⚖️</div>
+                        <h3 class="visual-title">Consecuencias Legales</h3>
+                        <p class="visual-description">Violación de leyes de protección de datos</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">🔍</div>
+                        <h3 class="visual-title">Robo de Identidad</h3>
+                        <p class="visual-description">Uso de tu información para cometer fraudes</p>
+                    </div>
+                </div>
+
+                <!-- Sección de Prevención -->
+                <div class="prevention-section">
+                    <h2 class="prevention-title">🛡️ Cómo Prevenir la Filtración de Datos</h2>
+                    <div class="prevention-tips">
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🔒</div>
+                            <div class="tip-content">
+                                <h4>Contraseñas Seguras</h4>
+                                <p>Usa contraseñas únicas y complejas para cada cuenta, y activa la autenticación de dos factores.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">👀</div>
+                            <div class="tip-content">
+                                <h4>Verifica Enlaces</h4>
+                                <p>Antes de hacer clic en enlaces, verifica que sean legítimos y provengan de fuentes confiables.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📱</div>
+                            <div class="tip-content">
+                                <h4>Configura Privacidad</h4>
+                                <p>Revisa y ajusta regularmente la configuración de privacidad en tus redes sociales.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🚫</div>
+                            <div class="tip-content">
+                                <h4>No Compartas Demasiado</h4>
+                                <p>Limita la información personal que compartes en línea, especialmente datos sensibles.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title">🧠 Quiz sobre Filtración de Datos</h2>
+                    <p class="quiz-question">¿Cuál es la medida más efectiva para proteger tus datos personales en línea?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 75)">
+                            <span>🔐</span> Usar autenticación de dos factores y contraseñas únicas
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📧</span> No usar correo electrónico
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>👥</span> Tener menos amigos en línea
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📱</span> Usar solo aplicaciones oficiales
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-filtracion-datos"></div>
+                </div>
+            </div>
+
+            <!-- Página Venta de Datos a Terceros -->
+            <div id="venta-datos" class="page">
+                <div class="intro-section">
+                    <h1 class="page-title">💰 Venta de Datos a Terceros</h1>
+                    <p class="page-subtitle">Aprende cómo tu información personal puede ser vendida sin tu consentimiento.</p>
+                </div>
+
+                <div class="visual-cards">
+                    <div class="visual-card warning">
+                        <div class="visual-icon">🛒</div>
+                        <h3 class="visual-title">Mercado de Datos</h3>
+                        <p class="visual-description">Tu información personal tiene valor en el mercado negro</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">📋</div>
+                        <h3 class="visual-title">Términos de Servicio</h3>
+                        <p class="visual-description">Empresas que venden datos a través de acuerdos legales complejos</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">🎯</div>
+                        <h3 class="visual-title">Publicidad Dirigida</h3>
+                        <p class="visual-description">Uso de tus datos para mostrar anuncios personalizados</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">🔍</div>
+                        <h3 class="visual-title">Derechos del Usuario</h3>
+                        <p class="visual-description">Cómo ejercer tus derechos sobre tus datos personales</p>
+                    </div>
+                </div>
+
+                <!-- Sección de Prevención -->
+                <div class="prevention-section">
+                    <h2 class="prevention-title">🛡️ Cómo Evitar la Venta de tus Datos</h2>
+                    <div class="prevention-tips">
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📖</div>
+                            <div class="tip-content">
+                                <h4>Lee los Términos</h4>
+                                <p>Revisa las políticas de privacidad antes de usar cualquier servicio en línea.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">⚙️</div>
+                            <div class="tip-content">
+                                <h4>Ajusta Configuraciones</h4>
+                                <p>Desactiva la opción de compartir datos con terceros en las configuraciones de privacidad.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🚫</div>
+                            <div class="tip-content">
+                                <h4>Limita Información</h4>
+                                <p>Proporciona solo la información necesaria cuando te registres en sitios web.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📧</div>
+                            <div class="tip-content">
+                                <h4>Usa Correos Alternativos</h4>
+                                <p>Considera usar direcciones de correo diferentes para servicios no esenciales.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title">🧠 Quiz sobre Venta de Datos</h2>
+                    <p class="quiz-question">¿Qué puedes hacer para evitar que tus datos sean vendidos a terceros?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 80)">
+                            <span>📖</span> Leer políticas de privacidad y ajustar configuraciones
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>👍</span> Confiar en que las empresas protegerán tus datos
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📸</span> No compartir fotos en redes sociales
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>💬</span> No usar internet
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-venta-datos"></div>
+                </div>
+            </div>
+
+            <!-- Página Exposición de Datos Escolares -->
+            <div id="datos-escolares" class="page">
+                <div class="intro-section">
+                    <h1 class="page-title">🎓 Exposición de Datos Escolares</h1>
+                    <p class="page-subtitle">Cuando la información académica y estudiantil queda expuesta.</p>
+                </div>
+
+                <div class="visual-cards">
+                    <div class="visual-card warning">
+                        <div class="visual-icon">📚</div>
+                        <h3 class="visual-title">Calificaciones</h3>
+                        <p class="visual-description">Acceso no autorizado a resultados académicos</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">👨‍👩‍👧‍👦</div>
+                        <h3 class="visual-title">Información Familiar</h3>
+                        <p class="visual-description">Datos de contacto de padres y tutores</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">🏫</div>
+                        <h3 class="visual-title">Datos Institucionales</h3>
+                        <p class="visual-description">Información sobre la escuela y sus sistemas</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">🆘</div>
+                        <h3 class="visual-title">Acoso Escolar</h3>
+                        <p class="visual-description">Uso de información escolar para acosar a estudiantes</p>
+                    </div>
+                </div>
+
+                <!-- Sección de Prevención -->
+                <div class="prevention-section">
+                    <h2 class="prevention-title">🛡️ Cómo Proteger los Datos Escolares</h2>
+                    <div class="prevention-tips">
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🔐</div>
+                            <div class="tip-content">
+                                <h4>Contraseñas Seguras</h4>
+                                <p>Usa contraseñas únicas para plataformas educativas y cámbialas regularmente.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">👀</div>
+                            <div class="tip-content">
+                                <h4>Verifica Comunicaciones</h4>
+                                <p>Confirma la autenticidad de correos y mensajes que parecen provenir de la escuela.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📱</div>
+                            <div class="tip-content">
+                                <h4>Protege Dispositivos</h4>
+                                <p>Asegura tus dispositivos con contraseñas y software de seguridad.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📞</div>
+                            <div class="tip-content">
+                                <h4>Reporta Incidentes</h4>
+                                <p>Informa inmediatamente a profesores o administradores sobre actividades sospechosas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title">🧠 Quiz sobre Datos Escolares</h2>
+                    <p class="quiz-question">Si recibes un correo sospechoso que parece ser de tu escuela pidiendo información personal, ¿qué deberías hacer?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 90)">
+                            <span>🆘</span> Verificar con la escuela antes de responder y no compartir información
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📧</span> Responder inmediatamente con la información solicitada
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🤫</span> Ignorarlo y esperar que sea legítimo
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🔄</span> Reenviarlo a tus compañeros para advertirles
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-datos-escolares"></div>
+                </div>
+            </div>
+
+            <!-- Página Exposición de Datos Médicos -->
+            <div id="datos-medicos" class="page">
+                <div class="intro-section">
+                    <h1 class="page-title">🏥 Exposición de Datos Médicos</h1>
+                    <p class="page-subtitle">Cuando la información de salud queda expuesta sin autorización.</p>
+                </div>
+
+                <div class="visual-cards">
+                    <div class="visual-card warning">
+                        <div class="visual-icon">📋</div>
+                        <h3 class="visual-title">Historiales Médicos</h3>
+                        <p class="visual-description">Acceso no autorizado a diagnósticos y tratamientos</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">💊</div>
+                        <h3 class="visual-title">Medicamentos</h3>
+                        <p class="visual-description">Información sobre prescripciones y tratamientos</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">🧬</div>
+                        <h3 class="visual-title">Datos Genéticos</h3>
+                        <p class="visual-description">Información sensible sobre predisposiciones genéticas</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">🆘</div>
+                        <h3 class="visual-title">Discriminación</h3>
+                        <p class="visual-description">Uso de información médica para discriminar</p>
+                    </div>
+                </div>
+
+                <!-- Sección de Prevención -->
+                <div class="prevention-section">
+                    <h2 class="prevention-title">🛡️ Cómo Proteger los Datos Médicos</h2>
+                    <div class="prevention-tips">
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🔒</div>
+                            <div class="tip-content">
+                                <h4>Portales Seguros</h4>
+                                <p>Usa solo portales médicos oficiales y verifica que tengan conexión segura (HTTPS).</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">👀</div>
+                            <div class="tip-content">
+                                <h4>Autorizaciones</h4>
+                                <p>Revisa cuidadosamente los formularios de autorización antes de firmarlos.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📱</div>
+                            <div class="tip-content">
+                                <h4>Aplicaciones Médicas</h4>
+                                <p>Verifica la seguridad de las aplicaciones de salud antes de usarlas.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📞</div>
+                            <div class="tip-content">
+                                <h4>Reporta Irregularidades</h4>
+                                <p>Informa inmediatamente a las autoridades si sospechas que tus datos médicos han sido comprometidos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title">🧠 Quiz sobre Datos Médicos</h2>
+                    <p class="quiz-question">¿Por qué es especialmente importante proteger los datos médicos?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 95)">
+                            <span>🔒</span> Porque son extremadamente sensibles y pueden usarse para discriminación
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>💰</span> Porque tienen alto valor económico en el mercado negro
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📋</span> Porque son difíciles de cambiar una vez expuestos
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🏥</span> Porque los hospitales pueden ser demandados
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-datos-medicos"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let totalXP = 240;
+
+        function showPage(pageId, buttonElement) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+        }
+
+        function checkAnswer(element, type, xp) {
+            // Reset all options
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            element.classList.add(type);
+            
+            // Show result
+            const resultId = 'quiz-' + document.querySelector('.page.active').id;
+            const resultElement = document.getElementById(resultId);
+            
+            if (type === 'correct') {
+                resultElement.textContent = `¡Correcto! +${xp} XP`;
+                resultElement.className = 'quiz-result success';
+                
+                // Add XP
+                totalXP += xp;
+                document.getElementById('user-xp').textContent = `Nivel 3 | ${totalXP} XP`;
+                
+                // Show XP badge
+                const xpBadge = document.createElement('div');
+                xpBadge.className = 'xp-badge';
+                xpBadge.innerHTML = `<span>⭐</span> Ganaste ${xp} puntos de experiencia`;
+                resultElement.appendChild(xpBadge);
+            } else {
+                resultElement.textContent = 'Respuesta incorrecta. ¡Sigue aprendiendo!';
+                resultElement.className = 'quiz-result error';
+            }
+        }
+
+        // Crear efecto de partículas
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 15;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Tamaño y posición aleatoria
+            const size = Math.random() * 10 + 5;
+            const left = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = Math.random() * 10 + 10;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${left}%`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>

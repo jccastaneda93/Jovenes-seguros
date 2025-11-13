@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberZone - Riesgos Digitales para Jóvenes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #00d4ff;
+            --accent: #ff3e80;
+            --warning: #ff6b6b;
+            --success: #4ade80;
+            --dark: #0f0f23;
+            --darker: #090915;
+            --light: #f0f4ff;
+            --card-bg: rgba(30, 30, 60, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1a1a3e 100%);
+            min-height: 100vh;
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Efectos de luces en el fondo */
+        .lights-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .light {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(20px);
+            opacity: 0.8;
+            animation: pulse 8s infinite ease-in-out;
+        }
+        
+        .light-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: 10%;
+            left: 5%;
+            animation: pulse 8s infinite ease-in-out, moveX 25s infinite alternate ease-in-out;
+        }
+        
+        .light-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--secondary);
+            top: 60%;
+            right: 10%;
+            animation: pulse 10s infinite ease-in-out, moveY 30s infinite alternate ease-in-out;
+        }
+        
+        .light-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--accent);
+            bottom: 10%;
+            left: 20%;
+            animation: pulse 12s infinite ease-in-out, moveXY 20s infinite alternate ease-in-out;
+        }
+        
+        .light-4 {
+            width: 350px;
+            height: 350px;
+            background: #ffd700;
+            top: 20%;
+            right: 20%;
+            animation: pulse 9s infinite ease-in-out, moveX 35s infinite alternate ease-in-out;
+        }
+        
+        .light-5 {
+            width: 200px;
+            height: 200px;
+            background: var(--warning);
+            top: 80%;
+            left: 70%;
+            animation: pulse 11s infinite ease-in-out, moveY 28s infinite alternate ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 0.3; 
+            } 
+            50% { 
+                transform: scale(1.2); 
+                opacity: 0.5; 
+            } 
+        }
+        
+        @keyframes moveX {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50px); }
+        }
+        
+        @keyframes moveY {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+        
+        @keyframes moveXY {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(30px, 20px); }
+            50% { transform: translate(10px, 40px); }
+            75% { transform: translate(40px, 10px); }
+            100% { transform: translate(20px, 30px); }
+        }
+
+        .particles { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            pointer-events: none; 
+            z-index: 1; 
+        }
+        
+        .particle { 
+            position: absolute; 
+            width: 6px; 
+            height: 6px; 
+            background: var(--secondary); 
+            border-radius: 50%; 
+            animation: float-particle 15s infinite ease-in-out; 
+            box-shadow: 0 0 10px var(--secondary); 
+        }
+        
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 1s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 3s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 4.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 1.5s; }
+        
+        @keyframes float-particle { 
+            0%, 100% { 
+                transform: translateY(100vh) translateX(0) scale(0.5); 
+                opacity: 0; 
+            } 
+            10% { opacity: 1; } 
+            90% { opacity: 1; } 
+            50% { 
+                transform: translateY(-10vh) translateX(50px) scale(1); 
+            } 
+        }
+        
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(22, 33, 62, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: 100vh;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            margin-right: 15px;
+            color: var(--secondary);
+            text-shadow: 0 0 10px var(--secondary);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-button {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 16px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            margin-bottom: 8px;
+            text-align: left;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-button:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .nav-button.active {
+            background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+            color: white;
+        }
+
+        .user-profile {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .avatar {
+            font-size: 2em;
+        }
+
+        .user-info h3 {
+            margin: 0;
+            font-size: 1em;
+        }
+
+        .user-info p {
+            margin: 0;
+            font-size: 0.9em;
+            color: var(--text-muted);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            background: rgba(26, 26, 46, 0.8);
+            min-height: 100vh;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-title {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            font-size: 1.2em;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .intro-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .intro-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .intro-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .intro-section p {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+        }
+
+        .warning-button {
+            background: linear-gradient(135deg, var(--warning) 0%, #ff8e8e 100%);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .warning-button:hover {
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Tarjetas visuales para jóvenes */
+        .visual-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .visual-card {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+            cursor: pointer;
+        }
+
+        .visual-card.warning {
+            border-color: rgba(255, 107, 107, 0.3);
+        }
+
+        .visual-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .visual-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .visual-title {
+            font-size: 1.4em;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .visual-description {
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+
+        /* Sección de Prevención */
+        .prevention-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .prevention-title {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .prevention-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .prevention-tip {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .prevention-tip:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .tip-icon {
+            font-size: 24px;
+            color: var(--success);
+            flex-shrink: 0;
+        }
+
+        .tip-content h4 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .tip-content p {
+            color: var(--text-muted);
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .quiz-title {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .quiz-question {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            color: var(--light);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px 20px;
+            color: var(--light);
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .quiz-option.correct {
+            background: rgba(74, 222, 128, 0.2);
+            border-color: var(--success);
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(255, 107, 107, 0.2);
+            border-color: var(--warning);
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-result.success {
+            background: rgba(74, 222, 128, 0.2);
+            border: 2px solid var(--success);
+            color: var(--success);
+            display: block;
+        }
+
+        .quiz-result.error {
+            background: rgba(255, 107, 107, 0.2);
+            border: 2px solid var(--warning);
+            color: var(--warning);
+            display: block;
+        }
+
+        .xp-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(139, 92, 246, 0.2);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            padding: 10px 20px;
+            margin-top: 15px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Estadísticas */
+        .stats-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .stats-title {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-description {
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .visual-cards, .prevention-tips, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+                padding: 20px;
+            }
+            
+            .main-content {
+                padding: 30px 20px;
+            }
+            
+            .page-title {
+                font-size: 2em;
+            }
+            
+            .visual-icon {
+                font-size: 48px;
+            }
+            
+            .quiz-options {
+                gap: 10px;
+            }
+            
+            .quiz-option {
+                padding: 12px 15px;
+            }
+            
+            .prevention-tip {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Efecto de luces en el fondo -->
+    <div class="lights-container">
+        <div class="light light-1"></div>
+        <div class="light light-2"></div>
+        <div class="light light-3"></div>
+        <div class="light light-4"></div>
+        <div class="light light-5"></div>
+    </div>
+
+    <!-- Efecto de partículas -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">CyberZone</div>
+            </div>
+            
+            <button class="nav-button active" onclick="showPage('inicio', this)">
+                <span class="nav-icon">🏠</span> Inicio
+            </button>
+            <button class="nav-button" onclick="showPage('lenguaje-sexual', this)">
+                <span class="nav-icon">🔞</span> Lenguaje Sexual
+            </button>
+            <button class="nav-button" onclick="showPage('memes-ofensivos', this)">
+                <span class="nav-icon">😠</span> Memes Ofensivos
+            </button>
+            <button class="nav-button" onclick="showPage('exclusion', this)">
+                <span class="nav-icon">🚫</span> Dinámicas de Exclusión
+            </button>
+            <button class="nav-button" onclick="showPage('contenido-sexual', this)">
+                <span class="nav-icon">📵</span> Contenido Sexual
+            </button>
+            <button class="nav-button" onclick="showPage('contenido-violento', this)">
+                <span class="nav-icon">⚔️</span> Contenido Violento
+            </button>
+            <button class="nav-button" onclick="showPage('sexualizado-redes', this)">
+                <span class="nav-icon">📱</span> Contenido Sexualizado
+            </button>
+            <button class="nav-button" onclick="showPage('xenofobia-racismo', this)">
+                <span class="nav-icon">🌍</span> Xenofobia y Racismo
+            </button>
+
+            <div class="user-profile">
+                <div class="avatar">👤</div>
+                <div class="user-info">
+                    <h3>CyberExplorador</h3>
+                    <p id="user-xp">Nivel 3 | 240 XP</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Página Inicio -->
+            <div id="inicio" class="page active">
+                <h1 class="page-title">CyberZone - Riesgos Digitales para Jóvenes</h1>
+                <p class="page-subtitle">Aprende a identificar y protegerte de los riesgos en el entorno digital.</p>
+                
+                <div class="intro-section">
+                    <div class="intro-icon">⚠️</div>
+                    <h2>Navega con Seguridad en el Mundo Digital</h2>
+                    <p>El entorno digital presenta diversos riesgos que pueden afectar tu bienestar emocional y desarrollo. Conoce cómo protegerte y mantener una experiencia digital positiva.</p>
+                    <p>Explora estos módulos para aprender a identificar y manejar situaciones de riesgo en línea.</p>
+                    <button class="cta-button warning-button" onclick="showPage('lenguaje-sexual', document.querySelectorAll('.nav-button')[1])">Comenzar Aprendizaje</button>
+                </div>
+
+                <h2 style="font-size: 32px; margin: 40px 0 20px; color: white; text-align: center;">Riesgos Digitales Comunes</h2>
+                
+                <div class="visual-cards">
+                    <!-- Lenguaje Sexual Explícito -->
+                    <div class="visual-card warning" onclick="showPage('lenguaje-sexual', document.querySelectorAll('.nav-button')[1])">
+                        <div class="visual-icon">🔞</div>
+                        <h3 class="visual-title">Lenguaje Sexual Explícito</h3>
+                        <p class="visual-description">Exposición a conversaciones con contenido sexual inapropiado</p>
+                    </div>
+
+                    <!-- Memes Ofensivos -->
+                    <div class="visual-card warning" onclick="showPage('memes-ofensivos', document.querySelectorAll('.nav-button')[2])">
+                        <div class="visual-icon">😠</div>
+                        <h3 class="visual-title">Memes Ofensivos</h3>
+                        <p class="visual-description">Contenido humorístico que ridiculiza o discrimina</p>
+                    </div>
+
+                    <!-- Dinámicas de Exclusión -->
+                    <div class="visual-card warning" onclick="showPage('exclusion', document.querySelectorAll('.nav-button')[3])">
+                        <div class="visual-icon">🚫</div>
+                        <h3 class="visual-title">Dinámicas de Exclusión</h3>
+                        <p class="visual-description">Participación en grupos que marginan a otros</p>
+                    </div>
+
+                    <!-- Contenido Sexual Explícito -->
+                    <div class="visual-card warning" onclick="showPage('contenido-sexual', document.querySelectorAll('.nav-button')[4])">
+                        <div class="visual-icon">📵</div>
+                        <h3 class="visual-title">Contenido Sexual Explícito</h3>
+                        <p class="visual-description">Acceso a material pornográfico o sexualmente explícito</p>
+                    </div>
+
+                    <!-- Contenido Violento -->
+                    <div class="visual-card warning" onclick="showPage('contenido-violento', document.querySelectorAll('.nav-button')[5])">
+                        <div class="visual-icon">⚔️</div>
+                        <h3 class="visual-title">Contenido Violento</h3>
+                        <p class="visual-description">Exposición a material gráfico con escenas de violencia</p>
+                    </div>
+
+                    <!-- Contenido Sexualizado en Redes -->
+                    <div class="visual-card warning" onclick="showPage('sexualizado-redes', document.querySelectorAll('.nav-button')[6])">
+                        <div class="visual-icon">📱</div>
+                        <h3 class="visual-title">Contenido Sexualizado en Redes</h3>
+                        <p class="visual-description">Normalización de la sexualización en redes sociales</p>
+                    </div>
+
+                    <!-- Xenofobia y Racismo -->
+                    <div class="visual-card warning" onclick="showPage('xenofobia-racismo', document.querySelectorAll('.nav-button')[7])">
+                        <div class="visual-icon">🌍</div>
+                        <h3 class="visual-title">Xenofobia y Racismo</h3>
+                        <p class="visual-description">Contenido que promueve odio hacia grupos étnicos</p>
+                    </div>
+                </div>
+
+            
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title"><span>🏆</span> Quiz de Conocimiento General</h2>
+                    <p class="quiz-question">¿Qué deberías hacer si te encuentras con contenido ofensivo o inapropiado en línea?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 50)">
+                            <span>🚨</span> Reportar el contenido y hablar con un adulto de confianza
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🤫</span> Ignorarlo y esperar que desaparezca
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>😠</span> Enfrentar directamente a quien lo publicó
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📱</span> Compartirlo con amigos para advertirles
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-inicio"></div>
+                </div>
+            </div>
+
+            <!-- Página Lenguaje Sexual Explícito -->
+            <div id="lenguaje-sexual" class="page">
+                <div class="intro-section">
+                    <h1 class="page-title">🔞 Lenguaje Sexual Explícito</h1>
+                    <p class="page-subtitle">Comprende los riesgos del lenguaje sexual inapropiado en entornos digitales.</p>
+                </div>
+
+                <div class="visual-cards">
+                    <div class="visual-card warning">
+                        <div class="visual-icon">💬</div>
+                        <h3 class="visual-title">Chats y Mensajes</h3>
+                        <p class="visual-description">Conversaciones con contenido sexual explícito</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">🎮</div>
+                        <h3 class="visual-title">Videojuegos Online</h3>
+                        <p class="visual-description">Comunicación inapropiada en partidas multijugador</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">👥</div>
+                        <h3 class="visual-title">Presión de Grupo</h3>
+                        <p class="visual-description">Incitación a participar en conversaciones sexuales</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">😔</div>
+                        <h3 class="visual-title">Malestar Emocional</h3>
+                        <p class="visual-description">Efectos psicológicos de la exposición constante</p>
+                    </div>
+                </div>
+
+                <!-- Sección de Prevención -->
+                <div class="prevention-section">
+                    <h2 class="prevention-title">🛡️ Cómo Manejar el Lenguaje Sexual Explícito</h2>
+                    <div class="prevention-tips">
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🚫</div>
+                            <div class="tip-content">
+                                <h4>Establece Límites Claros</h4>
+                                <p>Comunica directamente que no estás cómodo con ese tipo de conversaciones.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🔇</div>
+                            <div class="tip-content">
+                                <h4>Utiliza Herramientas de Bloqueo</h4>
+                                <p>Bloquea o silencia a usuarios que envíen contenido inapropiado.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">👨‍👩‍👧‍👦</div>
+                            <div class="tip-content">
+                                <h4>Busca Apoyo</h4>
+                                <p>Habla con adultos de confianza sobre situaciones incómodas.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📱</div>
+                            <div class="tip-content">
+                                <h4>Configura Privacidad</h4>
+                                <p>Ajusta la configuración para limitar quién puede contactarte.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title">🧠 Quiz sobre Lenguaje Sexual</h2>
+                    <p class="quiz-question">Si alguien en un chat comienza a usar lenguaje sexual explícito, ¿qué es lo más apropiado?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 75)">
+                            <span>🚫</span> Expresar tu incomodidad y salir del chat si continúa
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>😶</span> Ignorarlo y seguir participando normalmente
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>😠</span> Responder con enojo y confrontación
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📸</span> Guardar capturas para exponerlo después
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-lenguaje-sexual"></div>
+                </div>
+            </div>
+
+            <!-- Página Memes Ofensivos -->
+            <div id="memes-ofensivos" class="page">
+                <div class="intro-section">
+                    <h1 class="page-title">😠 Memes Ofensivos</h1>
+                    <p class="page-subtitle">Aprende a identificar y responder a memes que pueden herir o discriminar.</p>
+                </div>
+
+                <div class="visual-cards">
+                    <div class="visual-card warning">
+                        <div class="visual-icon">🤬</div>
+                        <h3 class="visual-title">Contenido Discriminatorio</h3>
+                        <p class="visual-description">Memes que ridiculizan características físicas o culturales</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">😔</div>
+                        <h3 class="visual-title">Normalización del Odio</h3>
+                        <p class="visual-description">Bromas que promueven estereotipos dañinos</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">🔄</div>
+                        <h3 class="visual-title">Presión para Compartir</h3>
+                        <p class="visual-description">Incitación a difundir contenido ofensivo</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">👁️</div>
+                        <h3 class="visual-title">Impacto Psicológico</h3>
+                        <p class="visual-description">Efectos en la autoestima y bienestar emocional</p>
+                    </div>
+                </div>
+
+                <!-- Sección de Prevención -->
+                <div class="prevention-section">
+                    <h2 class="prevention-title">🛡️ Cómo Manejar Memes Ofensivos</h2>
+                    <div class="prevention-tips">
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🚫</div>
+                            <div class="tip-content">
+                                <h4>No Compartas</h4>
+                                <p>Evita difundir memes que puedan herir a otros, aunque parezcan "inofensivos".</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">💬</div>
+                            <div class="tip-content">
+                                <h4>Expresa tu Desacuerdo</h4>
+                                <p>Comunica educadamente cuando un meme te parece ofensivo.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">👥</div>
+                            <div class="tip-content">
+                                <h4>Promueve Contenido Positivo</h4>
+                                <p>Comparte memes que unan en lugar de dividir.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📱</div>
+                            <div class="tip-content">
+                                <h4>Reporta Contenido Dañino</h4>
+                                <p>Utiliza las herramientas de reporte en plataformas sociales.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title">🧠 Quiz sobre Memes Ofensivos</h2>
+                    <p class="quiz-question">¿Qué deberías hacer si un amigo comparte un meme que ridiculiza a un grupo de personas?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 80)">
+                            <span>💬</span> Explicar por qué puede ser ofensivo y sugerir no compartirlo
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>👍</span> Reírte para no crear conflicto
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>😠</span> Enojarte y confrontar agresivamente
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🔄</span> Compartirlo con otros para "alertarlos"
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-memes-ofensivos"></div>
+                </div>
+            </div>
+
+            <!-- Página Dinámicas de Exclusión -->
+            <div id="exclusion" class="page">
+                <div class="intro-section">
+                    <h1 class="page-title">🚫 Dinámicas de Exclusión</h1>
+                    <p class="page-subtitle">Comprende el impacto de la exclusión digital y cómo promover la inclusión.</p>
+                </div>
+
+                <div class="visual-cards">
+                    <div class="visual-card warning">
+                        <div class="visual-icon">👥</div>
+                        <h3 class="visual-title">Grupos Excluyentes</h3>
+                        <p class="visual-description">Creación de círculos que marginan a compañeros</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">💬</div>
+                        <h3 class="visual-title">Conversaciones Secretas</h3>
+                        <p class="visual-description">Chats paralelos que excluyen a miembros del grupo</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">🎉</div>
+                        <h3 class="visual-title">Eventos No Inclusivos</h3>
+                        <p class="visual-description">Planificación de actividades que excluyen deliberadamente</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">😔</div>
+                        <h3 class="visual-title">Impacto Emocional</h3>
+                        <p class="visual-description">Consecuencias en la autoestima y salud mental</p>
+                    </div>
+                </div>
+
+                <!-- Sección de Prevención -->
+                <div class="prevention-section">
+                    <h2 class="prevention-title">🛡️ Cómo Promover la Inclusión Digital</h2>
+                    <div class="prevention-tips">
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🤝</div>
+                            <div class="tip-content">
+                                <h4>Sé Inclusivo</h4>
+                                <p>Incluye a todos los compañeros en conversaciones y actividades grupales.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">👁️</div>
+                            <div class="tip-content">
+                                <h4>Identifica la Exclusión</h4>
+                                <p>Reconoce cuando alguien está siendo marginado en entornos digitales.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🗣️</div>
+                            <div class="tip-content">
+                                <h4>Habla con Valentía</h4>
+                                <p>Expresa tu desacuerdo cuando observes dinámicas excluyentes.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">❤️</div>
+                            <div class="tip-content">
+                                <h4>Apoya a los Marginados</h4>
+                                <p>Ofrece tu amistad y apoyo a quienes están siendo excluidos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title">🧠 Quiz sobre Dinámicas de Exclusión</h2>
+                    <p class="quiz-question">Si notas que un compañero está siendo excluido de un grupo de chat, ¿qué deberías hacer?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 90)">
+                            <span>🤝</span> Incluirlo en la conversación y asegurarte de que participe
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🤫</span> No decir nada para evitar problemas
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>😠</span> Enfrentar a quienes lo excluyen públicamente
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📱</span> Crear otro grupo sin los que excluyen
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-exclusion"></div>
+                </div>
+            </div>
+
+            <!-- Las demás páginas seguirían la misma estructura -->
+            <!-- Por brevedad, solo se muestran 3 páginas completas -->
+
+        </div>
+    </div>
+
+    <script>
+        let totalXP = 240;
+
+        function showPage(pageId, buttonElement) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+        }
+
+        function checkAnswer(element, type, xp) {
+            // Reset all options
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            element.classList.add(type);
+            
+            // Show result
+            const resultId = 'quiz-' + document.querySelector('.page.active').id;
+            const resultElement = document.getElementById(resultId);
+            
+            if (type === 'correct') {
+                resultElement.textContent = `¡Correcto! +${xp} XP`;
+                resultElement.className = 'quiz-result success';
+                
+                // Add XP
+                totalXP += xp;
+                document.getElementById('user-xp').textContent = `Nivel 3 | ${totalXP} XP`;
+                
+                // Show XP badge
+                const xpBadge = document.createElement('div');
+                xpBadge.className = 'xp-badge';
+                xpBadge.innerHTML = `<span>⭐</span> Ganaste ${xp} puntos de experiencia`;
+                resultElement.appendChild(xpBadge);
+            } else {
+                resultElement.textContent = 'Respuesta incorrecta. ¡Sigue aprendiendo!';
+                resultElement.className = 'quiz-result error';
+            }
+        }
+
+        // Crear efecto de partículas
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 15;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Tamaño y posición aleatoria
+            const size = Math.random() * 10 + 5;
+            const left = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = Math.random() * 10 + 10;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${left}%`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>

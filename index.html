@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Virtual: Seguridad Digital para Jóvenes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/estilo1.css">
+    <!-- Toastify CSS para alert con estilo -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <!-- Toastify CSS para alert con estilo -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+</head>
+<body>
+    <!-- NUEVAS ANIMACIONES DE FONDO -->
+    <div class="background-animations">
+        <div class="circuit">
+            <!-- Circuitos digitales se generarán con JavaScript -->
+        </div>
+        <div class="energy-wave"></div>
+        <!-- Hexágonos y partículas se generarán con JavaScript -->
+    </div>
+
+    <!-- Página de bienvenida -->
+    <div id="welcome-page">
+        <div class="welcome-container">
+            <h1 class="welcome-title">
+                <span class="emoji-animation emoji-1">🛡️</span>
+                CyberZone
+                <span class="emoji-animation emoji-2">🚀</span>
+            </h1>
+            <p class="welcome-subtitle">
+                ¡Bienvenido a tu aventura digital! 
+                <span class="emoji-animation emoji-3"></span><br>
+                Para comenzar, ingresa tu nombre:
+            </p>
+            
+            <form class="welcome-form" id="welcome-form">
+                <input type="text" class="welcome-input" id="user-name" placeholder="Ingresa tu nombre aquí" required>
+                <button type="submit" class="welcome-button pulse-glow">
+                    <span class="emoji-animation float">🎮</span>
+                    Comenzar Aventura 
+                    <span class="emoji-animation wiggle">🚀</span>
+                </button>
+            </form>
+            
+            <div class="welcome-features">
+                <div class="feature">
+                    <div class="feature-icon bounce">📚</div>
+                    <div class="feature-text">Módulos Interactivos</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon spin">🏆</div>
+                    <div class="feature-text">Sistema de Recompensas</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon float">🔒</div>
+                    <div class="feature-text">Contenido Seguro</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon wiggle">🎯</div>
+                    <div class="feature-text">Desafíos Divertidos</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Efecto de luces en el fondo - MEJORADO -->
+    <div class="lights-container">
+        <div class="light light-1"></div>
+        <div class="light light-2"></div>
+        <div class="light light-3"></div>
+        <div class="light light-4"></div>
+        <div class="light light-5"></div>
+        <div class="light light-6"></div>
+        <div class="light light-7"></div>
+        <div class="light light-8"></div>
+    </div>
+
+    <!-- Efecto de partículas -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container" id="main-container">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">CyberZone</div>
+            </div>
+            
+            <button class="nav-button active" onclick="showPage('inicio', this)">
+                <span class="nav-icon">🏠</span> Inicio
+            </button>
+            <button class="nav-button" onclick="showPage('modulo1', this)">
+                <span class="nav-icon">👤</span> Ciudadanía Digital
+            </button>
+            <button class="nav-button" onclick="showPage('modulo2', this)">
+                <span class="nav-icon">🔒</span> Privacidad & Datos
+            </button>
+            <button class="nav-button" onclick="showPage('modulo3', this)">
+                <span class="nav-icon">💻</span> Ciberseguridad
+            </button>
+
+            <div class="user-profile">
+                <div class="avatar">👤</div>
+                <div class="user-info">
+                    <h3 id="display-user-name">CyberExplorador</h3>
+                    <p>Nivel 3 | 240 XP</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Página Inicio -->
+            <div id="inicio" class="page active">
+                <h1 class="page-title">Aula Virtual: Seguridad Digital para Jóvenes</h1>
+                <p class="page-subtitle">Domina el mundo digital con confianza. Aprende a proteger tu información, identificar riesgos y convertirte en un ciudadano digital responsable.</p>
+                
+                <div class="intro-section">
+                    <div class="intro-icon">🚀</div>
+                    <h2>Tu Aventura Digital Comienza Aquí</h2>
+                    <p>Explora nuestros módulos interactivos diseñados específicamente para jóvenes como tú. Aprende sobre seguridad en redes sociales, protección contra estafas y cómo mantener tu identidad digital segura.</p>
+                    <p>Completa actividades, gana insignias y conviértete en un experto en ciberseguridad.</p>
+                    <button class="cta-button" onclick="showPage('modulo1', document.querySelectorAll('.nav-button')[1])">Comenzar Aventura</button>
+                </div>
+
+                <h2 style="font-size: 32px; margin: 40px 0 20px; color: white; text-align: center;">Tu Progreso</h2>
+                
+                <div class="modules-container">
+                    <!-- Módulo 1 -->
+                    <div class="module" onclick="showPage('modulo1', document.querySelectorAll('.nav-button')[1])">
+                        <div class="module-header">
+                            <h3 class="module-title"><span class="module-icon">👤</span> Módulo 1: Ciudadanía Digital</h3>
+                            <div class="module-progress">
+                                <div class="progress-circle" id="progress-module1">
+                                    <span class="progress-text">25%</span>
+                                </div>
+                                <span>Progreso</span>
+                            </div>
+                        </div>
+                        <div class="topics-list">
+                            <div class="topic not-started">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 1: Ciudadanía Digital Crítica y Responsable</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Identificar información falsa</span>
+                                        <span class="subtopic">Participación digital responsable</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 2: Bienestar Digital y Salud Emocional</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Gestión del tiempo en pantalla</span>
+                                        <span class="subtopic">Impacto emocional de las redes</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Módulo 2 -->
+                    <div class="module" onclick="showPage('modulo2', document.querySelectorAll('.nav-button')[2])">
+                        <div class="module-header">
+                            <h3 class="module-title"><span class="module-icon">🔒</span> Módulo 2: Privacidad y Datos</h3>
+                            <div class="module-progress">
+                                <div class="progress-circle" id="progress-module2">
+                                    <span class="progress-text">50%</span>
+                                </div>
+                                <span>Progreso</span>
+                            </div>
+                        </div>
+                        <div class="topics-list">
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 1: Consumo Digital Consciente y Ético</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Huella digital y datos personales</span>
+                                        <span class="subtopic">Configuración de privacidad</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 2: Gestión Segura de Contraseñas y Accesos</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Creación de contraseñas seguras</span>
+                                        <span class="subtopic">Autenticación de dos factores</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Módulo 3 -->
+                    <div class="module" onclick="showPage('modulo3', document.querySelectorAll('.nav-button')[3])">
+                        <div class="module-header">
+                            <h3 class="module-title"><span class="module-icon">💻</span> Módulo 3: Ciberseguridad Práctica</h3>
+                            <div class="module-progress">
+                                <div class="progress-circle" id="progress-module3">
+                                    <span class="progress-text">67%</span>
+                                </div>
+                                <span>Progreso</span>
+                            </div>
+                        </div>
+                        <div class="topics-list">
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 1: Navegación Segura y Protección contra Malware</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Identificación de sitios seguros</span>
+                                        <span class="subtopic">Protección contra virus y malware</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topic completed">
+                                <div class="topic-checkbox"></div>
+                                <div class="topic-content">
+                                    <div class="topic-title">Tema 2: Alfabetización Mediática y Verificación</div>
+                                    <div class="topic-subtopics">
+                                        <span class="subtopic">Detección de noticias falsas</span>
+                                        <span class="subtopic">Verificación de fuentes</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gamification">
+                    <div class="stats-card">
+                        <div class="stats-number" id="modules-completed">2/3</div>
+                        <div class="stats-label">Módulos Completados</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-number" id="topics-completed">5/7</div>
+                        <div class="stats-label">Temas Completados</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-number" id="xp-points">240</div>
+                        <div class="stats-label">Puntos de Experiencia</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página Módulo 1 - Ciudadanía Digital -->
+            <div id="modulo1" class="page">
+                <div class="module1-content">
+                    <div class="module1-header">
+                        <h1 class="module1-title">Módulo 1: Ciudadanía Digital</h1>
+                        <p class="module1-subtitle">Aprende a navegar por el mundo digital de forma crítica, responsable y ética, protegiendo tu bienestar emocional y conviviendo respetuosamente en línea.</p>
+                    </div>
+
+                    <div class="module1-grid">
+                        <!-- Ciudadanía Digital Crítica y Responsable -->
+                        <div class="module1-card" onclick="window.location.href='Modulo1/ciudadania.html';">
+                            <div class="module1-icon">🧠</div>
+                            <h3 class="module1-card-title">Ciudadanía Digital Crítica y Responsable</h3>
+                            <p class="module1-card-description">Desarrolla un pensamiento crítico para evaluar información, identificar desinformación y participar de manera responsable en espacios digitales.</p>
+                        </div>
+
+                        <!-- Bienestar Digital y Salud Emocional -->
+                        <div class="module1-card" onclick="window.location.href='Modulo1/bienestar.html';">
+                            <div class="module1-icon">💚</div>
+                            <h3 class="module1-card-title">Bienestar Digital y Salud Emocional</h3>
+                            <p class="module1-card-description">Aprende a gestionar tu tiempo en pantalla, reconocer el impacto emocional de las redes sociales y mantener un equilibrio saludable con la tecnología.</p>
+                        </div>
+
+                        <!-- Ética Digital y Convivencia en Línea -->
+                        <div class="module1-card" onclick="window.location.href='Modulo1/convi.html';">
+                            <div class="module1-icon">🤝</div>
+                            <h3 class="module1-card-title">Ética Digital y Convivencia en Línea</h3>
+                            <p class="module1-card-description">Comprende los principios éticos que deben guiar tu comportamiento en línea, promoviendo el respeto, la empatía y la convivencia positiva en espacios digitales.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="intro-section">
+                        <h2>¿Por qué es importante la Ciudadanía Digital?</h2>
+                        <p>La ciudadanía digital te enseña a utilizar la tecnología de manera responsable, ética y segura. Aprenderás a identificar riesgos, proteger tu privacidad y construir una presencia positiva en línea.</p>
+                        <p>Completa este módulo para convertirte en un ciudadano digital ejemplar y ayudar a otros a navegar de forma segura por Internet.</p>
+                        <button class="cta-button" onclick="showPage('inicio', document.querySelectorAll('.nav-button')[0])">Volver al Inicio</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página Módulo 2 - CORREGIDO -->
+            <div id="modulo2" class="page">
+                <div class="module2-content">
+                    <div class="module2-header">
+                        <h1 class="module2-title">Módulo 2: Privacidad y Datos</h1>
+                        <p class="module2-subtitle">Aprende a proteger tu información personal, gestionar tu huella digital y navegar de forma segura en el entorno digital.</p>
+                    </div>
+
+                    <div class="module2-grid">
+                        <!-- Consumo Digital Consciente y Ético -->
+                        <div class="module2-card" onclick="window.location.href='Modulo2/difusionRumores.html';">
+                            <div class="module2-icon">🌐</div>
+                            <h3 class="module2-card-title">Consumo Digital Consciente y Ético</h3>
+                            <p class="module2-card-description">Aprende a tomar decisiones informadas sobre tu consumo digital, comprendiendo el valor de tus datos y el impacto de tu huella digital.</p>
+                            <div class="lesson-badge">Lección 1: Difusión de Rumores</div>
+                        </div>
+
+                        <!-- Gestión Segura de Contraseñas y Accesos -->
+                        <div class="module2-card" onclick="window.location.href='Modulo2/contrasenasDebiles.html';">
+                            <div class="module2-icon">🔑</div>
+                            <h3 class="module2-card-title">Gestión Segura de Contraseñas y Accesos</h3>
+                            <p class="module2-card-description">Domina las mejores prácticas para crear y gestionar contraseñas seguras, y protege tus cuentas con métodos de autenticación robustos.</p>
+                            <div class="lesson-badge">Lección 2: Contraseñas Débiles</div>
+                        </div>
+
+                        <!-- Navegación Segura y Protección contra Malware -->
+                        <div class="module2-card" onclick="window.location.href='Modulo2/sitiosMaliciosos.html';">
+                            <div class="module2-icon">🛡️</div>
+                            <h3 class="module2-card-title">Navegación Segura y Protección contra Malware</h3>
+                            <p class="module2-card-description">Identifica sitios web seguros, reconoce amenazas en línea y protege tus dispositivos contra virus, malware y otras ciberamenazas.</p>
+                            <div class="lesson-badge">Lección 3: Sitios Maliciosos</div>
+                        </div>
+
+                        <!-- Alfabetización Mediática y Verificación de Información -->
+                        <div class="module2-card" onclick="window.location.href='Modulo2/contenidoPseudocientifico.html';">
+                            <div class="module2-icon">📰</div>
+                            <h3 class="module2-card-title">Alfabetización Mediática y Verificación de Información</h3>
+                            <p class="module2-card-description">Desarrolla habilidades para evaluar críticamente la información en línea, detectar noticias falsas y verificar fuentes confiables.</p>
+                            <div class="lesson-badge">Lección 4: Contenido Pseudocientífico</div>
+                        </div>
+
+                        <!-- Ciberseguridad y Autoprotección Digital -->
+                        <div class="module2-card" onclick="window.location.href='Modulo2/wifiPublicas.html';">
+                            <div class="module2-icon">📡</div>
+                            <h3 class="module2-card-title">Ciberseguridad y Autoprotección Digital</h3>
+                            <p class="module2-card-description">Aprende técnicas avanzadas de protección digital y cómo mantener tu información segura en diferentes contextos en línea.</p>
+                            <div class="lesson-badge">Lección 5: Wi-Fi Públicas</div>
+                        </div>
+                    </div>
+                    
+                    <div class="intro-section">
+                        <h2>Protege tu Privacidad en el Mundo Digital</h2>
+                        <p>En un mundo cada vez más conectado, proteger tu información personal es fundamental. Este módulo te proporciona las herramientas necesarias para mantener el control sobre tus datos y navegar de forma segura.</p>
+                        <p>Completa las 5 lecciones para dominar las técnicas de protección de privacidad y convertirte en un usuario digital seguro y consciente.</p>
+                        <button class="cta-button" onclick="showPage('inicio', document.querySelectorAll('.nav-button')[0])">Volver al Inicio</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página Módulo 3 - Ciberseguridad -->
+            <div id="modulo3" class="page">
+                <div class="module3-content">
+                    <div class="module3-header">
+                        <h1 class="module3-title">Módulo 3: Ciberseguridad Práctica</h1>
+                        <p class="module3-subtitle">Aprende técnicas prácticas para proteger tu información, identidad y derechos en el entorno digital</p>
+                    </div>
+
+                    <div class="module3-grid">
+                        <!-- Seguridad de la información y protección de datos -->
+                        <div class="module3-card" onclick="window.location.href='Modulo3/infoSegura.html';">
+                            <div class="module3-icon">🔒</div>
+                            <h3 class="module3-card-title">Seguridad de la información<br>y protección de datos</h3>
+                        </div>
+
+                        <!-- Protección de la identidad digital -->
+                        <div class="module3-card" onclick="window.location.href='Modulo3/identidadDigital.html';">
+                            <div class="module3-icon">🛡️</div>
+                            <h3 class="module3-card-title">Protección de la identidad<br>digital</h3>
+                        </div>
+
+                        <!-- Prevención en delitos digitales infantiles -->
+                        <div class="module3-card" onclick="window.location.href='Modulo3/delitosInfantiles.html';">
+                            <div class="module3-icon">👶</div>
+                            <h3 class="module3-card-title">Prevención en delitos digitales<br>infantiles</h3>
+                        </div>
+
+                        <!-- Derechos digitales y legislación juvenil -->
+                        <div class="module3-card" onclick="window.location.href='Modulo3/legislacionJuvenil.html';">
+                            <div class="module3-icon">⚖️</div>
+                            <h3 class="module3-card-title">Derechos digitales y legislación<br>juvenil</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="intro-section">
+                        <h2>¿Listo para convertirte en un experto en ciberseguridad?</h2>
+                        <p>Completa las actividades de este módulo para dominar las técnicas más importantes de protección digital y obtener tu certificado de ciberseguridad.</p>
+                        <button class="cta-button" onclick="showPage('inicio', document.querySelectorAll('.nav-button')[0])">Volver al Inicio</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let userName = '';
+
+        // Función para detectar si un nombre es femenino
+        function esNombreFemenino(nombre) {
+            const nombresFemeninos = [
+                'maria', 'ana', 'carmen', 'isabel', 'laura', 'patricia', 'elena', 'cristina', 
+                'andrea', 'claudia', 'natalia', 'paula', 'sandra', 'sonia', 'veronica', 'alicia',
+                'beatriz', 'carolina', 'diana', 'elisa', 'fernanda', 'gabriela', 'ines', 'julia',
+                'karen', 'lucia', 'marta', 'noelia', 'olga', 'pilar', 'raquel', 'silvia', 'teresa',
+                'valeria', 'ximena', 'yolanda', 'zaida', 'adriana', 'barbara', 'celia', 'dolores',
+                'eva', 'fatima', 'gloria', 'helena', 'irene', 'jessica', 'karla', 'leticia',
+                'monica', 'nuria', 'olivia', 'pamela', 'quetzal', 'rosa', 'sara', 'tania',
+                'ursula', 'vanessa', 'wendy', 'ximena', 'yadira', 'zoe', 'camila', 'sofia', 'valentina',
+                'emma', 'luciana', 'martina', 'julieta', 'renata', 'antonella', 'isabella', 'victoria'
+            ];
+            
+            const nombreMinuscula = nombre.toLowerCase().trim();
+            return nombresFemeninos.includes(nombreMinuscula);
+        }
+
+        // Función para crear animaciones de fondo
+        function crearAnimacionesFondo() {
+            const backgroundAnimations = document.querySelector('.background-animations');
+            const circuit = document.querySelector('.circuit');
+            
+            // Crear circuitos digitales
+            for (let i = 0; i < 15; i++) {
+                const line = document.createElement('div');
+                line.classList.add('circuit-line');
+                line.style.top = `${Math.random() * 100}%`;
+                line.style.width = `${Math.random() * 100 + 50}%`;
+                line.style.animationDelay = `${Math.random() * 10}s`;
+                line.style.animationDuration = `${Math.random() * 10 + 8}s`;
+                circuit.appendChild(line);
+                
+                // Añadir nodos de circuito
+                if (Math.random() > 0.5) {
+                    const node = document.createElement('div');
+                    node.classList.add('circuit-node');
+                    node.style.top = line.style.top;
+                    node.style.left = `${Math.random() * 100}%`;
+                    node.style.animationDelay = `${Math.random() * 5}s`;
+                    circuit.appendChild(node);
+                }
+            }
+            
+            // Crear hexágonos flotantes
+            for (let i = 0; i < 12; i++) {
+                const hexagon = document.createElement('div');
+                hexagon.classList.add('hexagon');
+                hexagon.style.left = `${Math.random() * 100}%`;
+                hexagon.style.animationDelay = `${Math.random() * 20}s`;
+                hexagon.style.animationDuration = `${Math.random() * 10 + 15}s`;
+                backgroundAnimations.appendChild(hexagon);
+            }
+            
+            // Crear partículas de datos
+            for (let i = 0; i < 25; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('data-particle');
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                backgroundAnimations.appendChild(particle);
+            }
+        }
+
+        // Función para inicializar la aplicación
+        function initApp() {
+            // Bloquear el contenido principal hasta que se ingrese el nombre
+            document.getElementById('main-container').classList.add('content-blocked');
+            
+            // Configurar el formulario de bienvenida
+            const welcomeForm = document.getElementById('welcome-form');
+            welcomeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const nameInput = document.getElementById('user-name');
+                const name = nameInput.value.trim();
+                
+                if (name) {
+                        userName = name;
+
+                        // Detectar si el nombre es femenino y actualizar el título
+                        const esFemenino = esNombreFemenino(name);
+                        const titulo = esFemenino ? 'CyberExploradora' : 'CyberExplorador';
+
+                        // Actualizar el nombre en el perfil
+                        document.getElementById('display-user-name').textContent = `${name} (${titulo})`;
+
+                        // Ocultar la página de bienvenida
+                        document.getElementById('welcome-page').classList.add('hidden');
+
+                        // Desbloquear el contenido principal
+                        document.getElementById('main-container').classList.remove('content-blocked');
+
+                        // Mostrar mensaje de bienvenida personalizado con Toastify
+                        const mensaje = esFemenino ? 
+                            `¡Bienvenida, ${name}! Estamos emocionados de que comiences tu aventura en CyberZone.` :
+                            `¡Bienvenido, ${name}! Estamos emocionados de que comiences tu aventura en CyberZone.`;
+
+                        Toastify({
+                            text: mensaje,
+                            duration: 5000,
+                            gravity: "top", // top o bottom
+                            position: "right", // left, center, right
+                            stopOnFocus: true, // pausa si pasa el mouse
+                            close: true, // botón de cerrar
+                            style: {
+                                background: "linear-gradient(135deg, #0a0f2d, #1a237e, #283593)",
+                                color: "white",
+                                fontWeight: "bold",
+                                borderRadius: "12px",
+                                padding: "15px",
+                                boxShadow: "0 0 20px rgba(0,0,0,0.5)"
+                            }
+                        }).showToast();
+                    } else {
+                        Toastify({
+                            text: 'Por favor, ingresa tu nombre para continuar.',
+                            duration: 4000,
+                            gravity: "top",
+                            position: "right",
+                            stopOnFocus: true,
+                            close: true,
+                            style: {
+                                background: "#ff4c4c",
+                                color: "white",
+                                fontWeight: "bold",
+                                borderRadius: "12px",
+                                padding: "15px",
+                            }
+                        }).showToast();
+                    }
+
+            });
+            
+            // Agregar animación a los iconos de características
+            const featureIcons = document.querySelectorAll('.feature-icon');
+            featureIcons.forEach((icon, index) => {
+                icon.style.animationDelay = `${index * 0.5}s`;
+                icon.classList.add('bounce');
+            });
+            
+            // Crear animaciones de fondo
+            crearAnimacionesFondo();
+        }
+
+        function showPage(pageId, buttonElement) {
+            // Verificar si el usuario ha ingresado su nombre
+            if (!userName) {
+                alert('Por favor, ingresa tu nombre en la página de inicio para acceder al contenido.');
+                return;
+            }
+            
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+            
+            // Actualizar progreso visual
+            if(pageId === 'inicio') {
+                updateProgressBars();
+            }
+        }
+
+        function updateProgressBars() {
+            // Actualizar círculos de progreso
+            const progressModule1 = document.getElementById('progress-module1');
+            const progressModule2 = document.getElementById('progress-module2');
+            const progressModule3 = document.getElementById('progress-module3');
+            
+            // Simular progreso
+            progressModule1.style.background = 'conic-gradient(var(--primary) 25%, rgba(255,255,255,0.1) 0%)';
+            progressModule2.style.background = 'conic-gradient(var(--primary) 50%, rgba(255,255,255,0.1) 0%)';
+            progressModule3.style.background = 'conic-gradient(var(--primary) 67%, rgba(255,255,255,0.1) 0%)';
+        }
+
+        // Crear efecto de partículas
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 15;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Tamaño y posición aleatoria
+            const size = Math.random() * 10 + 5;
+            const left = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = Math.random() * 10 + 10;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${left}%`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            initApp();
+            updateProgressBars();
+        });
+    </script>
+</body>
+</html>

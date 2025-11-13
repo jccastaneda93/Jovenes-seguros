@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contraseñas Débiles - CyberZone</title>
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #00d4ff;
+            --accent: #ff3e80;
+            --dark: #0f0f23;
+            --darker: #090915;
+            --light: #f0f4ff;
+            --card-bg: rgba(30, 30, 60, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1a1a3e 100%);
+            min-height: 100vh;
+            color: var(--light);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            color: white; 
+        }
+
+        .header h1 { 
+            font-size: 2.5rem; 
+            margin-bottom: 10px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle { 
+            font-size: 1.2rem; 
+            opacity: 0.9; 
+            color: var(--text-muted);
+        }
+
+        .lesson-card {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .topic-header {
+            background: linear-gradient(135deg, var(--primary), #6366f1);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .topic-header h2 { 
+            font-size: 1.8rem; 
+            margin-bottom: 5px; 
+        }
+
+        .content-section { 
+            margin-bottom: 25px; 
+        }
+
+        .content-section h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        .info-box { 
+            background: rgba(0, 212, 255, 0.1); 
+            border-left: 4px solid var(--secondary); 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin: 15px 0; 
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .warning-box { 
+            background: rgba(255, 193, 7, 0.1); 
+            border-left: 4px solid #ffc107; 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin: 15px 0; 
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .critical-box { 
+            background: rgba(244, 67, 54, 0.1); 
+            border-left: 4px solid #f44336; 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin: 15px 0; 
+            border: 1px solid rgba(244, 67, 54, 0.2);
+        }
+
+        .success-box { 
+            background: rgba(76, 175, 80, 0.1); 
+            border-left: 4px solid #4caf50; 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin: 15px 0; 
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        ul, ol { 
+            margin-left: 20px; 
+            margin-bottom: 15px; 
+        }
+
+        li { 
+            margin-bottom: 8px; 
+        }
+
+        .navigation { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-top: 30px; 
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white; 
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-primary:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+        }
+
+        .btn-secondary { 
+            background: rgba(255, 255, 255, 0.1);
+            color: white; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover { 
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px); 
+        }
+
+        .progress-bar { 
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: 10px; 
+            height: 8px; 
+            margin: 20px 0; 
+            overflow: hidden; 
+        }
+
+        .progress { 
+            background: linear-gradient(90deg, var(--primary), var(--secondary)); 
+            height: 100%; 
+            width: 40%; 
+            border-radius: 10px;
+        }
+
+        .password-example {
+            font-family: monospace;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid;
+        }
+        
+        .weak { 
+            background: rgba(244, 67, 54, 0.2); 
+            color: #ff5252; 
+            border-color: rgba(244, 67, 54, 0.4);
+        }
+        
+        .strong { 
+            background: rgba(76, 175, 80, 0.2); 
+            color: #69f0ae; 
+            border-color: rgba(76, 175, 80, 0.4);
+        }
+
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+        
+        /* Nuevos estilos para elementos interactivos */
+        .tab-container { margin: 20px 0; }
+        .tab-buttons { 
+            display: flex; 
+            border-bottom: 2px solid var(--primary); 
+            margin-bottom: 15px; 
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: 8px 8px 0 0;
+            margin-right: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+        .tab-content { 
+            display: none; 
+            padding: 25px; 
+            background: rgba(22, 33, 62, 0.8); 
+            border-radius: 0 12px 12px 12px; 
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        .tab-content.active { display: block; }
+        
+        .quiz-container { margin: 20px 0; }
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .quiz-options { margin: 15px 0; }
+        .quiz-option {
+            display: block;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--light);
+        }
+        .quiz-option:hover { 
+            background: rgba(139, 92, 246, 0.2); 
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+        .quiz-option.selected { 
+            background: var(--primary); 
+            color: white; 
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+        .quiz-feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+            border: 1px solid;
+        }
+        .quiz-feedback.correct { 
+            background: rgba(76, 175, 80, 0.1); 
+            border-color: rgba(76, 175, 80, 0.3);
+            color: #4caf50;
+        }
+        .quiz-feedback.incorrect { 
+            background: rgba(244, 67, 54, 0.1); 
+            border-color: rgba(244, 67, 54, 0.3);
+            color: #f44336;
+        }
+        
+        .toolkit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .toolkit-item {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            cursor: pointer;
+        }
+        .toolkit-item:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+        .toolkit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .password-strength-meter {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .strength-level {
+            height: 100%;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .strength-weak { background: #ff5252; width: 25%; }
+        .strength-medium { background: #ffb74d; width: 50%; }
+        .strength-strong { background: #69f0ae; width: 75%; }
+        .strength-very-strong { background: #00e676; width: 100%; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tab-buttons {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                margin-bottom: 5px;
+                border-radius: 8px;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<head>
+    <!-- otros estilos que ya tengas -->
+    
+    <!-- PEGAR ESTOS ESTILOS AQUÍ ↓↓↓ -->
+    <style>
+    .back-to-home {
+        background-color: #4a6ee0;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-block;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+        font-size: 16px;
+    }
+    .back-to-home:hover {
+        background-color: #3a5ac8;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Contraseñas Débiles</h1>
+            <p class="subtitle">Gestión segura de contraseñas y accesos - Para adolescentes</p>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+
+        <div class="lesson-card">
+            <!-- Pestañas para diferentes secciones -->
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="contenido">Contenido Principal</button>
+                    <button class="tab-btn" data-tab="generador">Generador Seguro</button>
+                    <button class="tab-btn" data-tab="simulador">Simulador Hackeo</button>
+                    <button class="tab-btn" data-tab="herramientas">Herramientas</button>
+                    <button class="tab-btn" data-tab="quiz">Test de Seguridad</button>
+                </div>
+                
+                <!-- CONTENIDO PRINCIPAL -->
+                <div id="contenido" class="tab-content active">
+                    <div class="topic-header">
+                        <h2>🛡️ Protege tu identidad digital</h2>
+                        <p>Aprende a crear y gestionar contraseñas que realmente te protejan</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3>🎯 ¿Por qué importan las contraseñas?</h3>
+                        <p>Tu contraseña es la llave de tu vida digital: redes sociales, juegos, correo, y más.</p>
+                        
+                        <div class="warning-box">
+                            <h4>💀 Errores comunes de adolescentes:</h4>
+                            <ul>
+                                <li>Usar el nombre de tu mascota o equipo favorito</li>
+                                <li>Misma contraseña para todo</li>
+                                <li>Contraseñas como "123456" o "password"</li>
+                                <li>Compartir contraseñas con amigos</li>
+                                <li>Anotarlas en notas visibles</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <h3>📊 Ejemplos prácticos</h3>
+                        
+                        <div class="password-example weak">
+                            ❌ Débil: "dragonball" - Se puede hackear en 2 segundos
+                        </div>
+                        <div class="password-example weak">
+                            ❌ Muy débil: "123456" - La más usada y peligrosa
+                        </div>
+                        <div class="password-example strong">
+                            ✅ Fuerte: "DbsZ@2024!" - Combinación segura
+                        </div>
+                        
+                        <div class="info-box">
+                            <h4>🔍 Los hackers prueban primero:</h4>
+                            <ul>
+                                <li>Nombres de familiares/mascotas</li>
+                                <li>Fechas de cumpleaños</li>
+                                <li>Equipos deportivos favoritos</li>
+                                <li>Series y películas populares</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <h3>🚀 Crea contraseñas super seguras</h3>
+                        <div class="success-box">
+                            <h4>🎯 Método de la frase:</h4>
+                            <p><strong>Frase:</strong> "Me encanta el helado de chocolate los viernes!"</p>
+                            <p><strong>Contraseña:</strong> "MeEdC@dV!"</p>
+                            <p>💡 Toma las primeras letras de cada palabra y añade símbolos</p>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <h3>📱 Gestión inteligente</h3>
+                        <ul>
+                            <li><strong>Contraseñas únicas:</strong> Diferente para cada cuenta importante</li>
+                            <li><strong>Verificación en dos pasos:</strong> Actívala siempre que puedas</li>
+                            <li><strong>Gestor de contraseñas:</strong> Usa LastPass, Bitwarden (gratis)</li>
+                            <li><strong>Actualización:</strong> Cambia cada 6 meses las importantes</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h3>🎮 Reto práctico</h3>
+                        <div class="info-box">
+                            <p><strong>Tu misión:</strong> Crear 3 contraseñas seguras para:</p>
+                            <ol>
+                                <li>Tu cuenta de Instagram/TikTok</li>
+                                <li>Tu correo electrónico</li>
+                                <li>Tu cuenta de gaming favorita</li>
+                            </ol>
+                            <p>¡Usa el método de la frase y verifica que sean diferentes!</p>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <h3>🚨 Señales de alerta</h3>
+                        <div class="warning-box">
+                            <ul>
+                                <li>Recibes emails de "restablecer contraseña" que no solicitaste</li>
+                                <li>Tus amigos reciben mensajes extraños de tu cuenta</li>
+                                <li>Ves actividad en redes sociales que no reconoces</li>
+                                <li>No puedes acceder a tus cuentas</li>
+                            </ul>
+                            <p><strong>¿Qué hacer?</strong> Cambia contraseñas inmediatamente y activa verificación en dos pasos.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- GENERADOR DE CONTRASEÑAS -->
+                <div id="generador" class="tab-content">
+                    <div class="topic-header">
+                        <h2>🔧 Generador de Contraseñas Seguras</h2>
+                        <p>Crea contraseñas fuertes en segundos</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>⚙️ Configura tu contraseña</h3>
+                        <div class="toolkit-grid">
+                            <div class="toolkit-item">
+                                <div class="toolkit-icon">🔢</div>
+                                <h4>Longitud: <span id="length-value">12</span></h4>
+                                <input type="range" id="length" min="8" max="20" value="12" style="width: 100%; margin: 10px 0;">
+                            </div>
+                            <div class="toolkit-item">
+                                <div class="toolkit-icon">🔠</div>
+                                <h4>Mayúsculas</h4>
+                                <input type="checkbox" id="uppercase" checked>
+                            </div>
+                            <div class="toolkit-item">
+                                <div class="toolkit-icon">#️⃣</div>
+                                <h4>Números</h4>
+                                <input type="checkbox" id="numbers" checked>
+                            </div>
+                            <div class="toolkit-item">
+                                <div class="toolkit-icon">🔣</div>
+                                <h4>Símbolos</h4>
+                                <input type="checkbox" id="symbols" checked>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="generate-btn" style="width: 100%; margin: 20px 0;">
+                            🎲 Generar Contraseña
+                        </button>
+                        
+                        <div class="password-example strong" id="generated-password">
+                            Tu contraseña segura aparecerá aquí
+                        </div>
+                        
+                        <div class="password-strength-meter">
+                            <div class="strength-level strength-weak" id="strength-meter"></div>
+                        </div>
+                        
+                        <button class="btn btn-secondary" id="copy-btn" style="width: 100%;">
+                            📋 Copiar al Portapapeles
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- SIMULADOR DE HACKEO -->
+                <div id="simulador" class="tab-content">
+                    <div class="topic-header">
+                        <h2>🕵️ Simulador de Ataque</h2>
+                        <p>Descubre cuánto tiempo tomaría hackear tu contraseña</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>🔓 Prueba tu contraseña</h3>
+                        <input type="text" id="test-password" placeholder="Escribe una contraseña para probar" 
+                               style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.1); 
+                                      border: 1px solid rgba(255,255,255,0.2); color: white; margin: 10px 0;">
+                        
+                        <div class="info-box" id="hack-time-result">
+                            <h4>⏱️ Tiempo estimado para hackear:</h4>
+                            <p>Ingresa una contraseña para ver el resultado</p>
+                        </div>
+                        
+                        <div class="warning-box">
+                            <h4>⚠️ Tipos de ataques comunes:</h4>
+                            <ul>
+                                <li><strong>Fuerza bruta:</strong> Prueba todas las combinaciones</li>
+                                <li><strong>Diccionario:</strong> Usa palabras comunes</li>
+                                <li><strong>Ingeniería social:</strong> Usa información personal</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- HERRAMIENTAS -->
+                <div id="herramientas" class="tab-content">
+                    <div class="topic-header">
+                        <h2>🧰 Kit de Seguridad</h2>
+                        <p>Herramientas para proteger tus cuentas</p>
+                    </div>
+                    
+                    <div class="toolkit-grid">
+                        <div class="toolkit-item">
+                            <div class="toolkit-icon">🔐</div>
+                            <h4>Verificador 2FA</h4>
+                            <p>Comprueba qué cuentas tienen verificación en dos pasos activada</p>
+                            <button class="btn btn-primary" style="margin-top: 10px;">Verificar</button>
+                        </div>
+                        
+                        <div class="toolkit-item">
+                            <div class="toolkit-icon">📝</div>
+                            <h4>Lista de Verificación</h4>
+                            <p>Guía paso a paso para asegurar tus cuentas importantes</p>
+                            <button class="btn btn-primary" style="margin-top: 10px;">Descargar</button>
+                        </div>
+                        
+                        <div class="toolkit-item">
+                            <div class="toolkit-icon">🔄</div>
+                            <h4>Recordatorio Cambios</h4>
+                            <p>Programa recordatorios para cambiar contraseñas</p>
+                            <button class="btn btn-primary" style="margin-top: 10px;">Configurar</button>
+                        </div>
+                        
+                        <div class="toolkit-item">
+                            <div class="toolkit-icon">📊</div>
+                            <h4>Análisis de Seguridad</h4>
+                            <p>Evalúa la fortaleza general de tus contraseñas</p>
+                            <button class="btn btn-primary" style="margin-top: 10px;">Analizar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- QUIZ -->
+                <div id="quiz" class="tab-content">
+                    <div class="topic-header">
+                        <h2>📝 Test de Seguridad</h2>
+                        <p>Pon a prueba tus conocimientos sobre contraseñas</p>
+                    </div>
+                    
+                    <div class="quiz-container">
+                        <div class="quiz-question">
+                            <h3>Pregunta 1: ¿Cuál de estas es la contraseña más segura?</h3>
+                            <div class="quiz-options">
+                                <div class="quiz-option" data-correct="false">A) 123456</div>
+                                <div class="quiz-option" data-correct="false">B) password</div>
+                                <div class="quiz-option" data-correct="false">C) nombre123</div>
+                                <div class="quiz-option" data-correct="true">D) M1C@ntr@s3ñ4!</div>
+                            </div>
+                            <div class="quiz-feedback correct">
+                                <strong>¡Correcto!</strong> La opción D combina mayúsculas, minúsculas, números y símbolos.
+                            </div>
+                            <div class="quiz-feedback incorrect">
+                                <strong>Incorrecto.</strong> Las contraseñas simples son fáciles de adivinar para los hackers.
+                            </div>
+                            <button class="btn btn-secondary check-answer" style="margin-top: 10px;">Verificar respuesta</button>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <h3>Pregunta 2: ¿Con qué frecuencia deberías cambiar las contraseñas importantes?</h3>
+                            <div class="quiz-options">
+                                <div class="quiz-option" data-correct="false">A) Nunca, una vez es suficiente</div>
+                                <div class="quiz-option" data-correct="false">B) Cada mes</div>
+                                <div class="quiz-option" data-correct="true">C) Cada 3-6 meses</div>
+                                <div class="quiz-option" data-correct="false">D) Solo cuando haya un problema</div>
+                            </div>
+                            <div class="quiz-feedback correct">
+                                <strong>¡Correcto!</strong> Cambiar contraseñas cada 3-6 meses es una buena práctica de seguridad.
+                            </div>
+                            <div class="quiz-feedback incorrect">
+                                <strong>Incorrecto.</strong> Las contraseñas deben cambiarse regularmente como medida preventiva.
+                            </div>
+                            <button class="btn btn-secondary check-answer" style="margin-top: 10px;">Verificar respuesta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <a href="difusionRumores.html" class="btn btn-secondary">← Lección anterior</a>
+                <a href="sitiosMaliciosos.html" class="btn btn-primary">Siguiente lección →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de pestañas
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Generador de contraseñas
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            const length = document.getElementById('length').value;
+            const uppercase = document.getElementById('uppercase').checked;
+            const numbers = document.getElementById('numbers').checked;
+            const symbols = document.getElementById('symbols').checked;
+            
+            const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+            const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const numberChars = '0123456789';
+            const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            
+            let chars = lowercaseChars;
+            if (uppercase) chars += uppercaseChars;
+            if (numbers) chars += numberChars;
+            if (symbols) chars += symbolChars;
+            
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            document.getElementById('generated-password').textContent = password;
+            updateStrengthMeter(password);
+        });
+
+        // Actualizar valor de longitud
+        document.getElementById('length').addEventListener('input', function() {
+            document.getElementById('length-value').textContent = this.value;
+        });
+
+        // Copiar contraseña al portapapeles
+        document.getElementById('copy-btn').addEventListener('click', function() {
+            const password = document.getElementById('generated-password').textContent;
+            navigator.clipboard.writeText(password).then(() => {
+                alert('¡Contraseña copiada al portapapeles!');
+            });
+        });
+
+        // Medidor de fortaleza de contraseña
+        function updateStrengthMeter(password) {
+            let strength = 0;
+            
+            // Longitud
+            if (password.length >= 8) strength += 1;
+            if (password.length >= 12) strength += 1;
+            
+            // Complejidad
+            if (/[A-Z]/.test(password)) strength += 1;
+            if (/[0-9]/.test(password)) strength += 1;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+            
+            const meter = document.getElementById('strength-meter');
+            meter.className = 'strength-level';
+            
+            if (strength <= 2) {
+                meter.classList.add('strength-weak');
+            } else if (strength <= 3) {
+                meter.classList.add('strength-medium');
+            } else if (strength <= 4) {
+                meter.classList.add('strength-strong');
+            } else {
+                meter.classList.add('strength-very-strong');
+            }
+        }
+
+        // Simulador de tiempo de hackeo
+        document.getElementById('test-password').addEventListener('input', function() {
+            const password = this.value;
+            let timeToCrack = 'Ingresa una contraseña para ver el resultado';
+            
+            if (password) {
+                // Cálculo simplificado del tiempo de hackeo
+                let combinations = 1;
+                let charsetSize = 0;
+                
+                if (/[a-z]/.test(password)) charsetSize += 26;
+                if (/[A-Z]/.test(password)) charsetSize += 26;
+                if (/[0-9]/.test(password)) charsetSize += 10;
+                if (/[^A-Za-z0-9]/.test(password)) charsetSize += 32;
+                
+                combinations = Math.pow(charsetSize, password.length);
+                
+                // Asumiendo 1 billón de intentos por segundo
+                const seconds = combinations / 1000000000;
+                
+                if (seconds < 1) {
+                    timeToCrack = 'Menos de 1 segundo';
+                } else if (seconds < 60) {
+                    timeToCrack = `${Math.round(seconds)} segundos`;
+                } else if (seconds < 3600) {
+                    timeToCrack = `${Math.round(seconds / 60)} minutos`;
+                } else if (seconds < 86400) {
+                    timeToCrack = `${Math.round(seconds / 3600)} horas`;
+                } else if (seconds < 31536000) {
+                    timeToCrack = `${Math.round(seconds / 86400)} días`;
+                } else {
+                    timeToCrack = `${Math.round(seconds / 31536000)} años`;
+                }
+                
+                document.getElementById('hack-time-result').innerHTML = `
+                    <h4>⏱️ Tiempo estimado para hackear:</h4>
+                    <p><strong>${timeToCrack}</strong></p>
+                    <p>Contraseña: "${password}"</p>
+                `;
+            } else {
+                document.getElementById('hack-time-result').innerHTML = `
+                    <h4>⏱️ Tiempo estimado para hackear:</h4>
+                    <p>Ingresa una contraseña para ver el resultado</p>
+                `;
+            }
+        });
+
+        // Sistema de quizzes
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            });
+        });
+        
+        // Verificar respuestas de quiz
+        document.querySelectorAll('.check-answer').forEach(button => {
+            button.addEventListener('click', function() {
+                const question = this.parentElement;
+                const selectedOption = question.querySelector('.quiz-option.selected');
+                
+                if (!selectedOption) {
+                    alert('Por favor selecciona una respuesta');
+                    return;
+                }
+                
+                const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+                const feedback = question.querySelector(isCorrect ? '.quiz-feedback.correct' : '.quiz-feedback.incorrect');
+                
+                // Ocultar todos los feedbacks primero
+                question.querySelectorAll('.quiz-feedback').forEach(fb => {
+                    fb.style.display = 'none';
+                });
+                
+                // Mostrar el feedback correcto
+                feedback.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+    <!-- TODO tu contenido del quiz -->
+    
+    <!-- PEGAR ESTO JUSTO AQUÍ ↓↓↓ -->
+    <div style="text-align: center; margin: 40px 0;">
+        <a href="../Modulo1/convi.html" class="back-to-home">← Volver a CyberZone</a>
+    </div>
+
+</body>
+</html>
+</html>

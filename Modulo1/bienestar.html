@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <head>
+    <!-- otros estilos que ya tengas -->
+    
+    <!-- PEGAR ESTOS ESTILOS AQUÍ ↓↓↓ -->
+    <style>
+    .back-to-home {
+        background-color: #4a6ee0;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-block;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+        font-size: 16px;
+    }
+    .back-to-home:hover {
+        background-color: #3a5ac8;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    </style>
+</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberZone - Adicciones Digitales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #00d4ff;
+            --accent: #ff3e80;
+            --warning: #ff6b6b;
+            --success: #4ade80;
+            --dark: #0f0f23;
+            --darker: #090915;
+            --light: #f0f4ff;
+            --card-bg: rgba(30, 30, 60, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1a1a3e 100%);
+            min-height: 100vh;
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Efectos de luces en el fondo */
+        .lights-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .light {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(20px);
+            opacity: 0.8;
+            animation: pulse 8s infinite ease-in-out;
+        }
+        
+        .light-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: 10%;
+            left: 5%;
+            animation: pulse 8s infinite ease-in-out, moveX 25s infinite alternate ease-in-out;
+        }
+        
+        .light-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--secondary);
+            top: 60%;
+            right: 10%;
+            animation: pulse 10s infinite ease-in-out, moveY 30s infinite alternate ease-in-out;
+        }
+        
+        .light-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--accent);
+            bottom: 10%;
+            left: 20%;
+            animation: pulse 12s infinite ease-in-out, moveXY 20s infinite alternate ease-in-out;
+        }
+        
+        .light-4 {
+            width: 350px;
+            height: 350px;
+            background: #ffd700;
+            top: 20%;
+            right: 20%;
+            animation: pulse 9s infinite ease-in-out, moveX 35s infinite alternate ease-in-out;
+        }
+        
+        .light-5 {
+            width: 200px;
+            height: 200px;
+            background: var(--warning);
+            top: 80%;
+            left: 70%;
+            animation: pulse 11s infinite ease-in-out, moveY 28s infinite alternate ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 0.3; 
+            } 
+            50% { 
+                transform: scale(1.2); 
+                opacity: 0.5; 
+            } 
+        }
+        
+        @keyframes moveX {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50px); }
+        }
+        
+        @keyframes moveY {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+        
+        @keyframes moveXY {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(30px, 20px); }
+            50% { transform: translate(10px, 40px); }
+            75% { transform: translate(40px, 10px); }
+            100% { transform: translate(20px, 30px); }
+        }
+
+        .particles { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            pointer-events: none; 
+            z-index: 0; 
+        }
+        
+        .particle { 
+            position: absolute; 
+            width: 6px; 
+            height: 6px; 
+            background: var(--secondary); 
+            border-radius: 50%; 
+            animation: float-particle 15s infinite ease-in-out; 
+            box-shadow: 0 0 10px var(--secondary); 
+        }
+        
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 1s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 3s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 4.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 1.5s; }
+        
+        @keyframes float-particle { 
+            0%, 100% { 
+                transform: translateY(100vh) translateX(0) scale(0.5); 
+                opacity: 0; 
+            } 
+            10% { opacity: 1; } 
+            90% { opacity: 1; } 
+            50% { 
+                transform: translateY(-10vh) translateX(50px) scale(1); 
+            } 
+        }
+        
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(22, 33, 62, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: 100vh;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            margin-right: 15px;
+            color: var(--secondary);
+            text-shadow: 0 0 10px var(--secondary);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-button {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 16px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            margin-bottom: 8px;
+            text-align: left;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-button:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .nav-button.active {
+            background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+            color: white;
+        }
+
+        .user-profile {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .avatar {
+            font-size: 2em;
+        }
+
+        .user-info h3 {
+            margin: 0;
+            font-size: 1em;
+        }
+
+        .user-info p {
+            margin: 0;
+            font-size: 0.9em;
+            color: var(--text-muted);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            background: rgba(26, 26, 46, 0.8);
+            min-height: 100vh;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-title {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            font-size: 1.2em;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .intro-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .intro-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .intro-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .intro-section p {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+        }
+
+        .warning-button {
+            background: linear-gradient(135deg, var(--warning) 0%, #ff8e8e 100%);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .warning-button:hover {
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Tarjetas visuales para jóvenes */
+        .visual-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .visual-card {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+        }
+
+        .visual-card.warning {
+            border-color: rgba(255, 107, 107, 0.3);
+        }
+
+        .visual-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .visual-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .visual-title {
+            font-size: 1.4em;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .visual-description {
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+
+        /* Sección de Prevención */
+        .prevention-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .prevention-title {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .prevention-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .prevention-tip {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .prevention-tip:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .tip-icon {
+            font-size: 24px;
+            color: var(--success);
+            flex-shrink: 0;
+        }
+
+        .tip-content h4 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .tip-content p {
+            color: var(--text-muted);
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .quiz-title {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .quiz-question {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            color: var(--light);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px 20px;
+            color: var(--light);
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .quiz-option.correct {
+            background: rgba(74, 222, 128, 0.2);
+            border-color: var(--success);
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(255, 107, 107, 0.2);
+            border-color: var(--warning);
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-result.success {
+            background: rgba(74, 222, 128, 0.2);
+            border: 2px solid var(--success);
+            color: var(--success);
+            display: block;
+        }
+
+        .quiz-result.error {
+            background: rgba(255, 107, 107, 0.2);
+            border: 2px solid var(--warning);
+            color: var(--warning);
+            display: block;
+        }
+
+        .xp-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(139, 92, 246, 0.2);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            padding: 10px 20px;
+            margin-top: 15px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .visual-cards, .prevention-tips {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+                padding: 20px;
+            }
+            
+            .main-content {
+                padding: 30px 20px;
+            }
+            
+            .page-title {
+                font-size: 2em;
+            }
+            
+            .visual-icon {
+                font-size: 48px;
+            }
+            
+            .quiz-options {
+                gap: 10px;
+            }
+            
+            .quiz-option {
+                padding: 12px 15px;
+            }
+            
+            .prevention-tip {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Efecto de luces en el fondo -->
+    <div class="lights-container">
+        <div class="light light-1"></div>
+        <div class="light light-2"></div>
+        <div class="light light-3"></div>
+        <div class="light light-4"></div>
+        <div class="light light-5"></div>
+    </div>
+
+    <!-- Efecto de partículas -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="sidebar">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">CyberZone</div>
+            </a>
+
+            <button class="nav-button active" onclick="showPage('inicio', this)">
+                <span class="nav-icon">🏠</span> Inicio
+            </button>
+            <button class="nav-button" onclick="showPage('adiccion-redes', this)">
+                <span class="nav-icon">📱</span> Adicción a Redes
+            </button>
+            <button class="nav-button" onclick="showPage('videojuegos', this)">
+                <span class="nav-icon">🎮</span> Videojuegos Online
+            </button>
+            <button class="nav-button" onclick="showPage('validacion', this)">
+                <span class="nav-icon">❤️</span> Búsqueda de Validación
+            </button>
+            <button class="nav-button" onclick="showPage('autolesivo', this)">
+                <span class="nav-icon">⚠️</span> Contenido Autolesivo
+            </button>
+
+            <div class="user-profile">
+                <div class="avatar">👤</div>
+                <div class="user-info">
+                    <h3>CyberExplorador</h3>
+                    <p id="user-xp">Nivel 3 | 240 XP</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Página Inicio -->
+            <div id="inicio" class="page active">
+                <h1 class="page-title">CyberZone - Adicciones Digitales</h1>
+                <p class="page-subtitle">Reconoce las señales de adicción digital y aprende a mantener un equilibrio saludable con la tecnología.</p>
+                
+                <div class="intro-section">
+                    <div class="intro-icon">🧠</div>
+                    <h2>Tu Bienestar Digital es Importante</h2>
+                    <p>La tecnología puede ser increíble, pero cuando se convierte en adicción, puede afectar tu salud mental, relaciones y desarrollo personal.</p>
+                    <p>Aprende a identificar las señales de adicción digital y desarrolla hábitos saludables.</p>
+                    <button class="cta-button warning-button" onclick="showPage('adiccion-redes', document.querySelectorAll('.nav-button')[1])">Comenzar Aprendizaje</button>
+                </div>
+
+                <h2 style="font-size: 32px; margin: 40px 0 20px; color: white; text-align: center;">Tipos de Adicción Digital</h2>
+                
+                <div class="visual-cards">
+                    <!-- Adicción a Redes -->
+                    <div class="visual-card warning" onclick="showPage('adiccion-redes', document.querySelectorAll('.nav-button')[1])">
+                        <div class="visual-icon">📱</div>
+                        <h3 class="visual-title">Adicción a Redes Sociales</h3>
+                        <p class="visual-description">Cuando no puedes dejar de revisar tus notificaciones</p>
+                    </div>
+
+                    <!-- Videojuegos -->
+                    <div class="visual-card warning" onclick="showPage('videojuegos', document.querySelectorAll('.nav-button')[2])">
+                        <div class="visual-icon">🎮</div>
+                        <h3 class="visual-title">Videojuegos Online Compulsivos</h3>
+                        <p class="visual-description">Jugar por horas sin control afecta tu vida diaria</p>
+                    </div>
+
+                    <!-- Validación -->
+                    <div class="visual-card warning" onclick="showPage('validacion', document.querySelectorAll('.nav-button')[3])">
+                        <div class="visual-icon">❤️</div>
+                        <h3 class="visual-title">Búsqueda de Validación</h3>
+                        <p class="visual-description">Depender de los "likes" para sentirte bien contigo mismo</p>
+                    </div>
+
+                    <!-- Autolesivo -->
+                    <div class="visual-card warning" onclick="showPage('autolesivo', document.querySelectorAll('.nav-button')[4])">
+                        <div class="visual-icon">⚠️</div>
+                        <h3 class="visual-title">Contenido Autolesivo</h3>
+                        <p class="visual-description">Publicar contenido que muestra autolesiones o ideas suicidas</p>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title"><span>🏆</span> Quiz de Conocimiento General</h2>
+                    <p class="quiz-question">¿Cuál es una señal de adicción a las redes sociales?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 50)">
+                            <span>⏰</span> Revisar el teléfono constantemente, incluso durante comidas o clases
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📚</span> Usar redes sociales solo para proyectos escolares
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>👥</span> Tener muchos seguidores en tus redes
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>💬</span> Chatear con amigos ocasionalmente
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-inicio"></div>
+                </div>
+            </div>
+
+            <!-- Página Adicción a Redes -->
+            <div id="adiccion-redes" class="page">
+                <div class="intro-section">
+                    <h1 class="page-title">📱 Adicción a Redes Sociales</h1>
+                    <p class="page-subtitle">Aprende a identificar y controlar el uso compulsivo de redes sociales.</p>
+                </div>
+
+                <div class="visual-cards">
+                    <div class="visual-card warning">
+                        <div class="visual-icon">⏰</div>
+                        <h3 class="visual-title">Pérdida de Tiempo</h3>
+                        <p class="visual-description">Pasar horas desplazándote sin propósito</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">😴</div>
+                        <h3 class="visual-title">Afecta el Sueño</h3>
+                        <p class="visual-description">Revisar redes hasta altas horas de la noche</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">📵</div>
+                        <h3 class="visual-title">Ansiedad por Desconexión</h3>
+                        <p class="visual-description">Sentir angustia cuando no puedes revisar tus redes</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">👥</div>
+                        <h3 class="visual-title">Aislamiento Social</h3>
+                        <p class="visual-description">Prefieres interactuar online que en persona</p>
+                    </div>
+                </div>
+
+                <!-- Sección de Prevención - Adicción a Redes -->
+                <div class="prevention-section">
+                    <h2 class="prevention-title"><span>🛡️</span> Cómo Prevenir la Adicción a Redes Sociales</h2>
+                    <div class="prevention-tips">
+                        <div class="prevention-tip">
+                            <div class="tip-icon">⏰</div>
+                            <div class="tip-content">
+                                <h4>Establece Límites de Tiempo</h4>
+                                <p>Usa temporizadores y aplicaciones de control parental para limitar tu uso diario de redes sociales.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🔕</div>
+                            <div class="tip-content">
+                                <h4>Desactiva Notificaciones</h4>
+                                <p>Elimina las notificaciones push para reducir la necesidad constante de revisar tu teléfono.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📵</div>
+                            <div class="tip-content">
+                                <h4>Crea Zonas Libres de Pantallas</h4>
+                                <p>Designa áreas como el dormitorio o la mesa de comida como espacios sin dispositivos.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🏃‍♂️</div>
+                            <div class="tip-content">
+                                <h4>Desarrolla Hobbies Offline</h4>
+                                <p>Invierte tiempo en actividades como deportes, lectura o arte que no involucren pantallas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title"><span>🧠</span> Quiz sobre Adicción a Redes</h2>
+                    <p class="quiz-question">¿Qué estrategia puede ayudar a reducir la adicción a redes sociales?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 75)">
+                            <span>⏲️</span> Establecer límites de tiempo y usar temporizadores
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📱</span> Descargar más aplicaciones de redes sociales
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🔔</span> Activar todas las notificaciones posibles
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🌙</span> Usar redes sociales solo de madrugada
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-adiccion-redes"></div>
+                </div>
+            </div>
+
+            <!-- Página Videojuegos Online -->
+            <div id="videojuegos" class="page">
+                <div class="intro-section">
+                    <h1 class="page-title">🎮 Uso Compulsivo de Videojuegos Online</h1>
+                    <p class="page-subtitle">Identifica cuándo los videojuegos dejan de ser diversión y se convierten en adicción.</p>
+                </div>
+
+                <div class="visual-cards">
+                    <div class="visual-card warning">
+                        <div class="visual-icon">🕒</div>
+                        <h3 class="visual-title">Juego Excesivo</h3>
+                        <p class="visual-description">Jugar por horas sin descanso adecuado</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">📚</div>
+                        <h3 class="visual-title">Bajo Rendimiento</h3>
+                        <p class="visual-description">Las calificaciones escolares se ven afectadas</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">😠</div>
+                        <h3 class="visual-title">Irritabilidad</h3>
+                        <p class="visual-description">Enojo cuando no puedes jugar o te interrumpen</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">💸</div>
+                        <h3 class="visual-title">Gastos Excesivos</h3>
+                        <p class="visual-description">Comprar muchos elementos dentro del juego</p>
+                    </div>
+                </div>
+
+                <!-- Sección de Prevención - Videojuegos -->
+                <div class="prevention-section">
+                    <h2 class="prevention-title"><span>🎮</span> Cómo Prevenir la Adicción a Videojuegos</h2>
+                    <div class="prevention-tips">
+                        <div class="prevention-tip">
+                            <div class="tip-icon">⏱️</div>
+                            <div class="tip-content">
+                                <h4>Establece Horarios de Juego</h4>
+                                <p>Define tiempos específicos para jugar y respétalos. Usa alarmas para recordar cuándo parar.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📝</div>
+                            <div class="tip-content">
+                                <h4>Prioriza Responsabilidades</h4>
+                                <p>Completa tus tareas escolares y domésticas antes de permitirte tiempo de juego.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">💳</div>
+                            <div class="tip-content">
+                                <h4>Controla los Gastos</h4>
+                                <p>Establece un presupuesto mensual para compras dentro del juego y no lo excedas.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">👥</div>
+                            <div class="tip-content">
+                                <h4>Mantén el Equilibrio Social</h4>
+                                <p>Asegúrate de mantener contacto cara a cara con amigos y familia, no solo en línea.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title"><span>🎯</span> Quiz sobre Videojuegos</h2>
+                    <p class="quiz-question">¿Cuál es una señal de que los videojuegos se están volviendo un problema?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 60)">
+                            <span>🚫</span> Dejar de hacer tareas importantes para seguir jugando
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🎮</span> Jugar ocasionalmente los fines de semana
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>👥</span> Tener amigos que también juegan videojuegos
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🏆</span> Querer mejorar tus habilidades en el juego
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-videojuegos"></div>
+                </div>
+            </div>
+
+            <!-- Página Búsqueda de Validación -->
+            <div id="validacion" class="page">
+                <div class="intro-section">
+                    <h1 class="page-title">❤️ Búsqueda de Validación por "Likes"</h1>
+                    <p class="page-subtitle">Aprende a valorarte por quién eres, no por la aprobación en redes sociales.</p>
+                </div>
+
+                <div class="visual-cards">
+                    <div class="visual-card warning">
+                        <div class="visual-icon">😔</div>
+                        <h3 class="visual-title">Autoestima Baja</h3>
+                        <p class="visual-description">Sentirte mal si no obtienes suficientes "likes"</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">📸</div>
+                        <h3 class="visual-title">Edición Excesiva</h3>
+                        <p class="visual-description">Pasar horas editando fotos para obtener aprobación</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">🔄</div>
+                        <h3 class="visual-title">Publicación Compulsiva</h3>
+                        <p class="visual-description">Publicar constantemente buscando atención</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">👑</div>
+                        <h3 class="visual-title">Valor Propio</h3>
+                        <p class="visual-description">Tu valor no depende de la validación externa</p>
+                    </div>
+                </div>
+
+                <!-- Sección de Prevención - Validación -->
+                <div class="prevention-section">
+                    <h2 class="prevention-title"><span>💪</span> Cómo Prevenir la Búsqueda de Validación Externa</h2>
+                    <div class="prevention-tips">
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🌟</div>
+                            <div class="tip-content">
+                                <h4>Desarrolla Autoestima Interna</h4>
+                                <p>Enfócate en tus logros personales y cualidades únicas, no en la aprobación de otros.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📵</div>
+                            <div class="tip-content">
+                                <h4>Reduce el Uso de Redes</h4>
+                                <p>Pasa menos tiempo en plataformas que fomentan la comparación y búsqueda de validación.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🎯</div>
+                            <div class="tip-content">
+                                <h4>Establece Metas Personales</h4>
+                                <p>Enfócate en objetivos reales como aprender una habilidad nueva o mejorar en deportes.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🤝</div>
+                            <div class="tip-content">
+                                <h4>Busca Relaciones Auténticas</h4>
+                                <p>Cultiva amistades donde te valoren por quien eres, no por tu presencia en redes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title"><span>💭</span> Quiz sobre Validación</h2>
+                    <p class="quiz-question">¿Qué puedes hacer para reducir la dependencia de los "likes"?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 80)">
+                            <span>🌟</span> Enfocarte en actividades que te hagan sentir bien contigo mismo
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📊</span> Comparar tu número de seguidores con el de otros
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🤳</span> Publicar más selfies para obtener más validación
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🔍</span> Revisar constantemente tus estadísticas de engagement
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-validacion"></div>
+                </div>
+            </div>
+
+            <!-- Página Contenido Autolesivo -->
+            <div id="autolesivo" class="page">
+                <div class="intro-section">
+                    <h1 class="page-title">⚠️ Publicación de Contenido Autolesivo</h1>
+                    <p class="page-subtitle">Busca ayuda si tú o alguien que conoces publica contenido sobre autolesiones.</p>
+                </div>
+
+                <div class="visual-cards">
+                    <div class="visual-card warning">
+                        <div class="visual-icon">🚨</div>
+                        <h3 class="visual-title">Señal de Alerta</h3>
+                        <p class="visual-description">El contenido autolesivo indica sufrimiento emocional</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">📞</div>
+                        <h3 class="visual-title">Busca Ayuda</h3>
+                        <p class="visual-description">Habla con un adulto de confianza o profesional</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">🤗</div>
+                        <h3 class="visual-title">Apoyo Emocional</h3>
+                        <p class="visual-description">Ofrece tu apoyo a quien pueda estar sufriendo</p>
+                    </div>
+
+                    <div class="visual-card">
+                        <div class="visual-icon">💙</div>
+                        <h3 class="visual-title">No Estás Solo</h3>
+                        <p class="visual-description">Hay personas que pueden ayudarte a superar el dolor</p>
+                    </div>
+                </div>
+
+                <!-- Sección de Prevención - Contenido Autolesivo -->
+                <div class="prevention-section">
+                    <h2 class="prevention-title"><span>🆘</span> Cómo Prevenir la Publicación de Contenido Autolesivo</h2>
+                    <div class="prevention-tips">
+                        <div class="prevention-tip">
+                            <div class="tip-icon">🗣️</div>
+                            <div class="tip-content">
+                                <h4>Busca Apoyo Profesional</h4>
+                                <p>Si tienes pensamientos autolesivos, habla con un psicólogo, consejero escolar o adulto de confianza.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">📞</div>
+                            <div class="tip-content">
+                                <h4>Líneas de Ayuda</h4>
+                                <p>Utiliza líneas de crisis como el Teléfono de la Esperanza (717 003 717) disponibles 24/7.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">👥</div>
+                            <div class="tip-content">
+                                <h4>Fortalece tu Red de Apoyo</h4>
+                                <p>Mantén contacto cercano con amigos y familiares que puedan ofrecerte apoyo emocional.</p>
+                            </div>
+                        </div>
+                        <div class="prevention-tip">
+                            <div class="tip-icon">💡</div>
+                            <div class="tip-content">
+                                <h4>Estrategias de Afrontamiento Saludables</h4>
+                                <p>Aprende técnicas como meditación, ejercicio o journaling para manejar emociones difíciles.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2 class="quiz-title"><span>🆘</span> Quiz sobre Contenido Autolesivo</h2>
+                    <p class="quiz-question">¿Qué deberías hacer si ves que un amigo publica contenido autolesivo?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct', 90)">
+                            <span>👥</span> Hablar con un adulto de confianza para que pueda recibir ayuda
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>🤫</span> Guardar el secreto para no traicionar su confianza
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>😂</span> Hacer un chiste sobre ello para aligerar el ambiente
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect', 0)">
+                            <span>📱</span> Compartir la publicación para que más personas lo vean
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quiz-autolesivo"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let totalXP = 240;
+
+        function showPage(pageId, buttonElement) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+        }
+
+        function checkAnswer(element, type, xp) {
+            // Reset all options
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            element.classList.add(type);
+            
+            // Show result
+            const resultId = 'quiz-' + document.querySelector('.page.active').id;
+            const resultElement = document.getElementById(resultId);
+            
+            if (type === 'correct') {
+                resultElement.textContent = `¡Correcto! +${xp} XP`;
+                resultElement.className = 'quiz-result success';
+                
+                // Add XP
+                totalXP += xp;
+                document.getElementById('user-xp').textContent = `Nivel 3 | ${totalXP} XP`;
+                
+                // Show XP badge
+                const xpBadge = document.createElement('div');
+                xpBadge.className = 'xp-badge';
+                xpBadge.innerHTML = `<span>⭐</span> Ganaste ${xp} puntos de experiencia`;
+                resultElement.appendChild(xpBadge);
+            } else {
+                resultElement.textContent = 'Respuesta incorrecta. ¡Sigue aprendiendo!';
+                resultElement.className = 'quiz-result error';
+            }
+        }
+
+        // Crear efecto de partículas
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 15;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Tamaño y posición aleatoria
+            const size = Math.random() * 10 + 5;
+            const left = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = Math.random() * 10 + 10;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${left}%`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+    <!-- TODO tu contenido del quiz -->
+    
+    <!-- PEGAR ESTO JUSTO AQUÍ ↓↓↓ -->
+    <div style="text-align: center; margin: 40px 0;">
+        <a href="../Modulo1/convi.html" class="back-to-home">← Volver a CyberZone</a>
+    </div>
+
+</body>
+</html>
+</html>

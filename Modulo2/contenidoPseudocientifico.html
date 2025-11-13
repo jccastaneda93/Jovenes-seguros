@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contenido Pseudocientífico - CyberZone</title>
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #00d4ff;
+            --accent: #ff3e80;
+            --dark: #0f0f23;
+            --darker: #090915;
+            --light: #f0f4ff;
+            --card-bg: rgba(30, 30, 60, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1a1a3e 100%);
+            min-height: 100vh;
+            color: var(--light);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            color: white; 
+        }
+
+        .header h1 { 
+            font-size: 2.5rem; 
+            margin-bottom: 10px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle { 
+            font-size: 1.2rem; 
+            opacity: 0.9; 
+            color: var(--text-muted);
+        }
+
+        .lesson-card {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .topic-header {
+            background: linear-gradient(135deg, var(--primary), #6366f1);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .topic-header h2 { 
+            font-size: 1.8rem; 
+            margin-bottom: 5px; 
+        }
+
+        .content-section { 
+            margin-bottom: 25px; 
+        }
+
+        .content-section h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        .info-box { 
+            background: rgba(0, 212, 255, 0.1); 
+            border-left: 4px solid var(--secondary); 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin: 15px 0; 
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .warning-box { 
+            background: rgba(255, 193, 7, 0.1); 
+            border-left: 4px solid #ffc107; 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin: 15px 0; 
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .critical-box { 
+            background: rgba(244, 67, 54, 0.1); 
+            border-left: 4px solid #f44336; 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin: 15px 0; 
+            border: 1px solid rgba(244, 67, 54, 0.2);
+        }
+
+        .success-box { 
+            background: rgba(76, 175, 80, 0.1); 
+            border-left: 4px solid #4caf50; 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin: 15px 0; 
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        ul, ol { 
+            margin-left: 20px; 
+            margin-bottom: 15px; 
+        }
+
+        li { 
+            margin-bottom: 8px; 
+        }
+
+        .navigation { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-top: 30px; 
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white; 
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-primary:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+        }
+
+        .btn-secondary { 
+            background: rgba(255, 255, 255, 0.1);
+            color: white; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover { 
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px); 
+        }
+
+        .progress-bar { 
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: 10px; 
+            height: 8px; 
+            margin: 20px 0; 
+            overflow: hidden; 
+        }
+
+        .progress { 
+            background: linear-gradient(90deg, var(--primary), var(--secondary)); 
+            height: 100%; 
+            width: 80%; 
+            border-radius: 10px;
+        }
+
+        .myth-vs-fact { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+            margin: 20px 0; 
+        }
+
+        .myth { 
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            padding: 20px; 
+            border-radius: 12px; 
+            color: white; 
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.3);
+        }
+
+        .fact { 
+            background: linear-gradient(135deg, #00c851, #007e33);
+            padding: 20px; 
+            border-radius: 12px; 
+            color: white; 
+            box-shadow: 0 5px 15px rgba(0, 200, 81, 0.3);
+        }
+        
+        /* Nuevos estilos para elementos interactivos */
+        .tab-container { margin: 20px 0; }
+        .tab-buttons { 
+            display: flex; 
+            border-bottom: 2px solid var(--primary); 
+            margin-bottom: 15px; 
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: 8px 8px 0 0;
+            margin-right: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+        .tab-content { 
+            display: none; 
+            padding: 25px; 
+            background: rgba(22, 33, 62, 0.8); 
+            border-radius: 0 12px 12px 12px; 
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        .tab-content.active { display: block; }
+        
+        .quiz-container { margin: 20px 0; }
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .quiz-options { margin: 15px 0; }
+        .quiz-option {
+            display: block;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--light);
+        }
+        .quiz-option:hover { 
+            background: rgba(139, 92, 246, 0.2); 
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+        .quiz-option.selected { 
+            background: var(--primary); 
+            color: white; 
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+        .quiz-feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+            border: 1px solid;
+        }
+        .quiz-feedback.correct { 
+            background: rgba(76, 175, 80, 0.1); 
+            border-color: rgba(76, 175, 80, 0.3);
+            color: #4caf50;
+        }
+        .quiz-feedback.incorrect { 
+            background: rgba(244, 67, 54, 0.1); 
+            border-color: rgba(244, 67, 54, 0.3);
+            color: #f44336;
+        }
+        
+        .toolkit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .toolkit-item {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            cursor: pointer;
+        }
+        .toolkit-item:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+        .toolkit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .comic-panel {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 0;
+            margin: 20px 0;
+        }
+        .panel {
+            min-width: 280px;
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.3s;
+        }
+        .panel:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+        
+        .simulator-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .simulator-scenario {
+            margin-bottom: 20px;
+        }
+        .simulator-choices {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .simulator-choice {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .simulator-choice:hover { 
+            background: rgba(139, 92, 246, 0.2); 
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+        .simulator-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+            border: 1px solid;
+        }
+        
+        .workshop-container {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 87, 34, 0.1));
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+        .workshop-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .workshop-step {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .discussion-forum {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .discussion-topic {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .myth-vs-fact {
+                grid-template-columns: 1fr;
+            }
+            
+            .tab-buttons {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                margin-bottom: 5px;
+                border-radius: 8px;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<head>
+    <!-- otros estilos que ya tengas -->
+    
+    <!-- PEGAR ESTOS ESTILOS AQUÍ ↓↓↓ -->
+    <style>
+    .back-to-home {
+        background-color: #4a6ee0;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-block;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+        font-size: 16px;
+    }
+    .back-to-home:hover {
+        background-color: #3a5ac8;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Contenido Pseudocientífico</h1>
+            <p class="subtitle">Alfabetización mediática y verificación de información - Para adolescentes</p>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+
+        <div class="lesson-card">
+            <!-- Pestañas para diferentes secciones -->
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="contenido">Contenido Principal</button>
+                    <button class="tab-btn" data-tab="historietas">Historietas Digitales</button>
+                    <button class="tab-btn" data-tab="cuestionarios">Cuestionarios</button>
+                    <button class="tab-btn" data-tab="simuladores">Simuladores</button>
+                    <button class="tab-btn" data-tab="herramientas">Caja de Herramientas</button>
+                </div>
+                
+                <!-- CONTENIDO PRINCIPAL -->
+                <div id="contenido" class="tab-content active">
+                    <div class="topic-header">
+                        <h2>🧠 Desarrolla tu pensamiento crítico</h2>
+                        <p>Aprende a diferenciar la ciencia real de la pseudociencia en internet</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3>🎯 ¿Qué es la pseudociencia?</h3>
+                        <p>Información que parece científica pero no sigue el método científico real. Se disfraza de verdad para engañar.</p>
+                        
+                        <div class="critical-box">
+                            <h4>⚠️ Pseudociencias populares entre jóvenes:</h4>
+                            <ul>
+                                <li>Teorías de conspiración en TikTok/YouTube</li>
+                                <li>Horóscopos y astrología como "ciencia"</li>
+                                <li>Productos "milagro" para el acné/peso</li>
+                                <li>Curas alternativas sin evidencia</li>
+                                <li>Profecías y predicciones catastróficas</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <h3>🔬 Ciencia vs Pseudociencia</h3>
+                        
+                        <div class="myth-vs-fact">
+                            <div class="myth">
+                                <h4>🚫 Pseudociencia</h4>
+                                <ul>
+                                    <li>No usa método científico</li>
+                                    <li>Ignora evidencia contraria</li>
+                                    <li>Promete resultados rápidos</li>
+                                    <li>Lenguaje misterioso/complicado</li>
+                                </ul>
+                            </div>
+                            <div class="fact">
+                                <h4>✅ Ciencia Real</h4>
+                                <ul>
+                                    <li>Investigación verificable</li>
+                                    <li>Resultados reproducibles</li>
+                                    <li>Revisión por otros científicos</li>
+                                    <li>Lenguaje claro y preciso</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <h3>🕵️ Tu kit de detective digital</h3>
+                        <div class="success-box">
+                            <h4>🎯 Preguntas para verificar información:</h4>
+                            <ol>
+                                <li>¿Quién lo dice? (¿Es un científico real?)</li>
+                                <li>¿Qué evidencia presenta? (¿Estudios serios?)</li>
+                                <li>¿Otros expertos están de acuerdo?</li>
+                                <li>¿Hay conflicto de interés? (¿Vende algo?)</li>
+                                <li>¿Las fuentes son confiables?</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <h3>🎮 Ejemplos reales para analizar</h3>
+                        <div class="warning-box">
+                            <p><strong>Caso:</strong> "Este jugo detox cura el acné en 3 días"</p>
+                            <p><strong>Análisis:</strong> ¿Hay estudios médicos? ¿Lo dice un dermatólogo? ¿O un influencer que vende el producto?</p>
+                        </div>
+                        <div class="warning-box">
+                            <p><strong>Caso:</strong> "La Tierra es plana - los gobiernos nos mienten"</p>
+                            <p><strong>Análisis:</strong> ¿Qué dicen los astrónomos? ¿Hay fotos reales del espacio? ¿Por qué todos los pilotos estarían mintiendo?</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- HISTORIETAS DIGITALES -->
+                <div id="historietas" class="tab-content">
+                    <div class="topic-header">
+                        <h2>📖 Historietas Digitales</h2>
+                        <p>Aprende mediante cómics interactivos sobre casos reales</p>
+                    </div>
+                    
+                    <div class="comic-panel">
+                        <div class="panel">
+                            <h4>El Influencer y el Producto Milagro</h4>
+                            <div style="height: 150px; background: rgba(0, 212, 255, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 1px solid rgba(0, 212, 255, 0.2);">
+                                <span style="font-size: 3rem;">📱</span>
+                            </div>
+                            <p>María ve un anuncio de un influencer famoso promocionando un "suplemento natural" que promete eliminar el acné en una semana.</p>
+                            <button class="btn btn-primary" style="margin-top: 15px; width: 100%;">Ver análisis</button>
+                        </div>
+                        
+                        <div class="panel">
+                            <h4>La Teoría de Conspiración Viral</h4>
+                            <div style="height: 150px; background: rgba(255, 193, 7, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 1px solid rgba(255, 193, 7, 0.2);">
+                                <span style="font-size: 3rem;">🔍</span>
+                            </div>
+                            <p>Carlos encuentra un video que afirma que las vacunas contienen microchips para controlar a la población.</p>
+                            <button class="btn btn-primary" style="margin-top: 15px; width: 100%;">Ver análisis</button>
+                        </div>
+                        
+                        <div class="panel">
+                            <h4>El Horóscopo que "Adivina" Todo</h4>
+                            <div style="height: 150px; background: rgba(244, 67, 54, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 1px solid rgba(244, 67, 54, 0.2);">
+                                <span style="font-size: 3rem;">♈</span>
+                            </div>
+                            <p>Ana lee su horóscopo diario que parece describir perfectamente su vida, pero ¿es realmente específico?</p>
+                            <button class="btn btn-primary" style="margin-top: 15px; width: 100%;">Ver análisis</button>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>📝 Crea tu propia historieta</h3>
+                        <p>¿Has encontrado contenido pseudocientífico en tus redes? Crea una historieta sobre tu experiencia:</p>
+                        <div class="workshop-container">
+                            <h4>Taller Exprés: Mi Encuentro con la Pseudociencia</h4>
+                            <div class="workshop-steps">
+                                <div class="workshop-step">
+                                    <div class="toolkit-icon">1️⃣</div>
+                                    <p>Describe el contenido que encontraste</p>
+                                </div>
+                                <div class="workshop-step">
+                                    <div class="toolkit-icon">2️⃣</div>
+                                    <p>Identifica por qué es pseudociencia</p>
+                                </div>
+                                <div class="workshop-step">
+                                    <div class="toolkit-icon">3️⃣</div>
+                                    <p>Explica cómo lo verificaste</p>
+                                </div>
+                                <div class="workshop-step">
+                                    <div class="toolkit-icon">4️⃣</div>
+                                    <p>Comparte tu historieta</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary">Comenzar taller</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CUESTIONARIOS -->
+                <div id="cuestionarios" class="tab-content">
+                    <div class="topic-header">
+                        <h2>📝 Cuestionarios Interactivos</h2>
+                        <p>Pon a prueba tus conocimientos con estos quizzes</p>
+                    </div>
+                    
+                    <div class="quiz-container">
+                        <div class="quiz-question">
+                            <h3>Pregunta 1: ¿Cuál de estas afirmaciones es un indicio de pseudociencia?</h3>
+                            <div class="quiz-options">
+                                <div class="quiz-option" data-correct="false">A) Se basa en estudios publicados en revistas científicas</div>
+                                <div class="quiz-option" data-correct="true">B) Promete resultados rápidos y sin esfuerzo</div>
+                                <div class="quiz-option" data-correct="false">C) Sus hallazgos pueden ser reproducidos por otros investigadores</div>
+                                <div class="quiz-option" data-correct="false">D) Los datos están disponibles para su verificación</div>
+                            </div>
+                            <div class="quiz-feedback correct">
+                                <strong>¡Correcto!</strong> La pseudociencia suele prometer soluciones rápidas y milagrosas sin evidencia sólida.
+                            </div>
+                            <div class="quiz-feedback incorrect">
+                                <strong>Incorrecto.</strong> Revisa las características de la pseudociencia.
+                            </div>
+                            <button class="btn btn-secondary check-answer" style="margin-top: 10px;">Verificar respuesta</button>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <h3>Pregunta 2: Un influencer promociona un té "detox" que según él cura múltiples enfermedades. ¿Qué preguntas deberías hacerte?</h3>
+                            <div class="quiz-options">
+                                <div class="quiz-option" data-correct="true">A) ¿Tiene estudios científicos que respalden sus afirmaciones?</div>
+                                <div class="quiz-option" data-correct="true">B) ¿Está ganando dinero con la venta de este producto?</div>
+                                <div class="quiz-option" data-correct="true">C) ¿Qué dicen los médicos y nutricionistas sobre este té?</div>
+                                <div class="quiz-option" data-correct="false">D) ¿Tiene muchos seguidores en redes sociales?</div>
+                            </div>
+                            <div class="quiz-feedback correct">
+                                <strong>¡Correcto!</strong> A, B y C son preguntas críticas. El número de seguidores no indica veracidad.
+                            </div>
+                            <div class="quiz-feedback incorrect">
+                                <strong>Incorrecto.</strong> Recuerda que la popularidad no equivale a veracidad.
+                            </div>
+                            <button class="btn btn-secondary check-answer" style="margin-top: 10px;">Verificar respuesta</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SIMULADORES -->
+                <div id="simuladores" class="tab-content">
+                    <div class="topic-header">
+                        <h2>🎮 Simuladores de Detección</h2>
+                        <p>Practica identificando pseudociencia en escenarios realistas</p>
+                    </div>
+                    
+                    <div class="simulator-container">
+                        <h3>Simulador: El Influencer Questionable</h3>
+                        <div class="simulator-scenario">
+                            <p>Estás en TikTok y ves a un influencer con 2 millones de seguidores promocionando un "parche adelgazante" que según él hace perder 5kg en una semana sin dieta ni ejercicio.</p>
+                            <p><strong>¿Qué harías?</strong></p>
+                        </div>
+                        
+                        <div class="simulator-choices">
+                            <div class="simulator-choice" data-result="1">Comprar el producto inmediatamente</div>
+                            <div class="simulator-choice" data-result="2">Investigar sobre los ingredientes y buscar estudios</div>
+                            <div class="simulator-choice" data-result="3">Compartir el video porque el influencer es famoso</div>
+                            <div class="simulator-choice" data-result="4">Buscar opiniones de nutricionistas y médicos</div>
+                        </div>
+                        
+                        <div class="simulator-result" id="result-1">
+                            <h4>❌ No es la mejor opción</h4>
+                            <p>Comprar productos sin verificar sus afirmaciones puede ser peligroso para tu salud y tu economía. La pseudociencia suele aprovecharse del deseo de soluciones rápidas.</p>
+                        </div>
+                        
+                        <div class="simulator-result" id="result-2">
+                            <h4>✅ ¡Excelente pensamiento crítico!</h4>
+                            <p>Investigar los ingredientes y buscar estudios científicos es la forma correcta de verificar afirmaciones de salud. Los productos milagro rara vez tienen evidencia sólida.</p>
+                        </div>
+                        
+                        <div class="simulator-result" id="result-3">
+                            <h4>⚠️ Cuidado con la falacia de autoridad</h4>
+                            <p>La popularidad no equivale a conocimiento experto. Muchos influencers promocionan productos sin tener formación médica o científica.</p>
+                        </div>
+                        
+                        <div class="simulator-result" id="result-4">
+                            <h4>✅ ¡Búsqueda de fuentes confiables!</h4>
+                            <p>Consultar a profesionales de la salud es siempre la mejor opción cuando se trata de afirmaciones médicas o de salud.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- HERRAMIENTAS -->
+                <div id="herramientas" class="tab-content">
+                    <div class="topic-header">
+                        <h2>🧰 Caja de Herramientas</h2>
+                        <p>Recursos prácticos para verificar información</p>
+                    </div>
+                    
+                    <div class="toolkit-grid">
+                        <div class="toolkit-item">
+                            <div class="toolkit-icon">🔍</div>
+                            <h4>Verificador de Fuentes</h4>
+                            <p>Herramienta para analizar la confiabilidad de sitios web</p>
+                            <button class="btn btn-primary" style="margin-top: 10px;">Usar herramienta</button>
+                        </div>
+                        
+                        <div class="toolkit-item">
+                            <div class="toolkit-icon">📊</div>
+                            <h4>Análisis de Imágenes</h4>
+                            <p>Detecta si una imagen ha sido manipulada</p>
+                            <button class="btn btn-primary" style="margin-top: 10px;">Usar herramienta</button>
+                        </div>
+                        
+                        <div class="toolkit-item">
+                            <div class="toolkit-icon">🔎</div>
+                            <h4>Búsqueda Inversa</h4>
+                            <p>Encuentra el origen de una foto o video</p>
+                            <button class="btn btn-primary" style="margin-top: 10px;">Usar herramienta</button>
+                        </div>
+                        
+                        <div class="toolkit-item">
+                            <div class="toolkit-icon">📋</div>
+                            <h4>Lista de Verificación</h4>
+                            <p>Guía paso a paso para evaluar información</p>
+                            <button class="btn btn-primary" style="margin-top: 10px;">Usar herramienta</button>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>📝 Plantillas descargables</h3>
+                        <div class="info-box">
+                            <h4>Guía rápida de detección de pseudociencia</h4>
+                            <p>Descarga esta plantilla para tener siempre a mano cuando encuentres información cuestionable:</p>
+                            <ul>
+                                <li>Preguntas clave para hacerte</li>
+                                <li>Lista de fuentes confiables por tema</li>
+                                <li>Señales de alerta de pseudociencia</li>
+                            </ul>
+                            <button class="btn btn-primary">Descargar PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <a href="sitiosMaliciosos.html" class="btn btn-secondary">← Lección anterior</a>
+                <a href="wifiPublicas.html" class="btn btn-primary">Siguiente lección →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de pestañas
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remover clase active de todos los botones y contenidos
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Agregar clase active al botón clickeado
+                button.classList.add('active');
+                
+                // Mostrar el contenido correspondiente
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Sistema de quizzes
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remover selección de otras opciones en la misma pregunta
+                const parent = this.parentElement;
+                parent.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Seleccionar esta opción
+                this.classList.add('selected');
+            });
+        });
+        
+        // Verificar respuestas de quiz
+        document.querySelectorAll('.check-answer').forEach(button => {
+            button.addEventListener('click', function() {
+                const question = this.parentElement;
+                const selectedOption = question.querySelector('.quiz-option.selected');
+                
+                if (!selectedOption) {
+                    alert('Por favor selecciona una respuesta');
+                    return;
+                }
+                
+                const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+                const feedback = question.querySelector(isCorrect ? '.quiz-feedback.correct' : '.quiz-feedback.incorrect');
+                
+                // Ocultar todos los feedbacks primero
+                question.querySelectorAll('.quiz-feedback').forEach(fb => {
+                    fb.style.display = 'none';
+                });
+                
+                // Mostrar el feedback correcto
+                feedback.style.display = 'block';
+            });
+        });
+        
+        // Sistema de simuladores
+        document.querySelectorAll('.simulator-choice').forEach(choice => {
+            choice.addEventListener('click', function() {
+                const resultId = 'result-' + this.getAttribute('data-result');
+                
+                // Ocultar todos los resultados primero
+                document.querySelectorAll('.simulator-result').forEach(result => {
+                    result.style.display = 'none';
+                });
+                
+                // Mostrar el resultado correspondiente
+                document.getElementById(resultId).style.display = 'block';
+            });
+        });
+    </script>
+    <!-- TODO tu contenido del quiz -->
+    
+    <!-- PEGAR ESTO JUSTO AQUÍ ↓↓↓ -->
+    <div style="text-align: center; margin: 40px 0;">
+        <a href="../Modulo1/convi.html" class="back-to-home">← Volver a CyberZone</a>
+    </div>
+
+</body>
+</html>
+
+</body>
+</html>
+</body>
+</html>
